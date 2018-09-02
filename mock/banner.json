@@ -1,0 +1,43 @@
+{
+  "code": 0,
+  "msg": "",
+  "result": {
+    "bannerList": [
+      {
+        "imgUrl": "/static/banner/1.webp",
+        "linkUrl": "",
+        "name": ""
+      },
+      {
+        "imgUrl": "/static/banner/2.webp",
+        "linkUrl": "",
+        "name": ""
+      },
+      {
+        "imgUrl": "/static/banner/3.webp",
+        "linkUrl": "",
+        "name": ""
+      },
+      {
+        "imgUrl": "/static/banner/4.webp",
+        "linkUrl": "",
+        "name": ""
+      },
+      {
+        "imgUrl": "/static/banner/5.webp",
+        "linkUrl": "",
+        "name": ""
+      },
+      {
+        "imgUrl": "/static/banner/6.webp",
+        "linkUrl": "",
+        "name": ""
+      },
+      {
+        "imgUrl": "/static/banner/7.webp",
+        "linkUrl": "",
+        "name": ""
+      }
+    ]
+  }
+}

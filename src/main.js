@@ -1,0 +1,22 @@
+import Vue from 'vue'
+import App from './App'
+import router from './router'
+import 'babel-polyfill'
+import 'common/js/rem'
+
+import VueLazyLoad from 'vue-lazyload'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'common/less/index.less'
+import 'common/less/swiper-4.3.5.min.css'
+
+Vue.config.productionTip = false
+
+Vue.use(VueLazyLoad)
+Vue.use(VueAwesomeSwiper)
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  render: h => h(App)
+})

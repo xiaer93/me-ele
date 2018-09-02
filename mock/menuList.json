@@ -1,0 +1,64 @@
+{
+  "code": 0,
+  "msg": "",
+  "result": {
+    "menuList": [
+      {
+        "name": "美食",
+        "imgUrl": "/static/menu/1.webp",
+        "classId": 1
+      },
+      {
+        "name": "商超便利",
+        "imgUrl": "/static/menu/2.webp",
+        "classId": 2
+      },
+      {
+        "name": "午餐",
+        "imgUrl": "/static/menu/3.webp",
+        "classId": 3
+      },
+      {
+        "name": "水果",
+        "imgUrl": "/static/menu/4.webp",
+        "classId": 4
+      },
+      {
+        "name": "医药健康",
+        "imgUrl": "/static/menu/5.webp",
+        "classId": 5
+      },
+      {
+        "name": "浪漫鲜花",
+        "imgUrl": "/static/menu/6.webp",
+        "classId": 6
+      },
+      {
+        "name": "厨房生鲜",
+        "imgUrl": "/static/menu/7.webp",
+        "classId": 7
+      },
+      {
+        "name": "跑腿代购",
+        "imgUrl": "/static/menu/8.webp",
+        "classId": 8
+      },
+      {
+        "name": "地方小吃",
+        "imgUrl": "/static/menu/9.webp",
+        "classId": 9
+      },
+      {
+        "name": "麻辣烫",
+        "imgUrl": "/static/menu/10.webp",
+        "classId": 10
+      },
+      {
+        "name": "地方菜系",
+        "imgUrl": "/static/menu/11.webp",
+        "classId": 11
+      }
+    ],
+    "menuLength": 11
+  }
+}
