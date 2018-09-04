@@ -24,4 +24,13 @@ npm run unit
 npm test
 ```
 
+- home 首页
+- discover 发现
+- order 订单
+- profile 我的
+
+- filter-nav 搜索过滤组件
+- food-list 食物列表
+- shop-list 商家列表
+
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

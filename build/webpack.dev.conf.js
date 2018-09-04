@@ -16,6 +16,7 @@ const PORT = process.env.PORT && Number(process.env.PORT)
 // mock数据
 const menuListMock = require('../mock/menuList.json')
 const bannerMock = require('../mock/banner.json')
+const searchMock = require('../mock/search.json')
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -53,6 +54,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       })
       apiRouter.get('/home/bannerList', function (req, res) {
         res.json(bannerMock)
+      })
+      apiRouter.get('/search', function (req, res) {
+        res.json(searchMock)
       })
     }
   },

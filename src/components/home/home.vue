@@ -6,7 +6,7 @@
         <span class="header-address-name">永胜大厦</span>
         <svg class="header-address-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8"><path fill="#FFF" fill-rule="evenodd" d="M5.588 6.588c.78.78 2.04.784 2.824 0l5.176-5.176c.78-.78.517-1.412-.582-1.412H.994C-.107 0-.372.628.412 1.412l5.176 5.176z"></path></svg>
       </div>
-      <div class="header-search">
+      <div class="header-search" ref="headerSearch">
         <router-link class="header-search-box" to="/search">
           <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-opacity=".38" d="M14.778 13.732a.739.739 0 1 1-1.056 1.036l-2.515-2.565a.864.864 0 0 1-.01-1.206 4.894 4.894 0 0 0 1.357-3.651c-.126-2.492-2.156-4.52-4.648-4.647a4.911 4.911 0 0 0-5.16 5.163c.126 2.475 2.13 4.496 4.605 4.642.451.026.896-.008 1.326-.1a.739.739 0 0 1 .308 1.446c-.56.12-1.137.164-1.72.13-3.227-.19-5.83-2.815-5.995-6.042a6.39 6.39 0 0 1 6.71-6.715c3.25.165 5.884 2.8 6.05 6.048a6.37 6.37 0 0 1-1.374 4.3l2.12 2.161z"></path></svg>
           <span class="header-search-tips">搜索饿了么商家/商品名称</span>
@@ -23,6 +23,8 @@
             </li>
           </ul>
         </swiper-slide>
+        <!--swiper额外配置项-->
+        <div class="swiper-pagination menu-content-pagination"  slot="pagination"></div>
       </swiper>
     </div>
     <div class="recommend">
@@ -43,8 +45,11 @@
       <banner :imgList="bannerList"></banner>
     </div>
     <div class="shop">
-      <!--<h2 class="shop-title">推荐商家</h2>-->
-      <filter-nav></filter-nav>
+      <infinite-load @loadmore="loadMore" ref="infiniteLoad">
+        <h2 class="shop-title">推荐商家</h2>
+        <filter-nav :offsetTop="searchBoxHeight"></filter-nav>
+        <search-list :searchList="searchList"></search-list>
+      </infinite-load>
     </div>
   </div>
 </template>
@@ -53,7 +58,12 @@
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import Banner from 'base/banner'
 import FilterNav from 'components/filter-nav/filter-nav'
+import SearchList from 'components/shop-list/shop-list'
+import InfiniteLoad from 'base/infinite-load'
 import homeApi from 'api/home'
+import searchApi from 'api/search'
+import * as $ from 'jquery'
+import {onScroll} from 'common/js/util'
 
 export default {
   data () {
@@ -61,8 +71,25 @@ export default {
       menuList: [],
       menuBaseLength: 10,
       bannerList: [],
+      searchList: [],
+      searchBoxHeight: 0,
       swiperOption: {
-        direction :'horizontal'
+        direction: 'horizontal',
+        pagination: {
+          el: '.swiper-pagination'
+        }
+      },
+      searchOption: {
+        // 关键词
+        keyword: '',
+        // 分页
+        offset: 0,
+        limit: 15,
+        // 经纬度
+        latitude: 110,
+        longitude: 110,
+        // 排序规则
+        order_by: 1
       }
     }
   },
@@ -92,25 +119,68 @@ export default {
           }
         })
     },
+    getSearchList () {
+      searchApi.search()
+        .then(res => {
+          if (res.code === 0) {
+            this.searchList = res.result.searchList
+          } else {
+            console.log(res.msg)
+          }
+        })
+    },
     genMenuList (page) {
       page = page - 1
       return this.menuList.slice(page * this.menuBaseLength, page * this.menuBaseLength + this.menuBaseLength)
+    },
+    loadMore () {
+      searchApi.search()
+        .then(res => {
+          if (res.code === 0) {
+            this.searchList = this.searchList.concat(res.result.searchList)
+            this.$refs.infiniteLoad.resetLoading()
+          } else {
+            console.log(res.msg)
+          }
+        })
     }
   },
   created () {
     this.getMenuList()
     this.getBannerList()
+    this.getSearchList()
   },
   mounted () {
     setTimeout(() => {
+      let $headerSearch = $(this.$refs.headerSearch)
 
-    })
+      // 获取搜索框的高度;height获取元素本身高度，outerHeihgt包含padding、true包括margin
+      this.searchBoxHeight = $headerSearch.outerHeight()
+
+      // 搜索框滚动变化
+      let headerSearchTop = $headerSearch.offset().top
+      onScroll(() => {
+        let winScroll = $(window).scrollTop()
+
+        if (headerSearchTop < winScroll) {
+          $headerSearch.css({
+            position: 'fixed'
+          })
+        } else {
+          $headerSearch.css({
+            position: 'static'
+          })
+        }
+      })
+    }, 20)
   },
   components: {
     swiper,
     swiperSlide,
     Banner,
-    FilterNav
+    FilterNav,
+    SearchList,
+    InfiniteLoad
   }
 }
 </script>
@@ -118,14 +188,18 @@ export default {
 <style scoped lang="less" rel="stylesheet/less">
 .home{
   width: 100%;
-  height: 100%;
+  margin-bottom: .9rem;
   .header{
-    padding: .24rem .26rem;
+    position: relative;
+    z-index: 1;
+    padding-top: .24rem;
+    height: 1.8rem;
     color: #fff;
     background-image: linear-gradient(90deg,#0af,#0085ff);
     &-address{
       display: flex;
       align-items: center;
+      padding: 0 .26rem;
       width: 80%;
       &-location{
         width: .4rem;
@@ -149,17 +223,23 @@ export default {
       }
     }
     &-search{
-      width: 100%;
+      position: static;
+      z-index: 1;
       height: .7rem;
-      margin-top: .2rem;
-      background-color: #fff;
-      border-radius: .05rem;
+      right: 0;
+      left: 0;
+      top: 0;
+      padding: .2rem .26rem;
+      box-sizing: content-box;
+      background-image: linear-gradient(90deg,#0af,#0085ff);
       &-box{
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
         height: 100%;
+        background-color: #fff;
+        border-radius: .05rem;
       }
       &-icon{
         width: .4rem;
@@ -187,8 +267,17 @@ export default {
     }
   }
   .menu{
+    position: relative;
+    z-index: 0;
+    height: 3.8rem;
     &-content{
       width: 100%;
+      height: 100%;
+      &-pagination{
+        height: 10px;
+        display: flex;
+        justify-content: center;
+      }
     }
     &-box{
       display: flex;
@@ -213,7 +302,9 @@ export default {
     }
   }
   .recommend{
-    margin-top: .5rem;
+    position: relative;
+    z-index: 0;
+    /*margin-top: .5rem;*/
     padding: 0 .2rem;
     display: flex;
     &-item{
@@ -257,9 +348,37 @@ export default {
     }
   }
   .banner{
+    position: relative;
+    z-index: 0;
     padding: 0 .2rem;
     margin-top: .1rem;
-    height: 2rem;
+    height: 1.8rem;
+  }
+  .shop{
+    position: relative;
+    z-index: 0;
+    &-title{
+      margin: .4rem 0 .2rem;
+      font-size: .3rem;
+      line-height: .3rem;
+      color: #000;
+      text-align: center;
+      &::before, &::after{
+        display: inline-block;
+        content: '';
+        width: .4rem;
+        height: .02rem;
+        background-color: #999;
+        line-height: .3rem;
+        vertical-align: middle;
+      }
+      &::before{
+        margin-right: .24rem;
+      }
+      &::after{
+        margin-left: .24rem;
+      }
+    }
   }
 }
 </style>

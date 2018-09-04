@@ -1,0 +1,352 @@
+{
+  "code": 0,
+  "msg": "",
+  "result": {
+    "searchList": [
+      {
+        "restaurant": {
+          "activities": [
+            {
+              "icon_name": "首",
+              "icon_color": "70bc64",
+              "tips": "新用户下单立减10元",
+              "activitiesId": 1001
+            },
+            {
+              "icon_name": "减",
+              "icon_color": "f07373",
+              "tips": "满20减3，满30减5，满50减8",
+              "activitiesId": 1002
+            }
+          ],
+          "address": "海南省万宁市光明南路东侧189号",
+          "authentic_id": 7333479604687190,
+          "name": "福建沙县小车（光明南店）",
+          "image_path": "/static/shop/1.webp",
+          "delivery_mode": {
+            "text": "蜂鸟配送",
+            "text_color": "#fff",
+            "text_bg": "#00AAFF"
+          },
+          "flavors": [
+            {
+              "id": 213,
+              "name": "米粉面馆"
+            },
+            {
+              "id": 237,
+              "name": "地方小吃"
+            }
+          ],
+          "distance": 2634,
+          "is_brand": true,
+          "rating": 4.8,
+          "rating_count": 259,
+          "recent_order_num": 471,
+          "order_lead_time": 27,
+          "piecewise_agent_fee": {
+            "description": "配送费¥3",
+            "extra_fee": 0,
+            "is_extra":false,
+            "rules": [
+              {
+                "fee": 3,
+                "price": 15
+              }
+            ],
+            "tips": "配送费¥3"
+        }
+        },
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "622210b6f52ac24b78a8adfaff6f32e0jpeg",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      },
+      {
+        "restaurant": {
+          "activities": [
+            {
+              "icon_name": "首",
+              "icon_color": "70bc64",
+              "tips": "新用户下单立减10元",
+              "activitiesId": 1001
+            },
+            {
+              "icon_name": "减",
+              "icon_color": "f07373",
+              "tips": "满20减3，满30减5，满50减8",
+              "activitiesId": 1002
+            }
+          ],
+          "address": "海南省万宁市光明南路东侧189号",
+          "authentic_id": 7333479604687191,
+          "name": "福建沙县小车（光明南店）",
+          "image_path": "/static/shop/2.webp",
+          "delivery_mode": {
+            "text": "蜂鸟配送",
+            "text_color": "#fff",
+            "text_bg": "#00AAFF"
+          },
+          "flavors": [
+            {
+              "id": 213,
+              "name": "米粉面馆"
+            },
+            {
+              "id": 237,
+              "name": "地方小吃"
+            }
+          ],
+          "distance": 2634,
+          "is_brand": true,
+          "rating": 4.8,
+          "rating_count": 259,
+          "recent_order_num": 471,
+          "order_lead_time": 27,
+          "piecewise_agent_fee": {
+            "description": "配送费¥3",
+            "extra_fee": 0,
+            "is_extra":false,
+            "no_subsidy_fee": "",
+            "rules": [
+              {
+                "fee": 3,
+                "price": 15
+              }
+            ],
+            "tips": "配送费¥3"
+          }
+        },
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "622210b6f52ac24b78a8adfaff6f32e0jpeg",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      },
+      {
+        "restaurant": {
+          "activities": [
+            {
+              "icon_name": "首",
+              "icon_color": "70bc64",
+              "tips": "新用户下单立减10元",
+              "activitiesId": 1001
+            },
+            {
+              "icon_name": "减",
+              "icon_color": "f07373",
+              "tips": "满20减3，满30减5，满50减8",
+              "activitiesId": 1002
+            }
+          ],
+          "address": "海南省万宁市光明南路东侧189号",
+          "authentic_id": 7333479604687192,
+          "name": "福建沙县小车（光明南店）",
+          "image_path": "/static/shop/2.webp",
+          "delivery_mode": {
+            "text": "蜂鸟配送",
+            "text_color": "#fff",
+            "text_bg": "#00AAFF"
+          },
+          "flavors": [
+            {
+              "id": 213,
+              "name": "米粉面馆"
+            },
+            {
+              "id": 237,
+              "name": "地方小吃"
+            }
+          ],
+          "distance": 2634,
+          "is_brand": true,
+          "rating": 4.8,
+          "rating_count": 259,
+          "recent_order_num": 471,
+          "order_lead_time": 27,
+          "piecewise_agent_fee": {
+            "description": "配送费¥3",
+            "extra_fee": 0,
+            "is_extra":false,
+            "no_subsidy_fee": "",
+            "rules": [
+              {
+                "fee": 3,
+                "price": 15
+              }
+            ],
+            "tips": "配送费¥3"
+          }
+        },
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "622210b6f52ac24b78a8adfaff6f32e0jpeg",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      },
+      {
+        "restaurant": {
+          "activities": [
+            {
+              "icon_name": "首",
+              "icon_color": "70bc64",
+              "tips": "新用户下单立减10元",
+              "activitiesId": 1001
+            },
+            {
+              "icon_name": "减",
+              "icon_color": "f07373",
+              "tips": "满20减3，满30减5，满50减8",
+              "activitiesId": 1002
+            }
+          ],
+          "address": "海南省万宁市光明南路东侧189号",
+          "authentic_id": 7333479604687193,
+          "name": "福建沙县小车（光明南店）",
+          "image_path": "/static/shop/2.webp",
+          "delivery_mode": {
+            "text": "蜂鸟配送",
+            "text_color": "#fff",
+            "text_bg": "#00AAFF"
+          },
+          "flavors": [
+            {
+              "id": 213,
+              "name": "米粉面馆"
+            },
+            {
+              "id": 237,
+              "name": "地方小吃"
+            }
+          ],
+          "distance": 2634,
+          "is_brand": true,
+          "rating": 4.8,
+          "rating_count": 259,
+          "recent_order_num": 471,
+          "order_lead_time": 27,
+          "piecewise_agent_fee": {
+            "description": "配送费¥3",
+            "extra_fee": 0,
+            "is_extra":false,
+            "no_subsidy_fee": "",
+            "rules": [
+              {
+                "fee": 3,
+                "price": 15
+              }
+            ],
+            "tips": "配送费¥3"
+          }
+        },
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "622210b6f52ac24b78a8adfaff6f32e0jpeg",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      },
+      {
+        "restaurant": {
+          "activities": [
+            {
+              "icon_name": "首",
+              "icon_color": "70bc64",
+              "tips": "新用户下单立减10元",
+              "activitiesId": 1001
+            },
+            {
+              "icon_name": "减",
+              "icon_color": "f07373",
+              "tips": "满20减3，满30减5，满50减8",
+              "activitiesId": 1002
+            }
+          ],
+          "address": "海南省万宁市光明南路东侧189号",
+          "authentic_id": 7333479604687194,
+          "name": "福建沙县小车（光明南店）",
+          "image_path": "/static/shop/2.webp",
+          "delivery_mode": {
+            "text": "蜂鸟配送",
+            "text_color": "#fff",
+            "text_bg": "#00AAFF"
+          },
+          "flavors": [
+            {
+              "id": 213,
+              "name": "米粉面馆"
+            },
+            {
+              "id": 237,
+              "name": "地方小吃"
+            }
+          ],
+          "distance": 2634,
+          "is_brand": true,
+          "rating": 4.8,
+          "rating_count": 259,
+          "recent_order_num": 471,
+          "order_lead_time": 27,
+          "piecewise_agent_fee": {
+            "description": "配送费¥3",
+            "extra_fee": 0,
+            "is_extra":false,
+            "no_subsidy_fee": "",
+            "rules": [
+              {
+                "fee": 3,
+                "price": 15
+              }
+            ],
+            "tips": "配送费¥3"
+          }
+        },
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "622210b6f52ac24b78a8adfaff6f32e0jpeg",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      }
+    ]
+  }
+}

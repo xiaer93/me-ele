@@ -1,7 +1,7 @@
 <template>
   <swiper :options="swiperOption" class="banner-inner" ref="swiperObj">
-    <swiper-slide v-for="item in imgList" :key="item.src">
-      <img class="banner-inner-img" :src="item.imgUrl" alt="item.name">
+    <swiper-slide v-for="item in imgList" :key="item.id">
+      <img class="banner-inner-img" :src="item.image_hash" alt="item.id">
     </swiper-slide>
   </swiper>
 </template>
@@ -14,13 +14,19 @@ export default {
   data () {
     return {
       swiperOption: {
-        direction: 'horizontal'
+        direction: 'horizontal',
+        autoplay: this.isAutoPlay,
+        loop: true
       }
     }
   },
   props: {
     imgList: {
       type: Array
+    },
+    isAutoPlay: {
+      type: Boolean,
+      default: true
     }
   },
   watch: {
