@@ -34,6 +34,7 @@ export default {
       // 获取屏幕高度
       let winHeight = $(window).height()
       onScroll(() => {
+        // fixme： 为什么从search返回时，无法正确抓到endFlag元素？
         let endTop = $(self.$refs.endFlag).offset().top
         let winScroll = $(window).scrollTop()
 

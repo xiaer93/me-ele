@@ -16,3 +16,9 @@ export const searchOption = {
   // 平台
   terminal: 'h5'
 }
+
+export const hotWordOption = {
+  // 经纬度
+  latitude: 110,
+  longitude: 110
+}

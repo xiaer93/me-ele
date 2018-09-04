@@ -17,6 +17,7 @@ const PORT = process.env.PORT && Number(process.env.PORT)
 const menuListMock = require('../mock/menuList.json')
 const bannerMock = require('../mock/banner.json')
 const searchMock = require('../mock/search.json')
+const hotWordMock = require('../mock/hotWord.json')
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -57,6 +58,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       })
       apiRouter.get('/search', function (req, res) {
         res.json(searchMock)
+      })
+      apiRouter.get('/hotWord', function (req, res) {
+        res.json(hotWordMock)
       })
     }
   },

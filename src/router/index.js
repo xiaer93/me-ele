@@ -4,6 +4,7 @@ import Discover from 'components/discover/discover'
 import Home from 'components/home/home'
 import Order from 'components/order/order'
 import Profile from 'components/profile/profile'
+import Search from 'components/search/search'
 
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/search',
+      name: Search,
+      component: Search
     }
   ]
 })

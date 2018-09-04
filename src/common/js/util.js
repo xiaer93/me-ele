@@ -11,10 +11,10 @@ import * as $ from 'jquery'
  */
 function debounce (interval, callback) {
   let timer
-  return function () {
+  return function (...args) {
     clearTimeout(timer)
     timer = setTimeout(function () {
-      callback()
+      callback(...args)
     }, interval)
   }
 }
