@@ -5,6 +5,7 @@ import Home from 'components/home/home'
 import Order from 'components/order/order'
 import Profile from 'components/profile/profile'
 import Search from 'components/search/search'
+import Catalog from 'components/catalog/catalog'
 
 Vue.use(Router)
 
@@ -36,8 +37,13 @@ export default new Router({
     },
     {
       path: '/search',
-      name: Search,
+      name: 'Search',
       component: Search
+    },
+    {
+      path: '/catalog/:id',
+      name: 'Catalog',
+      component: Catalog
     }
   ]
 })

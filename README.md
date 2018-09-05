@@ -33,5 +33,9 @@ npm test
 - food-list 食物列表
 - shop-list 商家列表
 
+- vue-keep-alive独有钩子函数：activated、deactivated
+- 组件命名、api命名，RESTApi设计
+- 主题色设计
+- css嵌套命名，需要再次优化下，以catalog.vue为例~~~
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

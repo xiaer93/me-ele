@@ -17,7 +17,11 @@
       <swiper class="menu-content" :options="swiperOption">
         <swiper-slide v-for="page in menuTotalPage" :key="page">
           <ul class="menu-box">
-            <li class="menu-item" v-for="food in genMenuList(page)" :key="food.classId">
+            <li class="menu-item"
+                v-for="food in genMenuList(page)"
+                :key="food.catalogId"
+                @click="openCatalog(food.catalogId)"
+            >
               <img class="menu-item-img" :src="food.imgUrl" alt="food">
               <span class="menu-item-name">{{food.name}}</span>
             </li>
@@ -45,11 +49,8 @@
       <banner :imgList="bannerList"></banner>
     </div>
     <div class="shop">
-      <infinite-load @loadmore="loadMore" ref="infiniteLoad">
-        <h2 class="shop-title">推荐商家</h2>
-        <filter-nav :offsetTop="searchBoxHeight"></filter-nav>
-        <search-list :searchList="searchList"></search-list>
-      </infinite-load>
+      <h2 class="shop-title">推荐商家</h2>
+      <shop-list :isHome="true" :offsetTop="searchBoxHeight"></shop-list>
     </div>
   </div>
 </template>
@@ -57,11 +58,8 @@
 <script type="text/ecmascript-6">
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import Banner from 'base/banner'
-import FilterNav from 'components/filter-nav/filter-nav'
-import SearchList from 'components/shop-list/shop-list'
-import InfiniteLoad from 'base/infinite-load'
+import ShopList from 'components/shop-list/shop-list'
 import homeApi from 'api/home'
-import searchApi from 'api/search'
 import * as $ from 'jquery'
 import {onScroll} from 'common/js/util'
 
@@ -71,7 +69,6 @@ export default {
       menuList: [],
       menuBaseLength: 10,
       bannerList: [],
-      searchList: [],
       searchBoxHeight: 0,
       swiperOption: {
         direction: 'horizontal',
@@ -119,36 +116,20 @@ export default {
           }
         })
     },
-    getSearchList () {
-      searchApi.search()
-        .then(res => {
-          if (res.code === 0) {
-            this.searchList = res.result.searchList
-          } else {
-            console.log(res.msg)
-          }
-        })
-    },
     genMenuList (page) {
       page = page - 1
       return this.menuList.slice(page * this.menuBaseLength, page * this.menuBaseLength + this.menuBaseLength)
     },
-    loadMore () {
-      searchApi.search()
-        .then(res => {
-          if (res.code === 0) {
-            this.searchList = this.searchList.concat(res.result.searchList)
-            this.$refs.infiniteLoad.resetLoading()
-          } else {
-            console.log(res.msg)
-          }
-        })
+    openCatalog (catalogId) {
+      this.$router.push({
+        name: 'Catalog',
+        params: {id: catalogId}
+      })
     }
   },
   created () {
     this.getMenuList()
     this.getBannerList()
-    this.getSearchList()
   },
   mounted () {
     setTimeout(() => {
@@ -159,9 +140,9 @@ export default {
 
       // 搜索框滚动变化
       let headerSearchTop = $headerSearch.offset().top
-      onScroll(() => {
-        let winScroll = $(window).scrollTop()
 
+      // 创建响应滚动事件
+      this._scrollEvent = (winScroll) => {
         if (headerSearchTop < winScroll) {
           $headerSearch.css({
             position: 'fixed'
@@ -171,24 +152,31 @@ export default {
             position: 'static'
           })
         }
-      })
+      }
+      onScroll.add(this._scrollEvent)
     }, 20)
+  },
+  destroyed () {
+    onScroll.delete(this._scrollEvent)
   },
   components: {
     swiper,
     swiperSlide,
     Banner,
-    FilterNav,
-    SearchList,
-    InfiniteLoad
+    ShopList
   }
 }
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
 .home{
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
+  min-height: 100%;
   margin-bottom: .9rem;
+  background-color: #fff;
   .header{
     position: relative;
     z-index: 1;

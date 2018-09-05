@@ -57,7 +57,7 @@ export default {
 <style scoped lang="less" rel="stylesheet/less">
 .menu{
   position: fixed;
-  z-index: 99;
+  z-index: 1;
   left: 0;
   bottom: 0;
   width: 100%;

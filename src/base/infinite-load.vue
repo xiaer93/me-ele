@@ -30,20 +30,23 @@ export default {
   mounted () {
     let self = this
     // setTimeout在此处没有使用箭头函数，因此this指向window
-    setTimeout(function () {
+    this.$nextTick(function () {
       // 获取屏幕高度
       let winHeight = $(window).height()
-      onScroll(() => {
-        // fixme： 为什么从search返回时，无法正确抓到endFlag元素？
-        let endTop = $(self.$refs.endFlag).offset().top
-        let winScroll = $(window).scrollTop()
-
+      this._scrollEvent = (winScroll) => {
+        // fixme： 为什么从search返回时，无法正确抓到endFlag元素？refs不是响应式的，所以router路由切换一次之后，就无法抓取到相应的dom！！！
+        // let endTop = $(self.$refs.endFlag).offset().top
+        let endTop = $('.infinite-end', self.$el).offset().top
         if (!self.isLoading && endTop < (winHeight + winScroll + self.sensibility)) {
           self.isLoading = true
           self.$emit('loadmore')
         }
-      })
-    }, 20)
+      }
+      onScroll.add(this._scrollEvent)
+    })
+  },
+  destroyed () {
+    onScroll.delete(this._scrollEvent)
   }
 }
 </script>

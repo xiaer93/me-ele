@@ -1,12 +1,13 @@
 <template>
   <div class="input">
-    <input type="search"
+    <input type="text"
        class="input-text"
        :placeholder="placeholder"
-           v-bind:value="value"
-           v-on="inputListeners"
+       v-bind:value="value"
+       v-on="inputListeners"
+       ref="text"
     >
-    <span class="input-close"></span>
+    <span class="input-close" @click="clear()" :class="{'active': value}"></span>
   </div>
 </template>
 
@@ -42,6 +43,11 @@ export default {
       })
     }
   },
+  methods: {
+    clear () {
+      this.$emit('input', '')
+    }
+  },
   crated () {
 
   }
@@ -70,7 +76,28 @@ export default {
     top: 0;
     height: 100%;
     width: .5rem;
-    background-color: red;
+    transform-origin: center;
+    transform: scale(.2);
+    transition: transform .6s;
+    /*background-color: red;*/
+    &::before, &::after{
+      position: absolute;
+      display: block;
+      top: 50%;
+      content: '';
+      width: .5rem;
+      height: .02rem;
+      background-color: #200c00;
+    }
+    &::before{
+      transform: rotate(45deg);
+    }
+    &::after{
+      transform: rotate(-45deg);
+    }
   }
+}
+.active{
+  transform: scale(.8) rotate(90deg);
 }
 </style>
