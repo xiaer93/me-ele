@@ -2,18 +2,24 @@
   <div class="catalog">
     <div class="catalog-header">
       <div class="catalog-header-col">
-        <span class="catalog-header-btn">
+        <span class="catalog-header-return">
           <svg class="catalog-icon catalog-icon-return" @click="$router.push('/')">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow"></use>
         </svg>
         </span>
-        <h2 class="catalog-header-title">晚餐</h2>
+        <h2 class="catalog-header-title">{{currentCatalog.name}}</h2>
       </div>
       <div class="catalog-header-catalog">
-        <ul class="catalog-header-catalog-content">
+        <ul class="catalog-header-catalog-content" :style="{'width': `${(currentCatalog.childMenu.length + 1) * 1.8}rem`}">
           <li class="catalog-header-item">全部</li>
-          <li class="catalog-header-item">简餐便当</li>
+          <li class="catalog-header-item"
+            v-for="(item, index) in currentCatalog.childMenu"
+            :key="index"
+          >{{item.name}}</li>
         </ul>
+        <span class="catalog-header-catalog-show">
+          <svg class="catalog-icon catalog-icon-show"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#drop-down"></use></svg>
+        </span>
       </div>
     </div>
     <div class="catalog-shop">
@@ -29,6 +35,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import {mapGetters} from 'Vuex'
 import ShopList from 'components/shop-list/shop-list'
 
 export default {
@@ -36,8 +43,20 @@ export default {
     return {
       searchBoxHeight: 0,
       searchWord: '',
+      currentCatalogId: 0,
       isShowDialog: false
     }
+  },
+  computed: {
+    currentCatalog () {
+      return this.menuList[this.currentCatalogId]
+    },
+    ...mapGetters([
+      'menuList'
+    ])
+  },
+  mounted () {
+    this.currentCatalogId = Number.parseInt(this.$route.params.id)
   },
   components: {
     ShopList
@@ -79,7 +98,7 @@ export default {
       font-weight: bold;
       text-align: center;
     }
-    &-btn{
+    &-return{
       position: absolute !important;
       left: .3rem;
       top: 0;
@@ -89,6 +108,7 @@ export default {
       .extend-click();
     }
     &-catalog{
+      position: absolute;
       height: .7rem;
       line-height: .7rem;
       width: 100%;
@@ -96,14 +116,20 @@ export default {
       &-content{
         display: flex;
         width: 10rem;
+        padding-right: rem;
         font-size: .28rem;
         color: #b2e0ff;
       }
+      &-show{
+
+      }
     }
     &-item{
+      width: 1.2rem;
       margin: 0 .3rem;
       font-size: inherit;
       color: inherit;
+      text-align: center;
     }
   }
 }

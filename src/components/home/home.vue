@@ -56,6 +56,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import {mapMutations} from 'Vuex'
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import Banner from 'base/banner'
 import ShopList from 'components/shop-list/shop-list'
@@ -121,11 +122,15 @@ export default {
       return this.menuList.slice(page * this.menuBaseLength, page * this.menuBaseLength + this.menuBaseLength)
     },
     openCatalog (catalogId) {
+      this.setMenuList(this.menuList)
       this.$router.push({
         name: 'Catalog',
         params: {id: catalogId}
       })
-    }
+    },
+    ...mapMutations({
+      'setMenuList': 'SET_MENU_LIST'
+    })
   },
   created () {
     this.getMenuList()
