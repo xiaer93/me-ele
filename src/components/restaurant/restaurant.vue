@@ -1,5 +1,6 @@
 <template>
-  <div class="restaurant">
+  <transition name="slide">
+    <div class="restaurant">
     <div class="restaurant-img">
       <span class="restaurant-img-return">
         <svg class="restaurant-icon restaurant-icon-return" @click="$router.push('/')">
@@ -76,15 +77,32 @@
         </ul>
       </div>
     </div>
-    <div class="restaurant-component">
+    <div class="restaurant-component" :style="{'height': orderHeight, 'paddingBottom': paddingBottom}">
       <!--<restaurant-order></restaurant-order>-->
       <!--动态组件，绑定is的变量为字符串~-->
       <component :is="currentComponent"></component>
     </div>
+    <div class="restaurant-cart">
+      <div class="restaurant-cart-notice">已减8元</div>
+      <div class="restaurant-cart-content">
+        <span class="restaurant-cart-icon"></span>
+        <p class="restaurant-cart-tips">
+          <span class="restaurant-cart-price">为选购商品</span>
+          <span class="restaurant-cart-shipping">另需配送费2.1元</span>
+        </p>
+        <p class="restaurant-cart-btn">满20起送</p>
+      </div>
+    </div>
+    <!--优惠信息弹窗-->
+    <div class="restaurant-activity"></div>
+    <!--黑色遮罩层-->
+    <div class="restaurant-mask"></div>
   </div>
+  </transition>
 </template>
 
 <script type="text/ecmascript-6">
+import * as $ from 'jquery'
 import RestaurantOrder from 'components/restaurant/restaurant-order.vue'
 import Banner from 'base/banner'
 import shopApi from 'api/shop'
@@ -104,6 +122,14 @@ export default {
       recommendFood: []
     }
   },
+  computed: {
+    orderHeight () {
+      return this.currentComponent === 'RestaurantOrder' ? `${$(window).outerHeight()}px` : 'auto'
+    },
+    paddingBottom () {
+      return this.currentComponent === 'RestaurantOrder' ? `1.4rem` : '0'
+    }
+  },
   methods: {
     getRecommendFood () {
       shopApi.getRecommendFood()
@@ -119,6 +145,9 @@ export default {
   created () {
     this.getRecommendFood()
   },
+  mounted () {
+
+  },
   components: {
     RestaurantOrder,
     Banner
@@ -129,6 +158,9 @@ export default {
 <style scoped lang="less" rel="stylesheet/less">
 @import "~common/less/mixin";
 .restaurant{
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
   &-img{
     position: relative;
     height: 2rem;
@@ -345,5 +377,69 @@ export default {
       margin-right: .1rem;
     }
   }
+  &-cart{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1.4rem;
+    &-notice{
+      height: .4rem;
+      line-height: .4rem;
+      font-size: .2rem;
+      color: #3c3c3c;
+      text-align: center;
+      background-color: #fffad8;
+    }
+    &-content{
+      position: relative;
+      height: 1rem;
+      background-color: #505052;
+      .clearfix()
+    }
+    &-tips{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      float: left;
+      height: 100%;
+      margin-left: 1.6rem;
+    }
+    &-price{
+      display: block;
+      color: #fbfbfb;
+    }
+    &-shipping{
+      display: block;
+      color: #999;
+      font-size: .2rem;
+    }
+    &-icon{
+      position: absolute;
+      left: 0.24rem;
+      top: -0.3rem;
+      box-sizing: border-box;
+      width: 1rem;
+      height: 1rem;
+      border: .1rem solid #444;
+      border-radius: 1rem;
+      background: #3190e8 url("~common/image/cart-active.svg") no-repeat center/.4rem auto;
+    }
+    &-btn{
+      float: right;
+      width: 2rem;
+      height: 1rem;
+      line-height: 1rem;
+      text-align: center;
+      color: #fff;
+    }
+  }
+}
+/* search 切入切出动画*/
+.slide-enter-active, .slide-leave-active{
+  transition: all .3s;
+}
+.slide-enter, .slide-leave-to{
+  transform: translate(100%, 0);
 }
 </style>

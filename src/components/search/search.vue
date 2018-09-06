@@ -1,6 +1,5 @@
 <template>
-  <transition name="slide">
-    <div class="search">
+  <div class="search">
       <div class="search-header">
         <div class="search-content" ref="headerSearch">
           <svg class="search-icon search-icon-return" @click="$router.push('/')">
@@ -50,7 +49,6 @@
         <shop-list :offsetTop="searchBoxHeight" :searchWord="searchWord"></shop-list>
       </div>
     </div>
-  </transition>
 </template>
 
 <script type="text/ecmascript-6">
@@ -219,13 +217,5 @@ export default {
     position: relative;
     z-index: 0;
   }
-}
-
-/* search 切入切出动画*/
-.slide-enter-active, .slide-leave-active{
-  transition: all .3s;
-}
-.slide-enter, .slide-leave-to{
-  transform: translate(100%, 0);
 }
 </style>

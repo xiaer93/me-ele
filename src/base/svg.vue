@@ -171,7 +171,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  export default {}
+export default {}
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">

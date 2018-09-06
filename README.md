@@ -38,4 +38,6 @@ npm test
 - 主题色设计
 - css嵌套命名，需要再次优化下，以catalog.vue为例~~~
 
+- 9.7任务：1、将字体，颜色等提取为变量；2、进一步提取公共组件，优化电梯组件使用方式
+
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

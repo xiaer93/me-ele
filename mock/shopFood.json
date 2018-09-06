@@ -5,6 +5,7 @@
     "foodList": [
       {
         "name": "热销",
+        "description": "美味实惠，大家快来抢~",
         "foods": [
           {
             "activities": [],
@@ -58,6 +59,7 @@
       },
       {
         "name": "优惠",
+        "description": "美味实惠，大家快来抢~",
         "foods": [
           {
             "activities": [],
@@ -111,6 +113,7 @@
       },
       {
         "name": "【上班】- 助力",
+        "description": "美味实惠，大家快来抢~",
         "foods": [
           {
             "activities": [],
@@ -164,6 +167,7 @@
       },
       {
         "name": "【推荐】- 厨师长",
+        "description": "美味实惠，大家快来抢~",
         "foods": [
           {
             "activities": [],
@@ -217,6 +221,7 @@
       },
       {
         "name": "【小炒】- 实惠",
+        "description": "美味实惠，大家快来抢~",
         "foods": [
           {
             "activities": [],
@@ -270,6 +275,7 @@
       },
       {
         "name": "【凉菜】- 开胃",
+        "description": "美味实惠，大家快来抢~",
         "foods": [
           {
             "activities": [],

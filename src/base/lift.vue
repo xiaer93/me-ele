@@ -39,7 +39,7 @@ export default {
 
       this.$liftContent.animate({
         'scrollTop': this.scrollMainTopList[index] + 10
-      }, 1000)
+      }, 200)
     },
     _findMinIndex (top) {
       let retIndex = 0
@@ -77,10 +77,12 @@ export default {
     overflow-y: scroll;
   }
   &-box{
+    flex: 0 0 auto;
     height: 100%;
-    width: 1.5rem;
+    width: 1.6rem;
     margin-right: .2rem;
     overflow-y: scroll;
+    background-color: #f8f8f8;
   }
   &-scroll{
     position: relative;
