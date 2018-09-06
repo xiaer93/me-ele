@@ -1,0 +1,379 @@
+{
+  "code": 0,
+  "msg": "",
+  "result": {
+    "foodList": [
+      {
+        "name": "热销",
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      },
+      {
+        "name": "优惠",
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      },
+      {
+        "name": "【上班】- 助力",
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      },
+      {
+        "name": "【推荐】- 厨师长",
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      },
+      {
+        "name": "【小炒】- 实惠",
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      },
+      {
+        "name": "【凉菜】- 开胃",
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      },
+      {
+        "name": "【熟菜】- 养生",
+        "foods": [
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          },
+          {
+            "activities": [],
+            "category_id": 528520568,
+            "food_id": 711168651,
+            "id": 711168651,
+            "image_path": "/static/restaurant/shop-love.webp",
+            "month_sales": 21,
+            "name": "鸡腿饭",
+            "tips": "亲，别忘记点米饭~",
+            "price": 12,
+            "restaurant_id": 157658990
+          }
+        ]
+      }
+    ]
+  }
+}

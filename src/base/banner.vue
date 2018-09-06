@@ -46,6 +46,7 @@ export default {
 <style scoped lang="less" rel="stylesheet/less">
   .banner-inner{
     width: 100%;
+    height: 100%;
     &-img{
       width: 100%;
     }

@@ -6,6 +6,7 @@ import Order from 'components/order/order'
 import Profile from 'components/profile/profile'
 import Search from 'components/search/search'
 import Catalog from 'components/catalog/catalog'
+import Restaurant from 'components/restaurant/restaurant'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/catalog/:id',
       name: 'Catalog',
       component: Catalog
+    },
+    {
+      path: '/restaurant',
+      name: 'Restaurant',
+      component: Restaurant
     }
   ]
 })

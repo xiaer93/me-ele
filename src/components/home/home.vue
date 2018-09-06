@@ -56,7 +56,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {mapMutations} from 'Vuex'
+import {mapMutations} from 'vuex'
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import Banner from 'base/banner'
 import ShopList from 'components/shop-list/shop-list'

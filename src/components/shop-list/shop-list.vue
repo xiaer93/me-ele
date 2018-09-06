@@ -61,39 +61,39 @@
     </div>
     <infinite-load @loadmore="loadMore" ref="infiniteLoad">
       <ul class="shop">
-      <li class="shop-item" v-for="(searchItem, index) in searchList" :key="index">
-        <div class="shop-item-left">
-          <img v-lazy="searchItem.restaurant.image_path" :alt="searchItem.restaurant.name" class="shop-item-avatar">
-        </div>
-        <div class="shop-item-right">
-          <h3 class="shop-item-col">
-            <span class="shop-item-brand" v-if="searchItem.restaurant.is_brand"></span>
-            <span class="shop-item-name">{{searchItem.restaurant.name}}</span>
-          </h3>
-          <p class="shop-item-col">
-            <img src="~common/image/star-1.svg" alt="" class="shop-item-star">
-            <span class="shop-item-average">{{searchItem.restaurant.rating}}</span>
-            <span class="shop-item-sales">月售{{searchItem.restaurant.recent_order_num}}单</span>
-          </p>
-          <p class="shop-item-col">
-            <span class="shop-item-freight">{{searchItem.restaurant.piecewise_agent_fee.rules[0].price}}起送&nbsp;|&nbsp;配送费{{searchItem.restaurant.piecewise_agent_fee.rules[0].fee}}</span>
-            <span class="shop-item-time">{{searchItem.restaurant.distance}}km&nbsp;|&nbsp;{{searchItem.restaurant.order_lead_time}}分钟</span>
-          </p>
-          <p class="shop-item-col">
-            <span class="shop-item-tag" v-for="tag in searchItem.restaurant.flavors" :key="tag.id">{{tag.name}}</span>
-          </p>
-          <div class="shop-item-col shop-item-line">
-            <p class="shop-item-activity" v-for="activity in searchItem.restaurant.activities" :key="activity.activitiesId">
-              <span class="shop-item-activity-icon" :style="{color: activity.icon_color}">{{activity.icon_name}}</span>
-              <span class="shop-item-activity-text">{{activity.tips}}</span>
-            </p>
+        <li class="shop-item" v-for="(searchItem, index) in searchList" :key="index" @click="openShop(searchItem)">
+          <div class="shop-item-left">
+            <img v-lazy="searchItem.restaurant.image_path" :alt="searchItem.restaurant.name" class="shop-item-avatar">
           </div>
+          <div class="shop-item-right">
+            <h3 class="shop-item-col">
+              <span class="shop-item-brand" v-if="searchItem.restaurant.is_brand"></span>
+              <span class="shop-item-name">{{searchItem.restaurant.name}}</span>
+            </h3>
+            <p class="shop-item-col">
+              <img src="~common/image/star-1.svg" alt="" class="shop-item-star">
+              <span class="shop-item-average">{{searchItem.restaurant.rating}}</span>
+              <span class="shop-item-sales">月售{{searchItem.restaurant.recent_order_num}}单</span>
+            </p>
+            <p class="shop-item-col">
+              <span class="shop-item-freight">{{searchItem.restaurant.piecewise_agent_fee.rules[0].price}}起送&nbsp;|&nbsp;配送费{{searchItem.restaurant.piecewise_agent_fee.rules[0].fee}}</span>
+              <span class="shop-item-time">{{searchItem.restaurant.distance}}km&nbsp;|&nbsp;{{searchItem.restaurant.order_lead_time}}分钟</span>
+            </p>
+            <p class="shop-item-col">
+              <span class="shop-item-tag" v-for="tag in searchItem.restaurant.flavors" :key="tag.id">{{tag.name}}</span>
+            </p>
+            <div class="shop-item-col shop-item-line">
+              <p class="shop-item-activity" v-for="activity in searchItem.restaurant.activities" :key="activity.activitiesId">
+                <span class="shop-item-activity-icon" :style="{color: activity.icon_color}">{{activity.icon_name}}</span>
+                <span class="shop-item-activity-text">{{activity.tips}}</span>
+              </p>
+            </div>
 
-          <!--店内食品展示-->
-          <!--/店内食品展示-->
-        </div>
-      </li>
-    </ul>
+            <!--店内食品展示-->
+            <!--/店内食品展示-->
+          </div>
+        </li>
+      </ul>
     </infinite-load>
   </div>
 </template>
@@ -228,6 +228,11 @@ export default {
     hideMask () {
       this.isSortShow = false
       this.isSelectShow = false
+    },
+    openShop (shop) {
+      this.$router.push({
+        path: '/restaurant'
+      })
     },
     // 滚动到顶部
     _scrooTop () {
