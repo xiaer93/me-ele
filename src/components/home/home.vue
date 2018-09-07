@@ -18,11 +18,11 @@
         <swiper-slide v-for="page in menuTotalPage" :key="page">
           <ul class="menu-box">
             <li class="menu-item"
-                v-for="food in genMenuList(page)"
-                :key="food.catalogId"
+                v-for="(food, index) in genMenuList(page)"
+                :key="index"
                 @click="openCatalog(food.catalogId)"
             >
-              <img class="menu-item-img" :src="food.imgUrl" alt="food">
+              <img class="menu-item-img" :src="food.image" alt="food">
               <span class="menu-item-name">{{food.name}}</span>
             </li>
           </ul>
@@ -41,7 +41,7 @@
       <div class="recommend-right recommend-item">
         <h3 class="recommend-title">限量抢购</h3>
         <p class="recommend-desc">超值美味9.9元起</p>
-        <p class="recommend-link">5560人正在抢购&gt;</p>
+        <p class="recommend-link"><em class="recommend-link-red">5560人</em>正在抢购&gt;</p>
         <img class="recommend-img" src="/static/recommend/1.webp" alt="">
       </div>
     </div>
@@ -174,6 +174,8 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
+@import "~common/less/mixin";
+
 .home{
   position: absolute;
   left: 0;
@@ -188,12 +190,13 @@ export default {
     padding-top: .24rem;
     height: 1.8rem;
     color: #fff;
-    background-image: linear-gradient(90deg,#0af,#0085ff);
+    .gradient-bg-2();
     &-address{
       display: flex;
       align-items: center;
       padding: 0 .26rem;
       width: 80%;
+      line-height: .7rem;
       &-location{
         width: .4rem;
         height: .4rem;
@@ -201,13 +204,11 @@ export default {
       }
       &-name{
         margin: 0 .1rem;
-        font-size: .34rem;
-        font-weight: 700;
-        color: #fff;
+        font-size: @font-size-large;
+        color: @text-color-f;
+        font-weight: @font-weight-bold;
         max-width: 80%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        .hide-text(1);
       }
       &-down{
         width: .2rem;
@@ -224,7 +225,7 @@ export default {
       top: 0;
       padding: .2rem .26rem;
       box-sizing: content-box;
-      background-image: linear-gradient(90deg,#0af,#0085ff);
+      .gradient-bg-2();
       &-box{
         display: flex;
         align-items: center;
@@ -243,8 +244,8 @@ export default {
         margin-left: .1rem;
         height: .64rem;
         line-height: .64rem;
-        font-size: .24rem;
-        color: #999;
+        font-size: @font-size-small-s;
+        color: @text-color-9;
       }
       &::before{
 
@@ -262,7 +263,7 @@ export default {
   .menu{
     position: relative;
     z-index: 0;
-    height: 3.8rem;
+    height: 3.6rem;
     &-content{
       width: 100%;
       height: 100%;
@@ -289,8 +290,8 @@ export default {
         width: 1rem;
       }
       &-name{
-        font-size: .22rem;
-        color: #111;
+        font-size: @font-size-small-s;
+        color: @text-color-6;
       }
     }
   }
@@ -307,7 +308,7 @@ export default {
       box-sizing: border-box;
       width: 3rem;
       height: 2.4rem;
-      padding: .3rem 0 0 .3rem;
+      padding: .2rem 0 0 .3rem;
       background-color: #f5f5f5;
     }
     &-left{
@@ -315,28 +316,36 @@ export default {
     }
     &-right{
       margin-left: .05rem;
-      .recommend-title, .recommend-link{
-        color: #e81919;
+      .recommend-title, .recommend-link-red{
+        color: @text-color-e8;
       }
     }
     &-title{
-      font-size: .28rem;
-      font-weight: bold;
-      color: #333;
+      margin-bottom: .1rem;
+      font-size: @font-size-large;
+      font-weight: @font-weight-bold;
+      color: @text-color-3;
     }
     &-desc{
-      font-size: .2rem;
-      color: #7a7a7a;
+      margin-bottom: .18rem;
+      font-size: @font-size-medium-s;
+      color: @text-color-7;
     }
     &-link{
-      font-size: .2rem;
-      color: #af8260;
+      font-size: @font-size-small-s;
+      font-weight: @font-weight-bold;
+      color: @text-color-3;
+      &-red{
+        font-weight: inherit;
+        font-size: inherit;
+        font-style: normal;
+      }
     }
     &-img{
       position: absolute;
       z-index: -1;
       right: 0;
-      bottom: 0;
+      bottom: -.12rem;
       width: 2.1rem;
     }
   }
@@ -352,9 +361,9 @@ export default {
     z-index: 0;
     &-title{
       margin: .4rem 0 .2rem;
-      font-size: .3rem;
+      font-size: @font-size-large-s;
       line-height: .3rem;
-      color: #000;
+      color: @text-color-0;
       text-align: center;
       &::before, &::after{
         display: inline-block;

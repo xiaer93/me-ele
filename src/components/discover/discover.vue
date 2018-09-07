@@ -1,6 +1,6 @@
 <template>
   <div class="discover">
-    discover
+    发现更好的世界~
   </div>
 </template>
 

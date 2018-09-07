@@ -5,44 +5,44 @@
     "bannerList": [
       {
         "id": 20097233,
-        "banner_type": 1,
-        "image_hash": "/static/banner/1.webp",
+        "type": 1,
+        "image": "/static/banner/1.webp",
         "url": ""
       },
       {
         "id": 20097234,
-        "banner_type": 1,
-        "image_hash": "/static/banner/2.webp",
+        "type": 1,
+        "image": "/static/banner/2.webp",
         "url": ""
       },
       {
         "id": 20097235,
-        "banner_type": 1,
-        "image_hash": "/static/banner/3.webp",
+        "type": 1,
+        "image": "/static/banner/3.webp",
         "url": ""
       },
       {
         "id": 20097236,
-        "banner_type": 1,
-        "image_hash": "/static/banner/4.webp",
+        "type": 1,
+        "image": "/static/banner/4.webp",
         "url": ""
       },
       {
         "id": 20097237,
-        "banner_type": 1,
-        "image_hash": "/static/banner/5.webp",
+        "type": 1,
+        "image": "/static/banner/5.webp",
         "url": ""
       },
       {
         "id": 20097238,
-        "banner_type": 1,
-        "image_hash": "/static/banner/6.webp",
+        "type": 1,
+        "image": "/static/banner/6.webp",
         "url": ""
       },
       {
         "id": 20097239,
-        "banner_type": 1,
-        "image_hash": "/static/banner/7.webp",
+        "type": 1,
+        "image": "/static/banner/7.webp",
         "url": ""
       }
     ]

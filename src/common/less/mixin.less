@@ -1,3 +1,5 @@
+@import "variable";
+
 .clearfix(){
   *zoom: 1;
   &::after{
@@ -18,18 +20,38 @@
   }
 }
 
+.add-triangle() {
+  position: relative;
+  &::after{
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border: .08rem solid transparent;
+    border-top-color: @text-color-9;
+  }
+}
+
 // 超出文字隐藏
-.f-hide-text(@lines) when(@lines = 1) {
+.hide-text(@lines) when(@lines = 1) {
   overflow : hidden;
   text-overflow: ellipsis;
   white-space:nowrap;
   -webkit-line-clamp: @lines;
   -webkit-box-orient: vertical;
 }
-.f-hide-text(@lines) when(@lines > 1) {
+.hide-text(@lines) when(@lines > 1) {
   display: -webkit-box;
   overflow : hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: @lines;
   -webkit-box-orient: vertical;
+}
+
+// 渐变背景色
+.gradient-bg-1() {
+  background-image: linear-gradient(45deg,#0085ff,#0af);
+}
+.gradient-bg-2（） {
+  background-image: linear-gradient(90deg,#0af,#0085ff);
 }

@@ -121,7 +121,6 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 2;
   width: 100%;
   min-height: 100%;
   font-size: .28rem;
@@ -139,6 +138,7 @@ export default {
     right: 0;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
     padding: .2rem 0;
     height: .9rem;
     background-color: #fff;
@@ -179,21 +179,24 @@ export default {
     flex: 1 1 auto;
     height: inherit;
     margin-left: .1rem;
-    font-size: .26rem;
+    font-size: @font-size-medium-s;
+    color: @text-color-6;
     background-color: transparent;
   }
   &-btn{
-    font-size: .26rem;
-    color: #000;
-    font-weight: bold;
+    font-size: @font-size-medium-s;
+    color: @text-color-3;
+    font-weight: @font-weight-bold;
   }
   &-title{
+    display: flex;
+    justify-content: space-between;
     margin: .1rem 0;
     &-text{
-      font-size: .32rem;
-      line-height: 1;
-      color: #666;
-      font-weight: bold;
+      display: inline-block;
+      font-size: @font-size-large;
+      color: @text-color-6;
+      font-weight: @font-weight-bold;
     }
     &-btn{
       float: right;
@@ -203,14 +206,16 @@ export default {
   }
   &-box{
     /*margin-top: .3rem;*/
-    margin-bottom: .3rem;
+    margin-bottom: .5rem;
     .clearfix();
     &-item{
       float: left;
       margin: .3rem .3rem 0 0;
       padding: .1rem .2rem;
       background-color: #f7f7f7;
-      border-radius: .04rem;
+      border-radius: .1rem;
+      font-size: @font-size-medium;
+      color: @text-color-6;
     }
   }
   &-shop{

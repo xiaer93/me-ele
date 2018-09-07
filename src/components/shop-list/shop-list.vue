@@ -63,29 +63,29 @@
       <ul class="shop">
         <li class="shop-item" v-for="(searchItem, index) in searchList" :key="index" @click="openShop(searchItem)">
           <div class="shop-item-left">
-            <img v-lazy="searchItem.restaurant.image_path" :alt="searchItem.restaurant.name" class="shop-item-avatar">
+            <img v-lazy="searchItem.restaurant.shopAvatar" :alt="searchItem.restaurant.shopName" class="shop-item-avatar">
           </div>
           <div class="shop-item-right">
             <h3 class="shop-item-col">
-              <span class="shop-item-brand" v-if="searchItem.restaurant.is_brand"></span>
-              <span class="shop-item-name">{{searchItem.restaurant.name}}</span>
+              <span class="shop-item-brand" v-if="searchItem.restaurant.isBrand"></span>
+              <span class="shop-item-name">{{searchItem.restaurant.shopName}}</span>
             </h3>
             <p class="shop-item-col">
               <img src="~common/image/star-1.svg" alt="" class="shop-item-star">
-              <span class="shop-item-average">{{searchItem.restaurant.rating}}</span>
-              <span class="shop-item-sales">月售{{searchItem.restaurant.recent_order_num}}单</span>
+              <span class="shop-item-average">{{searchItem.restaurant.shopRate}}</span>
+              <span class="shop-item-sales">月售{{searchItem.restaurant.recentOrderNum}}单</span>
             </p>
             <p class="shop-item-col">
-              <span class="shop-item-freight">{{searchItem.restaurant.piecewise_agent_fee.rules[0].price}}起送&nbsp;|&nbsp;配送费{{searchItem.restaurant.piecewise_agent_fee.rules[0].fee}}</span>
-              <span class="shop-item-time">{{searchItem.restaurant.distance}}km&nbsp;|&nbsp;{{searchItem.restaurant.order_lead_time}}分钟</span>
+              <span class="shop-item-freight">{{searchItem.restaurant.shopSend.rules.price}}起送&nbsp;<i class="shop-item-grap"></i>&nbsp;配送费{{searchItem.restaurant.shopSend.rules.fee}}</span>
+              <span class="shop-item-time">{{searchItem.restaurant.distance}}km&nbsp;<i class="shop-item-grap"></i>&nbsp;{{searchItem.restaurant.orderLeadTime}}分钟</span>
             </p>
             <p class="shop-item-col">
-              <span class="shop-item-tag" v-for="tag in searchItem.restaurant.flavors" :key="tag.id">{{tag.name}}</span>
+              <span class="shop-item-tag" v-for="tag in searchItem.restaurant.shopCatalog.children" :key="tag.id">{{tag.name}}</span>
             </p>
             <div class="shop-item-col shop-item-line">
-              <p class="shop-item-activity" v-for="activity in searchItem.restaurant.activities" :key="activity.activitiesId">
+              <p class="shop-item-activity" v-for="(activity, activityIndex) in searchItem.restaurant.shopDiscount" :key="activityIndex">
                 <span class="shop-item-activity-icon" :style="{color: activity.icon_color}">{{activity.icon_name}}</span>
-                <span class="shop-item-activity-text">{{activity.tips}}</span>
+                <span class="shop-item-activity-text">{{activity.discountName}}</span>
               </p>
             </div>
 
@@ -310,35 +310,49 @@ export default {
     &-col{
       margin: .3rem 0;
       .clearfix();
+      font-size: @font-size-small;
+      color: @text-color-6;
     }
     &-name{
-      font-size: .28rem;
-      color: #333;
-      font-weight: bold;
+      font-size: @font-size-large-s;
+      color: @text-color-3;
+      font-weight: @font-weight-bold;
     }
     &-star{
       width: 1.1rem;
     }
     &-average{
-      font-size: .2rem;
+      font-size: @font-size-small;
     }
     &-sales{
-      font-size: .2rem;
+      font-size: @font-size-small;
     }
     &-freight{
       float: left;
-      color: #666666;
+      color: @text-color-6;
+      font-size: @font-size-small;
     }
     &-time{
       float: right;
-      color: #e7e7e7;
+      color: @text-color-9;
+      font-size: @font-size-small;
+    }
+    &-grap{
+      position: relative;
+      display: inline-block;
+      top: .02rem;
+      height: .2rem;
+      width: 1px;
+      background-color: #ddd;
     }
     &-tag{
       float: left;
       margin-right: .1rem;
       padding: .04rem .1rem;
       border: .01rem solid #f2f2f2;
-      border-radius: .02rem;
+      border-radius: .06rem;
+      font-size: @font-size-small;
+      color: @text-color-9;
     }
     &-line{
       border-top: .02rem dashed #eee;
@@ -375,14 +389,15 @@ export default {
       display: flex;
       width: 100%;
       height: .8rem;
-      border-bottom: .04rem solid #fbfbfb;
+      border-bottom: 1px solid #ddd;
       background-color: #fff;
     }
     &-item{
       width: 25%;
-      font-size: .28rem;
+      font-size: @font-size-medium;
+      color: @text-color-6;
       text-align: center;
-      color: #b3b3b3;
+      .hide-text(1);
     }
   }
   &-sort{
@@ -395,9 +410,9 @@ export default {
       padding-left: .4rem;
     }
     &-item{
-      font-size: .26rem;
+      font-size: @font-size-medium;
       line-height: .8rem;
-      color: #333;
+      color: @text-color-3;
     }
   }
   &-select{
@@ -405,14 +420,14 @@ export default {
     left: 0;
     top: .8rem;
     width: 100%;
-    font-size: .22rem;
+    font-size: @font-size-medium-s;
     background-color: #fff;
     border-top: 1px solid #ddd;
     &-content{
       padding: 0 .3rem;
     }
     &-title{
-      font-size: .2rem;
+      font-size: @font-size-small;
       color: #666;
     }
     &-box{
@@ -427,7 +442,7 @@ export default {
       width: 2.2rem;
       height: .7rem;
       line-height: .7rem;
-      color: #333;
+      color: @text-color-3;
       background-color: #fafafa;
       &:nth-child(3n + 1) {
         margin-left: 0;
@@ -475,16 +490,16 @@ export default {
     background-color: rgba(0,0,0,.5);
   }
   .active-black{
-    color: #333;
-    font-weight: 700;
+    color: @text-color-3;
+    font-weight: @font-weight-bold;
   }
   .active-blue{
-    color: #3190e8;
-    font-weight: 700;
+    color: @text-color-31;
+    font-weight: @font-weight-bold;
   }
   .active-filter{
-    font-weight: 700;
-    color: #3190e8;
+    font-weight: @font-weight-bold;
+    color: @text-color-31;
     background-color: #edf5ff;
   }
 }

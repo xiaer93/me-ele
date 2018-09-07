@@ -2,58 +2,131 @@
   "code": 0,
   "msg": "",
   "result": {
-    "foodList": [
+    "restaurant": {
+      "shopDiscount": [
+        {
+          "icon_name": "首",
+          "icon_color": "70bc64",
+          "discountName": "新用户下单立减10元",
+          "discountId": 1001
+        },
+        {
+          "icon_name": "减",
+          "icon_color": "f07373",
+          "discountName": "满20减3，满30减5，满50减8",
+          "discountId": 1002
+        }
+      ],
+      "shopName": "福建沙县小车（光明南店）",
+      "shopNotice": "公告：温馨提示：9：00—17：00期间闭店状态可以下预订单！所有菜品不包含米饭，米饭需单点。不单独提供餐具，餐具只包含筷子和勺子，谢谢！",
+      "shopBg": "/static/restaurant/shop-bg.webp",
+      "shopAvatar": "/static/restaurant/shop-avatar.webp",
+      "shopInfos": {
+        "tel": "111",
+        "address": "海南省万宁市光明南路东侧189号"
+      },
+      "shopSend": {
+        "id": 1,
+        "text": "蜂鸟配送",
+        "textColor": "#fff",
+        "textBg": "#00AAFF",
+        "rules": {
+          "id": 0,
+          "fee": 3,
+          "price": 15,
+          "name": "配送费¥3"
+        }
+      },
+      "shopCatalog": [
+        {
+          "Id": 1,
+          "name": "",
+          "children": [
+            {
+              "id": 213,
+              "name": "米粉面馆"
+            },
+            {
+              "id": 237,
+              "name": "地方小吃"
+            }
+          ]
+        }
+      ],
+      "distance": 2634,
+      "isBrand": true,
+      "shopRate": 4.8,
+      "shopRateCount": 259,
+      "recentOrderNum": 471,
+      "orderLeadTime": 27
+    },
+    "shopFoods": [
       {
         "name": "热销",
         "description": "美味实惠，大家快来抢~",
         "foods": [
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           }
         ]
       },
@@ -62,52 +135,67 @@
         "description": "美味实惠，大家快来抢~",
         "foods": [
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           }
         ]
       },
@@ -116,52 +204,67 @@
         "description": "美味实惠，大家快来抢~",
         "foods": [
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           }
         ]
       },
@@ -170,52 +273,67 @@
         "description": "美味实惠，大家快来抢~",
         "foods": [
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           }
         ]
       },
@@ -224,52 +342,67 @@
         "description": "美味实惠，大家快来抢~",
         "foods": [
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           }
         ]
       },
@@ -278,52 +411,67 @@
         "description": "美味实惠，大家快来抢~",
         "foods": [
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           }
         ]
       },
@@ -331,52 +479,67 @@
         "name": "【熟菜】- 养生",
         "foods": [
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           },
           {
-            "activities": [],
-            "category_id": 528520568,
-            "food_id": 711168651,
-            "id": 711168651,
-            "image_path": "/static/restaurant/shop-love.webp",
-            "month_sales": 21,
-            "name": "鸡腿饭",
-            "tips": "亲，别忘记点米饭~",
-            "price": 12,
-            "restaurant_id": 157658990
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
+          },
+          {
+            "foodName": "鸡腿饭",
+            "foodDesc": "亲，别忘记点米饭~",
+            "foodAvatar": "/static/restaurant/shop-love.webp",
+            "foodMounthCount": 21,
+            "foodPrice": 12,
+            "foodRate": 99,
+            "isRecommend": true
           }
         ]
       }

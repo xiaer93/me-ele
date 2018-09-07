@@ -74,11 +74,13 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 25%;
   }
   &-icon{
-
+    height: auto;
   }
   &-name{
+    margin-bottom: .06rem;
     font-size: .22rem;
     color: #666;
     text-align: center;

@@ -166,9 +166,9 @@ export default {
       margin: .2rem 0;
     }
     &-title{
-      font-size: .36rem;
-      color: #fff;
-      font-weight: bold;
+      font-size: @font-size-large-l;
+      color: @text-color-f;
+      font-weight: @font-weight-bold;
       text-align: center;
     }
     &-return{
@@ -194,8 +194,8 @@ export default {
       &-ul{
         display: flex;
         height: 100%;
-        font-size: .28rem;
-        color: #b2e0ff;
+        font-size: @font-size-medium;
+        color: @text-color-f;
       }
       &-show{
         display: flex;
@@ -207,11 +207,11 @@ export default {
     &-item{
       box-sizing: border-box;
       margin: 0 .3rem;
-      font-size: inherit;
-      color: inherit;
       text-align: center;
       border-bottom: .04rem solid transparent;
+      opacity: .7;
       &.active{
+        opacity: 1;
         border-bottom-color: #fff;
       }
     }

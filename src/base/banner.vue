@@ -1,7 +1,7 @@
 <template>
   <swiper :options="swiperOption" class="banner-inner" ref="swiperObj">
-    <swiper-slide v-for="item in imgList" :key="item.id">
-      <img class="banner-inner-img" :src="item.image_hash" alt="item.id">
+    <swiper-slide v-for="(item, index) in imgList" :key="index">
+      <img class="banner-inner-img" :src="item.image" alt="item.id">
     </swiper-slide>
   </swiper>
 </template>
