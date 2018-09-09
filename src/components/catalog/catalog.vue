@@ -3,12 +3,7 @@
     <div class="catalog-header" ref="header">
       <div class="catalog-header-content">
         <div class="catalog-header-col">
-        <span class="catalog-header-return" @click="$router.push('/')">
-          <svg class="catalog-icon catalog-icon-return">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow"></use>
-          </svg>
-        </span>
-          <h2 class="catalog-header-title">{{currentCatalog.name}}</h2>
+          <header-title>{{currentCatalog.name}}</header-title>
         </div>
         <div class="catalog-header-catalog">
           <div class="catalog-header-catalog-content">
@@ -75,6 +70,7 @@
 import * as $ from 'jquery'
 import {mapGetters} from 'vuex'
 import ShopList from 'components/shop-list/shop-list'
+import HeaderTitle from 'base/header-title'
 
 export default {
   data () {
@@ -115,11 +111,12 @@ export default {
   mounted () {
     setTimeout(() => {
       this.searchBoxHeight = $(this.$refs.header).height()
-      console.log(this.searchBoxHeight)
+      this.searchWord = '全部'
     }, 20)
   },
   components: {
-    ShopList
+    ShopList,
+    HeaderTitle
   }
 }
 </script>
@@ -159,26 +156,7 @@ export default {
       top: 0;
       width: 100%;
       height: 1.6rem;
-      background-image: linear-gradient(90deg,#0af,#0085ff);
-    }
-    &-col{
-      position: relative;
-      margin: .2rem 0;
-    }
-    &-title{
-      font-size: @font-size-large-l;
-      color: @text-color-f;
-      font-weight: @font-weight-bold;
-      text-align: center;
-    }
-    &-return{
-      position: absolute !important;
-      left: .3rem;
-      top: 0;
-      display: block;
-      width: .5rem;
-      height: .5rem;
-      .extend-click();
+      .gradient-bg-2();
     }
     &-catalog{
       position: absolute;

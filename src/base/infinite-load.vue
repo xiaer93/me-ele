@@ -1,7 +1,8 @@
 <template>
   <div class="infinite-load">
     <slot></slot>
-    <span class="infinite-end" ref="endFlag">正在加载</span>
+    <span class="infinite-end" ref="endFlag"></span>
+    <slot name="load-icon"></slot>
   </div>
 </template>
 
@@ -52,5 +53,9 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-
+.infinite-end{
+  display: block;
+  width: 100%;
+  height: 1px;
+}
 </style>

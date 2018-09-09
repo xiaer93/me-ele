@@ -52,6 +52,9 @@
       <h2 class="shop-title">推荐商家</h2>
       <shop-list :isHome="true" :offsetTop="searchBoxHeight"></shop-list>
     </div>
+    <div class="side">
+      <side-nav></side-nav>
+    </div>
   </div>
 </template>
 
@@ -60,6 +63,7 @@ import {mapMutations} from 'vuex'
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import Banner from 'base/banner'
 import ShopList from 'components/shop-list/shop-list'
+import SideNav from 'base/side-nav'
 import homeApi from 'api/home'
 import * as $ from 'jquery'
 import {onScroll} from 'common/js/util'
@@ -102,6 +106,7 @@ export default {
         .then(res => {
           if (res.code === 0) {
             this.menuList = res.result.menuList
+            this.setMenuList(this.menuList)
           } else {
             console.log(res.msg)
           }
@@ -122,7 +127,6 @@ export default {
       return this.menuList.slice(page * this.menuBaseLength, page * this.menuBaseLength + this.menuBaseLength)
     },
     openCatalog (catalogId) {
-      this.setMenuList(this.menuList)
       this.$router.push({
         name: 'Catalog',
         params: {id: catalogId}
@@ -168,7 +172,8 @@ export default {
     swiper,
     swiperSlide,
     Banner,
-    ShopList
+    ShopList,
+    SideNav
   }
 }
 </script>
@@ -381,6 +386,11 @@ export default {
         margin-left: .24rem;
       }
     }
+  }
+  .side{
+    position: fixed;
+    right: .32rem;
+    bottom: 1.5rem;
   }
 }
 </style>

@@ -50,14 +50,19 @@ let onScroll = (function () {
 })()
 
 /**
- * 对localStorage进行操作，只能存储对象形式数据
+ * 存储数据至本地（fixme：兼容indexDB），以数组形式存储数据
  */
 class SaveData {
+  // key为key，id为数组比较标志
   constructor (key, id) {
     this._key = `__${key}__`
     this._id = id
   }
-  // 读取数据
+
+  /**
+   * 返回所有数据
+   * @returns {Array}
+   */
   get () {
     let storage = localStorage.getItem(this._key)
     return storage ? JSON.parse(storage) : []
@@ -65,15 +70,18 @@ class SaveData {
   // 存储数据
   save (data) {
     let storage = this.get()
+    data = data instanceof Array ? data : [data]
+    data.forEach(d => {
+      let index = storage.find(t => {
+        return d[this._id] === t[this._id]
+      })
 
-    let index = storage.findIndex(t => {
-      return data[this._id] === t[this._id]
+      if (typeof index !== 'undefined') {
+        storage.splice(index, 1)
+      }
+      storage.push(d)
     })
-    if (index > -1) {
-      storage.splice(index, 1)
-    }
 
-    storage.push(data)
     localStorage.setItem(this._key, JSON.stringify(storage))
     return storage
   }
@@ -84,23 +92,41 @@ class SaveData {
     let index = storage.findIndex(t => {
       return data[this._id] === t[this._id]
     })
-    if (index > -1) {
+    if (index !== -1) {
       storage.splice(index, 1)
+      localStorage.setItem(this._key, JSON.stringify(storage))
     }
 
-    localStorage.setItem(this._key, JSON.stringify(storage))
     return storage
   }
   // 清空数据
   clear () {
-    let storage = []
-    localStorage.setItem(this._key, JSON.stringify(storage))
-    return storage
+    localStorage.setItem(this._key, JSON.stringify([]))
+    return []
   }
+}
+
+/**
+ * 倒计时函数
+ */
+function countDown (duration, process, end) {
+  function _inner () {
+    process(duration)
+    duration -= 1
+
+    if (duration !== 0) {
+      setTimeout(_inner, 1000)
+    } else {
+      end()
+    }
+  }
+
+  setTimeout(_inner, 0)
 }
 
 export {
   debounce,
   onScroll,
-  SaveData
+  SaveData,
+  countDown
 }

@@ -13,6 +13,12 @@ export const searchOption = {
   longitude: 110,
   // 排序规则
   order_by: 1,
+  // 筛选
+  filter_by: {
+    server: 1,
+    activity: 1,
+    cost: 1
+  },
   // 平台
   terminal: 'h5'
 }

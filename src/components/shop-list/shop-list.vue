@@ -23,7 +23,7 @@
                   v-for="item in shopServer"
                   :key="item.shopServerId"
                   @click="setServer(item)"
-                  :class="{'active-filter': searchOptions.support_ids.indexOf(item.shopServerId) !== -1}"
+                  :class="{'active-filter': searchOptions.shopServerIds.indexOf(item.shopServerId) !== -1}"
               >
                 <img class="filter-select-avatar" :src="item.avatar" alt="">
                 <span class="filter-select-name">{{item.name}}</span>
@@ -94,12 +94,16 @@
           </div>
         </li>
       </ul>
+      <div class="shop-loading">
+        <loading slot="load-icon" :isAlwaysShow="true"></loading>
+      </div>
     </infinite-load>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import InfiniteLoad from 'base/infinite-load'
+import Loading from 'base/loading'
 import * as $ from 'jquery'
 import {onScroll} from 'common/js/util'
 import searchApi from 'api/search'
@@ -123,11 +127,10 @@ export default {
       isSelectShow: false,
       // 搜索关键词
       searchOptions: {
-        order_by: undefined,
-        support_ids: [],
-        activity_types: undefined,
-        cost_from: undefined,
-        cost_to: undefined
+        order_by: -1,
+        shopServerIds: [],
+        saleActivityId: -1,
+        saleAverageId: -1
       },
       // 搜索结果
       searchList: []
@@ -159,6 +162,7 @@ export default {
         .then(res => {
           if (res.code === 0) {
             this.searchList = res.result.searchList
+            this.$emit('searchSuccess')
           } else {
             console.log(res.msg)
           }
@@ -177,7 +181,7 @@ export default {
     },
     // 重新搜索
     setServer (item) {
-      let tmpSupport = [...this.searchOptions.support_ids]
+      let tmpSupport = [...this.searchOptions.shopServerIds]
       let index = tmpSupport.indexOf(item.shopServerId)
       if (index === -1) {
         tmpSupport.push(item.shopServerId)
@@ -185,22 +189,20 @@ export default {
         tmpSupport.splice(index, 1)
       }
 
-      this.searchOptions.support_ids = tmpSupport
+      this.searchOptions.shopServerIds = tmpSupport
     },
     setActivity (item) {
-      this.searchOptions.activity_types = item.saleActivityId
+      this.searchOptions.saleActivityId = item.saleActivityId
     },
     setAverage (item) {
-      this.searchOptions.cost_from = item.cost_from
-      this.searchOptions.cost_to = item.cost_to
+      this.searchOptions.saleAverageId = item.saleAverageId
     },
     resetSearchOption () {
       this.searchOptions = {
-        order_by: undefined,
-        support_ids: [],
-        activity_types: undefined,
-        cost_from: undefined,
-        cost_to: undefined
+        order_by: -1,
+        shopServerIds: [],
+        saleActivityId: -1,
+        saleAverageId: -1
       }
     },
     select (id) {
@@ -277,7 +279,8 @@ export default {
     onScroll.delete(this._scrollEvent)
   },
   components: {
-    InfiniteLoad
+    InfiniteLoad,
+    Loading
   }
 }
 </script>
@@ -370,6 +373,10 @@ export default {
         color: #fff;
       }
     }
+  }
+  &-loading{
+    height: 2rem;
+    width: 100%;
   }
 }
 .filter{

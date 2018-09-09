@@ -109,32 +109,38 @@ export const CONFIG_FILTER = {
     {
       name: '￥20以下',
       cost_from: 0,
-      cost_to: 20
+      cost_to: 20,
+      saleAverageId: 1
     },
     {
       name: '￥20 - ￥40',
       cost_from: 20,
-      cost_to: 40
+      cost_to: 40,
+      saleAverageId: 2
     },
     {
       name: '￥40 - ￥60',
       cost_from: 40,
-      cost_to: 60
+      cost_to: 60,
+      saleAverageId: 3
     },
     {
       name: '￥60 - ￥80',
       cost_from: 60,
-      cost_to: 80
+      cost_to: 80,
+      saleAverageId: 4
     },
     {
       name: '￥80 - ￥100',
       cost_from: 80,
-      cost_to: 100
+      cost_to: 100,
+      saleAverageId: 5
     },
     {
       name: '￥100以上',
       cost_from: 100,
-      cost_to: 999
+      cost_to: 999,
+      saleAverageId: 6
     }
   ]
 }
