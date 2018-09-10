@@ -13,6 +13,7 @@
           <span class="info-content-icon">
             <svg data-v-8876803a="" fill="#fff" class="m-icon m-icon-more"><use data-v-8876803a="" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use></svg>
           </span>
+          <input class="info-content-image" type="file" accept="image/*" ref="image">
         </div>
         <div class="info-content-name" @click="$router.push('/profile/infouser')">
           <p class="m-info">
@@ -64,6 +65,10 @@
 import HeaderTitle from 'base/header-title'
 
 export default {
+  methods: {
+    triggerFile () {
+    }
+  },
   components: {
     HeaderTitle
   }
@@ -111,6 +116,14 @@ export default {
       height: 0.2rem;
       margin-top: -.1rem;
     }
+    &-image{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
   }
   &-footer{
     &-btn{
@@ -124,6 +137,9 @@ export default {
       outline: none;
       border: none;
     }
+  }
+  &-image{
+    display: none;
   }
 }
   .m-info{
