@@ -2,34 +2,35 @@
   <div class="address-edit">
     <div class="address-edit-header">
       <header-title>编辑地址</header-title>
+      <span class="address-edit-delete" v-show="isEditStatus" @click="deleteAddress">删除</span>
     </div>
     <div class="address-edit-content">
       <div class="address-edit-item">
         <p class="address-edit-name address-edit-flex">
           <label for="" class="address-edit-label">联系人</label>
-          <input type="text" placeholder="你的姓名" class="address-edit-input">
+          <input v-model="addressObj.firstName" type="text" placeholder="你的姓名" class="address-edit-input">
         </p>
         <p class="address-edit-radio address-edit-flex">
           <label for="" class="address-edit-label"></label>
-          <radio-box :radioList="sexList"></radio-box>
+          <radio-box :radioList="sexList" :defaultRadio="addressObj.sex"></radio-box>
         </p>
       </div>
       <div class="address-edit-item address-edit-flex">
         <label for="" class="address-edit-label">电话</label>
-        <input type="text" placeholder="你的手机号" class="address-edit-input">
+        <input v-model="addressObj.tel" type="text" placeholder="你的手机号" class="address-edit-input">
       </div>
       <div class="address-edit-item address-edit-flex">
         <label for="" class="address-edit-label">地址</label>
-        <input type="text" placeholder="小区/写字楼/学校等" class="address-edit-input">
+        <input v-model="addressObj.addressText" type="text" placeholder="小区/写字楼/学校等" class="address-edit-input">
       </div>
       <div class="address-edit-item address-edit-flex">
         <label for="" class="address-edit-label">门牌号</label>
-        <input type="text" placeholder="10号楼5层501室" class="address-edit-input">
+        <input v-model="addressObj.houseNumber" type="text" placeholder="10号楼5层501室" class="address-edit-input">
       </div>
       <div class="address-edit-item address-edit-flex">
         <label for="" class="address-edit-label">标签</label>
         <p class="address-edit-radio">
-          <radio-box :radioList="tagList"></radio-box>
+          <radio-box :radioList="tagList" :defaultRadio="addressObj.tag"></radio-box>
         </p>
       </div>
     </div>
@@ -38,10 +39,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+/* eslint-disable */
 import RadioBox from 'base/radio-box'
 import HeaderTitle from 'base/header-title'
 import Ajv from 'ajv'
 import AjvErrors from 'ajv-errors'
+import {mapGetters} from 'vuex'
 
 let schema = {
   type: 'object',
@@ -59,55 +62,53 @@ let schema = {
       type: 'string',
       pattern: '^\\d{11}$'
     },
+    addressText: {
+      type: 'string'
+    },
+    houseNumber: {
+      type: 'string',
+      minLength: '1'
+    },
     tag: {
       type: 'string',
       enum: ['home', 'school', 'company']
     },
-    addressText: {
-      type: 'string',
-      minLength: 1
-    }
   }
 }
 
 export default {
   data () {
     return {
-      sexList: [
-        {
-          sex: 'man',
-          text: '先生'
-        },
-        {
-          sex: 'woman',
-          text: '女士'
-        }
-      ],
-      tagList: [
-        {
-          location: 'home',
-          text: '家'
-        },
-        {
-          location: 'school',
-          text: '学校'
-        },
-        {
-          location: 'compony',
-          text: '公司'
-        }
-      ],
+      sexList: ['先生', '女士'],
+      tagList: ['家', '学校', '公司'],
       addressObj: {
-        firstName: '程',
-        sex: '先生',
-        tel: '11111111111',
-        tag: '家',
-        addressText: '武汉市人民政府武汉市人民政府'
-      }
+        firstName: '',
+        sex: '',
+        tel: '',
+        tag: '',
+        addressText: '',
+        houseNumber: ''
+      },
+      isEditStatus: false
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'editAddress'
+    ])
+  },
+  methods: {
+    deleteAddress () {
+      // 删除地址，删除成功后跳转回address页面
     }
   },
   created () {
-    window.a = this.$route.params.control
+    this.isEditStatus = this.$route.params.control === 'edit'
+  },
+  mounted () {
+    // vuex的值可以直接赋给data中定义的对象~？？？不可以
+    // 等待所有数据都准备好后，拷贝给addressObj
+    this.addressObj = Object.assign(this.addressObj, this.editAddress)
   },
   components: {
     RadioBox,
@@ -126,6 +127,13 @@ export default {
   right: 0;
   bottom: 0;
   background-color: #f5f5f5;
+  &-delete{
+    position: absolute;
+    right: .3rem;
+    top: .24rem;
+    font-size: @font-size-medium-s;
+    color: @text-color-f;
+  }
   &-content{
     padding: 0 .3rem;
     background-color: #fff;

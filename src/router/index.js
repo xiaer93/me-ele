@@ -11,6 +11,10 @@ import Login from 'components/login/login'
 import About from 'components/about/about'
 import Address from 'components/address/address'
 import AddressEdit from 'components/address/address-edit'
+import Info from 'components/info/info'
+import InfoPassword from 'components/info/info-password'
+import InfoUsername from 'components/info/info-username'
+import InfoRebind from 'components/info/info-rebind'
 
 Vue.use(Router)
 
@@ -49,6 +53,26 @@ export default new Router({
               component: AddressEdit
             }
           ]
+        },
+        {
+          path: 'info',
+          name: 'Info',
+          component: Info
+        },
+        {
+          path: 'infopwd',
+          name: 'InfoPassword',
+          component: InfoPassword
+        },
+        {
+          path: 'infouser',
+          name: 'InfoUsername',
+          component: InfoUsername
+        },
+        {
+          path: 'infobind',
+          name: 'InfoRebind',
+          component: InfoRebind
         }
       ]
     },

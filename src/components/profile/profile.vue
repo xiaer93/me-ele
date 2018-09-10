@@ -2,14 +2,16 @@
   <div class="profile">
     <div class="profile-header">
       <div class="profile-title">
-        <span class="profile-title-return"></span>
-        <h2 class="profile-title-text">我的</h2>
+        <header-title>我的</header-title>
       </div>
-      <div class="profile-users" @click="$router.push('/login')">
+      <div class="profile-users" @click="$router.push('/profile/info')">
         <img src="/static/user-avatar.jpg" alt="" class="profile-users-avatar">
         <p class="profile-users-infos">
           <span class="profile-users-name">aaaa</span>
-          <span class="profile-users-tel">111111111</span>
+          <span class="profile-users-tel">
+            <em class="profile-users-tel-icon"><svg fill="#fff" class="m-icon m-icon-tel"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mobile"></use></svg></em>
+            111111111
+          </span>
         </p>
         <span class="profile-users-btn">
           <svg class="m-icon m-icon-more" fill="#fff"><use xlink:href="#arrow-right"></use></svg>
@@ -18,15 +20,15 @@
     </div>
     <div class="profile-money">
       <div class="profile-money-item profile-money-cash">
-        <span class="profile-money-number profile-money-number-blue">0.00yuan</span>
+        <span class="profile-money-number profile-money-number-blue">0.00<em class="profile-money-tag">元</em></span>
         <span class="profile-money-text">钱包</span>
       </div>
       <div class="profile-money-item profile-money-red">
-        <span class="profile-money-number profile-money-number-red">0.00yuan</span>
+        <span class="profile-money-number profile-money-number-red">0<em class="profile-money-tag">个</em></span>
         <span class="profile-money-text">红包</span>
       </div>
       <div class="profile-money-item profile-money-gold">
-        <span class="profile-money-number profile-money-number-red">0.00yuan</span>
+        <span class="profile-money-number profile-money-number-red">0<em class="profile-money-tag">个</em></span>
         <span class="profile-money-text">金币</span>
       </div>
     </div>
@@ -47,7 +49,7 @@
           <svg fill="#fc7b53" class="m-icon"><use xlink:href="#point"></use></svg>
         </span>
         <p class="m-links-text">
-          我的地址
+          金币商城
         </p>
         <span class="m-links-btn">
           <svg class="m-icon m-icon-more" fill="#fff"><use xlink:href="#arrow-right"></use></svg>
@@ -58,7 +60,7 @@
           <svg fill="" class="m-icon"><use xlink:href="#commend"></use></svg>
         </span>
         <p class="m-links-text">
-          我的地址
+          分享拿10元现金
         </p>
         <span class="m-links-btn">
           <svg class="m-icon m-icon-more" fill="#fff"><use xlink:href="#arrow-right"></use></svg>
@@ -71,7 +73,7 @@
           <svg fill="#4aa5f0" class="m-icon"><use xlink:href="#service"></use></svg>
         </span>
         <p class="m-links-text">
-          我的地址
+          我的客服
         </p>
         <span class="m-links-btn">
           <svg class="m-icon m-icon-more" fill="#fff"><use xlink:href="#arrow-right"></use></svg>
@@ -85,7 +87,7 @@
           下载饿了么APP
         </p>
         <span class="m-links-btn">
-          <svg class="m-icon m-icon-more" fill="#fff"><use xlink:href="#arrow-right"></use></svg>
+           <svg class="m-icon m-icon-more"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use></svg>
         </span>
       </li>
     </ul>
@@ -94,7 +96,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-export default {}
+import HeaderTitle from 'base/header-title'
+export default {
+  components: {
+    HeaderTitle
+  }
+}
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
@@ -109,7 +116,6 @@ export default {}
   }
   &-title{
     position: relative;
-    padding: 0.2rem 0;
     &-return{
       position: absolute;
       left: .1rem;
@@ -130,29 +136,36 @@ export default {}
     display: flex;
     padding: .5rem .3rem;
     &-avatar{
-      width: .6rem;
-      height: .6rem;
+      width: 1.2rem;
+      height: 1.2rem;
       border-radius: .6rem;
     }
     &-infos{
       display: flex;
       flex-direction: column;
+      justify-content: center;
       margin-left: .36rem;
       color: #fff;
     }
     &-name{
-      font-size: @font-size-large-s;
+      font-size: @font-size-title;
       font-weight: @font-weight-bold;
     }
     &-tel{
+      margin-top: .3rem;
       font-size: @font-size-small-m;
+      &-icon{
+        display: inline-block;
+        height: .22rem;
+        width: .2rem;
+      }
     }
     &-btn{
       position: absolute;
       right: .3rem;
-      top: .6rem;
-      width: .4rem;
-      height: .4rem;
+      top: 1rem;
+      width: .2rem;
+      height: .2rem;
     }
   }
   &-money{
@@ -166,10 +179,11 @@ export default {}
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      width: 33%;
       border-right: 1px solid #f6f6f6;
     }
     &-number{
-      font-size: @font-size-large-s;
+      font-size: .52rem;
       font-weight: @font-weight-bold;
       &-blue{
         color: #0098fb;
@@ -181,6 +195,11 @@ export default {}
     &-text{
       margin-top: .2rem;
       font-size: @font-size-small;
+      font-weight: @font-weight-bold;
+    }
+    &-tag{
+      font-size: @font-size-small-m;
+      font-style: normal;
     }
   }
   &-address{
@@ -206,9 +225,13 @@ export default {}
       height: .4rem;
     }
     &-text{
+      flex: 1 1 auto;
+      height: 100%;
+      line-height: .9rem;
       margin-left: .2rem;
       font-size: @font-size-medium;
       color: @text-color-3;
+      border-bottom: 1px solid #eee;
     }
     &-btn{
       position: absolute;

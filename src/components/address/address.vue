@@ -5,13 +5,13 @@
     </div>
     <div class="address-list">
       <ul class="address-list-content">
-        <li class="address-list-item">
+        <li class="address-list-item" v-for="(item, index) in addressList" :key="index">
           <div class="address-list-left">
-            <p class="address-list-name"><em class="address-list-firstname">程</em>先生<span class="address-list-tel">13397101406</span></p>
-            <p class="address-list-text"><em class="address-list-tag">家</em>武汉市人民政府武汉市人民政府</p>
+            <p class="address-list-name"><em class="address-list-firstname">{{item.firstName}}</em>{{item.sex}}<span class="address-list-tel">{{item.tel}}</span></p>
+            <p class="address-list-text"><em class="address-list-tag">{{item.tag}}</em>{{item.addressText}}</p>
           </div>
           <div class="address-list-right">
-            <span class="address-list-edit" @click="$router.push('/profile/address/edit')">
+            <span class="address-list-edit" @click="editAddress(item)">
               <svg class="m-icon m-icon-edit"><use data-v-4503efe5="" xlink:href="#edit"></use></svg>
             </span>
             <span class="address-list-remove">
@@ -23,7 +23,7 @@
     </div>
     <div class="address-btn">
       <span class="address-btn-icon"></span>
-      <span class="address-btn-text">新增收获地址</span>
+      <span class="address-btn-text" @click="newAddress">新增收获地址</span>
     </div>
     <router-view></router-view>
   </div>
@@ -31,8 +31,37 @@
 
 <script type="text/ecmascript-6">
 import HeaderTitle from 'base/header-title'
+import profileApi from 'api/profile'
+import {mapMutations} from 'vuex'
 
 export default {
+  data () {
+    return {
+      addressList: []
+    }
+  },
+  methods: {
+    getAddress () {
+      profileApi.getAddress()
+        .then(res => {
+          this.addressList = res.result.address
+        })
+    },
+    editAddress (address) {
+      this.setEditAddress(address)
+      this.$router.push('/profile/address/edit')
+    },
+    newAddress () {
+      this.setEditAddress({})
+      this.$router.push('/profile/address/create')
+    },
+    ...mapMutations({
+      'setEditAddress': 'SET_EDIT_ADDRESS'
+    })
+  },
+  created () {
+    this.getAddress()
+  },
   components: {
     HeaderTitle
   }

@@ -5,9 +5,7 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow"></use>
           </svg>
     </span>
-    <h2 class="header-title">
-      <slot></slot>
-    </h2>
+    <h2 class="header-title"><slot></slot></h2>
   </div>
 </template>
 
@@ -20,7 +18,7 @@ export default {}
 
 .header{
   position: relative;
-  padding: 0.2rem 0;
+  padding: .26rem 0;
   width: 100%;
   .gradient-bg-2();
   &-return{

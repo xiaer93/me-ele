@@ -3,13 +3,13 @@
   "msg": "",
   "result": {
     "users": {
-      "avatar": "./",
-      "name": "",
-      "tel": "11111111111",
+      "avatar": "/static/user-avatar.png",
+      "name": "7c93454dfa2",
+      "tel": "111*****111",
       "address": [
         {
           "firstName": "程",
-          "sex": "先生",
+          "sex": "man",
           "tel": "11111111111",
           "tag": "家",
           "addressText": "武汉市人民政府武汉市人民政府"

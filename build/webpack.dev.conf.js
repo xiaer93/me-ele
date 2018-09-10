@@ -19,6 +19,7 @@ const bannerMock = require('../mock/banner.json')
 const searchMock = require('../mock/search.json')
 const hotWordMock = require('../mock/hotWord.json')
 const shopFoodMock = require('../mock/shopFood.json')
+const addressMock = require('../mock/address.json')
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -65,6 +66,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       })
       apiRouter.get('/shop/getAllFood', function (req, res) {
         res.json(shopFoodMock)
+      })
+      apiRouter.get('/profile/address', function (req, res) {
+        res.json(addressMock)
       })
     }
   },

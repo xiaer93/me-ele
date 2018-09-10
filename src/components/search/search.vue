@@ -28,8 +28,8 @@
             <li class="search-box-item"
                 v-for="(item, index) in historyWord"
                 :key="index"
-                @click="setSearchWord(item.searchWord)"
-            >{{item.searchWord}}</li>
+                @click="setSearchWord(item)"
+            >{{item}}</li>
           </ul>
         </div>
         <div class="search-hot">
@@ -55,7 +55,7 @@
 import ShopList from 'components/shop-list/shop-list'
 import InputBox from 'base/input-box'
 import searchApi from 'api/search'
-import {SaveData} from 'common/js/util'
+import {SaveDataByArray} from 'common/js/util'
 import * as $ from 'jquery'
 
 export default {
@@ -89,13 +89,11 @@ export default {
       this.historyWord = this.searchHistory.clear()
     },
     search () {
-      this.historyWord = this.searchHistory.save({
-        searchWord: this.searchWord
-      })
+      this.historyWord = this.searchHistory.save(this.searchWord)
     }
   },
   created () {
-    this.searchHistory = new SaveData('searchHistory', 'searchWord')
+    this.searchHistory = new SaveDataByArray('searchHistory', {unique: true})
     this.getHotWord()
     this.getSearchWord()
   },

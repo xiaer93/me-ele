@@ -4,7 +4,7 @@
         v-for="(item, index) in radioList"
         :key="index"
         :class="{'active': item === currentRadio}"
-        @click="select(item)">{{item.text}}
+        @click="select(item)">{{item}}
     </li>
   </ul>
 </template>
@@ -15,11 +15,15 @@ export default {
     radioList: {
       type: Array,
       default: null
+    },
+    defaultRadio: {
+      type: String,
+      default: null
     }
   },
   data () {
     return {
-      currentRadio: null
+      currentRadio: this.defaultRadio
     }
   },
   methods: {
