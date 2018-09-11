@@ -1,5 +1,8 @@
 <template>
   <div class="input">
+    <span class="input-icon">
+      <svg class="m-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#searchAddress"></use></svg>
+    </span>
     <input type="text"
        class="input-text"
        :placeholder="placeholder"
@@ -34,12 +37,12 @@ export default {
     inputListeners: function () {
       let self = this
       return Object.assign({}, this.$listeners, {
-        input: function (event) {
+        input: debounce((event) => {
           self.$emit('input', event.target.value)
-        },
-        change: debounce(20, (event) => {
+        }, 20),
+        change: debounce((event) => {
           self.$emit('change', event.target.value)
-        })
+        }, 20)
       })
     }
   },
@@ -64,11 +67,16 @@ export default {
   &-text{
     box-sizing: border-box;
     padding-right: .6rem;
+    padding-left: .5rem;
     width: 100%;
     height: 100%;
     line-height: inherit;
     font: inherit;
     background-color: transparent;
+    &:focus {
+      outline: none;
+      border: none;
+    }
   }
   &-close{
     position: absolute;
@@ -95,6 +103,14 @@ export default {
     &::after{
       transform: rotate(-45deg);
     }
+  }
+  &-icon{
+    position: absolute;
+    left: .1rem;
+    top: 50%;
+    width: .24rem;
+    height: .24rem;
+    margin-top: -.12rem;
   }
 }
 .active{

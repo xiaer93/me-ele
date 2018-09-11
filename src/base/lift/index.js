@@ -5,7 +5,7 @@ import Lift from 'base/lift/lift.vue'
 import LiftMain from 'base/lift/lift-main.vue'
 import LiftNumber from 'base/lift/lift-number.vue'
 
-export default {
+export {
   Lift,
   LiftMain,
   LiftNumber

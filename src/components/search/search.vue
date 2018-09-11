@@ -55,7 +55,7 @@
 import ShopList from 'components/shop-list/shop-list'
 import InputBox from 'base/input-box'
 import searchApi from 'api/search'
-import {SaveDataByArray} from 'common/js/util'
+import {SaveDataByArray} from 'common/js/storage'
 import * as $ from 'jquery'
 
 export default {

@@ -12,7 +12,7 @@ module.exports = function (app) {
   app.use(morgan('dev'))
   // formate
   app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({extend: false}))
+  app.use(bodyParser.urlencoded({extended: false}))
   // cookie
   app.use(cookieParser())
   // 降级支持restAPI

@@ -1,7 +1,6 @@
 <template>
   <div class="lift" ref="lift">
-    <slot name="number"></slot>
-    <slot name="main"></slot>
+    <slot></slot>
   </div>
 </template>
 
@@ -15,19 +14,6 @@ export default {
     }
   },
   methods: {
-    onScroll (event) {
-      let scrollTop = this.$liftContent.scrollTop()
-      let minIndex = this._findMinIndex(scrollTop)
-
-      this.$liftBoxItem.removeClass('active').eq(minIndex).addClass('active')
-    },
-    onClick (event) {
-      let index = this.$liftBoxItem.index(event.target)
-
-      this.$liftContent.animate({
-        'scrollTop': this.scrollMainTopList[index] + 10
-      }, 200)
-    },
     _findMinIndex (top) {
       let retIndex = 0
       this.scrollMainTopList.forEach((t, i) => {
@@ -39,14 +25,33 @@ export default {
     }
   },
   mounted () {
+    let self = this
     setTimeout(() => {
       // 存储非响应对象
-      this.$liftContent = $(this.$refs.liftContent)
-      this.$liftBoxItem = $('.lift-scroll>div', this.$refs.liftBox)
+      self.$lift = $(self.$refs.lift)
+      self.$liftMain = self.$lift.children('.lift-main')
+      self.$liftMainScroll = self.$liftMain.children('.lift-scroll')
+      self.$liftMainItem = self.$liftMain.children('.lift-scroll').children()
+      self.$liftNumberItem = self.$lift.children('.lift-number').children('.lift-scroll').children()
 
       // 存储电梯的楼层高度~
-      $(this.$refs.liftScroll).children().map((index, ele) => {
-        this.scrollMainTopList.push($(ele).position().top)
+      self.$liftMainItem.map((index, ele) => {
+        self.scrollMainTopList.push($(ele).position().top)
+      })
+
+      self.$liftNumberItem.on('click', function (event) {
+        let index = $(this).index()
+
+        self.$liftMain.animate({
+          'scrollTop': self.scrollMainTopList[index] + 10
+        }, 200)
+      })
+
+      self.$liftMain.on('scroll', function () {
+        let scrollTop = $(this).scrollTop()
+        let minIndex = self._findMinIndex(scrollTop)
+
+        self.$liftNumberItem.removeClass('active').eq(minIndex).addClass('active')
       })
     }, 20)
   }
@@ -55,6 +60,7 @@ export default {
 
 <style scoped lang="less" rel="stylesheet/less">
 .lift{
+  position: relative;
   width: 100%;
   height: 100%;
 }

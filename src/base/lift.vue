@@ -38,7 +38,7 @@ export default {
       let index = this.$liftBoxItem.index(event.target)
 
       this.$liftContent.animate({
-        'scrollTop': this.scrollMainTopList[index] + 10
+        'scrollTop': this.scrollMainTopList[index] + 1
       }, 200)
     },
     _findMinIndex (top) {

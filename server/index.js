@@ -6,7 +6,7 @@ const config = require('./config/configure')
 const mongodb = require('mongodb')
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://127.0.0.1:27017/eleme')
+mongoose.connect('mongodb://127.0.0.1:27017/eleme', { useNewUrlParser: true })
 mongoose.connection.on('open', function () {
   console.log('连接数据库成功~')
 })

@@ -1,8 +1,12 @@
 /**
  * Created by xiaer on 2018/9/10.
  */
-import Foods from './food'
+const Foods = require('./food')
+const Shops = require('./shop')
+const Enters = require('./enter')
 
 module.exports = {
-  Foods
+  Foods,
+  Shops,
+  Enters
 }

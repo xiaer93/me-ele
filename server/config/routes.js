@@ -3,6 +3,7 @@
  */
 const express = require('express')
 const Router = express.Router()
+const home = require('../control/home')
 
 Router.get('/', function (req, res) {
   res.json({status: 'ok'})

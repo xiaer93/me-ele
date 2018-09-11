@@ -27,6 +27,18 @@ const homeApi = {
           }
         })
     })
+  },
+  getCityList () {
+    return new Promise((resolve, reject) => {
+      axios.get('/home/cityList')
+        .then(res => {
+          if (res.status === 200) {
+            resolve(res.data)
+          } else {
+            reject(res.statusText)
+          }
+        })
+    })
   }
 }
 

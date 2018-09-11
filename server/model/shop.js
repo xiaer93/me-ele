@@ -44,6 +44,10 @@ let shopSchema = new Schema({
         type: String,
         default: ''
       },
+      desc: {
+        type: String,
+        default: ''
+      },
       // 折扣计算公式
       rules: {
         fee: {
@@ -53,6 +57,10 @@ let shopSchema = new Schema({
         price: {
           type: Number,
           default: 0
+        },
+        name: {
+          type: String,
+          default: ''
         }
       }
     }
@@ -60,7 +68,6 @@ let shopSchema = new Schema({
   // 店铺分类
   shopCatalog: [
     {
-      // 大分类
       id: {
         type: Number,
         defalut: 0
@@ -83,8 +90,14 @@ let shopSchema = new Schema({
     },
     // 坐标
     location: {
-      lat: 110,
-      long: 110
+      lat: {
+        type: Number,
+        default: 0
+      },
+      long: {
+        type: Number,
+        default: 0
+      }
     }
   },
   // 推荐信息
@@ -97,7 +110,7 @@ let shopSchema = new Schema({
       type: Boolean,
       default: false
     },
-    reason: {
+    reasonText: {
       type: String,
       default: ''
     }
@@ -131,6 +144,10 @@ let shopSchema = new Schema({
       price: {
         type: Number,
         default: 0
+      },
+      name: {
+        type: String,
+        default: ''
       }
     }
   },

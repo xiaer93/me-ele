@@ -3,3 +3,4 @@
  */
 export const menuList = state => state.menuList
 export const editAddress = state => state.editAddress
+export const localPosition = state => state.localPosition
