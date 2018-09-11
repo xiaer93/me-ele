@@ -45,12 +45,16 @@
               <lift-main class="location-city-content-main">
                 <div class="m-city-main" v-for="(item, index) in cityList.cityList" :key="index">
                   <h3 class="m-city-main-title">{{item.idx}}</h3>
-                  <p class="m-city-main-text" v-for="city in item.cities" :key="city.id">{{city.name}}</p>
+                  <p class="m-city-main-text"
+                     v-for="city in item.cities"
+                     :key="city.id"
+                     @click="setPosition(city)"
+                  >{{city.name}}</p>
                 </div>
               </lift-main>
               <lift-number class="location-city-content-number">
                 <div class="m-city-number" v-for="(item, index) in cityList.alphabet" :key="index">
-                  <p class="m-city-number-text">{{item}}</p>
+                  <p class="m-city-number-text"  @click="setPosition(item)">{{item}}</p>
                 </div>
               </lift-number>
             </lift>
@@ -72,6 +76,7 @@ import HeaderTitle from 'base/header-title'
 import InputBox from 'base/input-box'
 import {Lift, LiftMain, LiftNumber} from 'base/lift/index'
 import homeApi from 'api/home'
+import {mapMutations} from 'vuex'
 
 export default {
   data () {
@@ -111,7 +116,21 @@ export default {
             console.log(res.msg)
           }
         })
-    }
+    },
+    setPosition (position) {
+      let {latitude, longitude, name} = position
+      this.setLocalPosition({
+        latitude: latitude,
+        longitude: longitude,
+        address: name
+      })
+      this.isSelectCity = false
+      // fixme: 为什么通过路由返回时，必须延时20ms，且不能使用watch---localPosition？？？
+      this.$router.push('/home')
+    },
+    ...mapMutations({
+      setLocalPosition: 'SET_LOCAL_POSITION'
+    })
   },
   created () {
     this.getCityList()
@@ -142,7 +161,6 @@ export default {
   &-main{
     width: 100%;
     height: calc(100% - .9rem);
-    background-color: #fff;
     overflow-y: scroll;
     &-btn{
       display: flex;
@@ -175,9 +193,10 @@ export default {
           border-top-color: @text-color-3;
         }
       }
+      background-color: #fff;
     }
     &-search{
-
+      background-color: #fff;
     }
     &-item{
       padding: .26rem .3rem;
@@ -198,6 +217,7 @@ export default {
       }
     }
     &-tips{
+      background-color: #fff;
       &-p{
         text-align: center;
         font-size: @font-size-large-s;
@@ -234,7 +254,7 @@ export default {
       }
     }
     &-content{
-      height: calc(100% - 1.8rem);
+      height: calc(100% - .9rem);
       &-main{
         width: 100%;
       }
