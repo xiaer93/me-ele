@@ -16,6 +16,7 @@ import InfoPassword from 'components/info/info-password'
 import InfoUsername from 'components/info/info-username'
 import InfoRebind from 'components/info/info-rebind'
 import Location from 'components/location/location'
+import Cart from 'components/cart/cart'
 
 Vue.use(Router)
 
@@ -108,6 +109,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
     }
   ]
 })

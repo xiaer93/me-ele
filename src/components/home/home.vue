@@ -120,7 +120,7 @@ export default {
       // 当location获取地理位置后，在此处再次初始化，会导致绘制错误？
       // this._init()
       setTimeout(() => {
-//        this._init()
+        // this._init()
       }, 20)
     }
   },

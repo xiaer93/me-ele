@@ -19,13 +19,13 @@
         <span class="restaurant-infos-sales">月售{{resData.restaurant.recentOrderNum}}单</span>
         <span class="restaurant-infos-time">蜂鸟送约{{resData.restaurant.orderLeadTime}}分钟</span>
       </p>
-      <ul class="restaurant-money">
+      <ul class="restaurant-money" @click="showRedPacket">
         <li class="restaurant-money-item">
           <span class="restaurant-money-if">￥<em>2</em> 满35可用</span>
           <span class="restaurant-money-get">领取</span>
         </li>
       </ul>
-      <p class="restaurant-tips">
+      <p class="restaurant-tips" @click="showActivity">
         <span class="restaurant-tips-left"><em>首单</em>新用户下单立减25元（不与其他活动同享）</span>
         <span class="restaurant-tips-right">5个优惠</span>
       </p>
@@ -47,13 +47,45 @@
       <!--动态组件，绑定is的变量为字符串~-->
       <component :is="currentComponent" :resData="resData"></component>
     </div>
-    <!--黑色遮罩层-->
-    <div class="restaurant-mask"></div>
+    <!--红包弹窗-->
+    <bottom-tips ref="redpacket" title="店铺专享红包" class="restaurant-redpacket">
+      <ul class="restaurant-redpacket-content">
+        <li class="restaurant-redpacket-content-item">
+          <h4 class="restaurant-redpacket-contnet-tips">可领红包</h4>
+          <div class="restaurant-redpacket-content-main">
+            <span class="restaurant-redpacket-content-price">￥12</span>
+            <p class="restaurant-redpacket-content-infos">
+              <span class="restaurant-redpacket-content-rule">满￥177可用</span>
+              <span class="restaurant-redpacket-content-date">限连锁店使用，2018-09-30到期</span>
+            </p>
+            <span class="restaurant-redpacket-content-btn">领取</span>
+          </div>
+        </li>
+      </ul>
+    </bottom-tips>
+    <!--优惠活动弹窗-->
+    <bottom-tips ref="activity" title="优惠活动" class="restaurant-activity">
+      <ul class="restaurant-activity-content">
+        <li class="restaurant-activity-content-item">
+          <p class="restaurant-activity-content-infos">
+            <em class="restaurant-activity-content-tag">满减</em>
+            <span class="restaurant-activity-content-text">满50减1</span>
+          </p>
+        </li>
+        <li class="restaurant-activity-content-item">
+          <p class="restaurant-activity-content-infos">
+            <em class="restaurant-activity-content-tag">首单</em>
+            <span class="restaurant-activity-content-text">新用户下单立减13元（不与其他活动同享）</span>
+          </p>
+        </li>
+      </ul>
+    </bottom-tips>
   </div>
   </transition>
 </template>
 
 <script type="text/ecmascript-6">
+import BottomTips from 'base/bottom-tips'
 import RestaurantOrder from 'components/restaurant/restaurant-order.vue'
 import shopApi from 'api/shop'
 // import * as $ from 'jquery'
@@ -80,6 +112,12 @@ export default {
             console.log(res.msg)
           }
         })
+    },
+    showRedPacket () {
+      this.$refs.redpacket.show()
+    },
+    showActivity () {
+      this.$refs.activity.show()
     }
   },
   created () {
@@ -89,7 +127,8 @@ export default {
 
   },
   components: {
-    RestaurantOrder
+    RestaurantOrder,
+    BottomTips
   }
 }
 </script>
@@ -272,6 +311,106 @@ export default {
   }
   &-component{
 
+  }
+  &-redpacket{
+    height: 8rem;
+    &-content{
+      height: 100%;
+      width: 100%;
+      &-tips{
+        font-size: @font-size-small-s;
+      }
+      &-main{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: .24rem 0;
+        padding: 0 .36rem;
+        height: 2rem;
+        background-color: #fff;
+      }
+      &-price{
+        font-size: .48rem;
+        color: @text-color-ff;
+        font-weight: @font-weight-bold;
+      }
+      &-infos{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 3.6rem;
+        height: 1.6rem;
+        border-right: 1px dashed #333;
+        &::before{
+          position: absolute;
+          right: -.12rem;
+          top: -.36rem;
+          content: '';
+          width: .24rem;
+          height: .24rem;
+          border-radius: .24rem;
+          background-color: #f5f5f5;
+        }
+        &::after{
+          position: absolute;
+          right: -.12rem;
+          bottom: -.36rem;
+          content: '';
+          width: .24rem;
+          height: .24rem;
+          border-radius: .24rem;
+          background-color: #f5f5f5;
+        }
+      }
+      &-rule{
+        display: block;
+        font-size: @font-size-medium;
+        color: @text-color-3;
+      }
+      &-date{
+        display: block;
+        margin-top: .2rem;
+        font-size: @font-size-small-m;
+        color: @text-color-6;
+      }
+      &-btn{
+        width: 1.2rem;
+        height: .6rem;
+        line-height: .6rem;
+        background-color: @text-color-ff;
+        color: #fff;
+        font-size: @font-size-small-s;
+        font-weight: @font-weight-bold;
+        text-align: center;
+        border-radius: .6rem;
+      }
+    }
+  }
+  &-activity{
+    height: 5.8rem;
+    &-content{
+      padding:  0 .4rem;
+      &-item{
+        margin-bottom: .26rem;
+      }
+      &-infos{
+        line-height: .34rem;
+      }
+      &-tag{
+        padding: .06rem .1rem;
+        background-color: #f07373;
+        color: #fff;
+        font-size: @font-size-small-s;
+        font-style: normal;
+        border-radius: .1rem;
+      }
+      &-text{
+        margin-left: .12rem;
+        font-size: @font-size-medium-s;
+        color: @text-color-3;
+      }
+    }
   }
 }
 

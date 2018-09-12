@@ -1,6 +1,6 @@
 <template>
   <div class="side-nav">
-    <span class="side-nav-cart">
+    <span class="side-nav-cart" @click="$router.push('/cart')">
       <span class="side-nav-cart-inner">
         <svg class="m-icon"><use :xlink:href="cartIcon"></use></svg>
       </span>
@@ -67,9 +67,9 @@ export default {
     display: flex;
     width: .8rem;
     height: .8rem;
-    border: 1px solid #f4f4f4;
     border-radius: 1rem;
     background-color: #fff;
+    border: 1px solid #d0d0d0;
     &-inner{
       display: block;
       margin: auto;
