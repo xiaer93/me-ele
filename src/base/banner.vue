@@ -1,5 +1,5 @@
 <template>
-  <swiper :options="swiperOption" class="banner-inner" ref="swiperObj">
+  <swiper :options="swiperOption" class="banner-inner" ref="swiperBanner">
     <swiper-slide v-for="(item, index) in imgList" :key="index">
       <img class="banner-inner-img" :src="item.image" alt="item.id">
     </swiper-slide>
@@ -32,7 +32,7 @@ export default {
   watch: {
     imgList () {
       this.$nextTick(() => {
-        this.$refs.swiperObj.swiper.update()
+        this.$refs.swiperBanner.swiper.update()
       })
     }
   },

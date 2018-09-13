@@ -3,17 +3,17 @@
     <div class="catalog-header" ref="header">
       <div class="catalog-header-content">
         <div class="catalog-header-col">
-          <header-title>{{currentCatalog.name}}</header-title>
+          <header-title @back="back">{{currentCatalog.name}}</header-title>
         </div>
         <div class="catalog-header-catalog">
           <div class="catalog-header-catalog-content">
-            <ul class="catalog-header-catalog-ul" :style="{'width': `${currentCatalog.childMenu.length * 1.72 + 1.2}rem`}">
+            <ul class="catalog-header-catalog-ul" :style="{'width': `${currentCatalog.factors.length * 1.72 + 1.2}rem`}">
               <li class="catalog-header-item"
                   :class="{'active': searchWord === '全部'}"
                   @click="setWord('全部')"
               >全部</li>
               <li class="catalog-header-item"
-                  v-for="(item, index) in currentCatalog.childMenu"
+                  v-for="(item, index) in currentCatalog.factors"
                   :key="index"
                   :class="{'active': searchWord === item.name}"
                   @click="setWord(item.name)"
@@ -42,8 +42,8 @@
               <li class="m-catalog"
                   v-for="(menu, index) in menuList"
                   :key="index"
-                  @click="selectId(menu)"
-                  :class="{'active': menu.catalogId === selectCatalogId}"
+                  @click="setId(menu)"
+                  :class="{'active': menu.id === selectId}"
               >
                 <span class="m-catalog-food">{{menu.name}}</span>
                 <span class="m-catalog-count" :data-count="menu.count">{{menu.count}}</span>
@@ -53,7 +53,7 @@
           <div class="catalog-menu-subcatalog">
             <ul class="catalog-menu-scroll">
               <li class="m-catalog" v-for="(menu, index) in selectCatalog" :key="index">
-                <img src="" alt="" class="m-catalog-avatar">
+                <img :src="menu.image" alt="" class="m-catalog-avatar">
                 <span class="m-catalog-food">{{menu.name}}</span>
                 <span class="m-catalog-count">{{menu.count}}</span>
               </li>
@@ -77,36 +77,42 @@ export default {
     return {
       searchBoxHeight: 0,
       searchWord: '',
-      currentCatalogId: 0,
-      selectCatalogId: 0,
+      // 当前展示目录
+      currentId: 0,
+      // 弹窗展示目录
+      selectId: 0,
       isShowDialog: false
     }
   },
   computed: {
     currentCatalog () {
-      return this.menuList[this.currentCatalogId - 1]
+      return this.menuList.find(t => {
+        return t.id === this.currentId
+      })
     },
     selectCatalog () {
-      return this.menuList[this.selectCatalogId - 1].childMenu
+      return this.menuList.find(t => {
+        return t.id === this.selectId
+      }).factors
     },
     ...mapGetters([
       'menuList'
     ])
   },
-  watch: {
-
-  },
   methods: {
     setWord (word) {
       this.searchWord = word
     },
-    selectId (menu) {
-      this.selectCatalogId = menu.catalogId
+    setId (menu) {
+      this.selectId = menu.id
+    },
+    back () {
+      this.$router.back()
     }
   },
   created () {
-    this.currentCatalogId = Number.parseInt(this.$route.params.id)
-    this.selectCatalogId = this.currentCatalogId
+    this.currentId = Number.parseInt(this.$route.params.id)
+    this.selectId = this.currentId
   },
   mounted () {
     setTimeout(() => {
@@ -266,12 +272,18 @@ export default {
     .clearfix();
     border: .02rem solid;
     border-color: transparent #f8f8f8 transparent transparent;
+    &-avatar{
+      width: .74rem;
+      height: .74rem;
+      float: left;
+      margin-left: .3rem;
+    }
     &-food{
       float: left;
       display: block;
       height: .4rem;
       margin-top: .3rem;
-      padding-left: .3rem;
+      padding-left: .2rem;
       font-size: .28rem;
       border-left: .1rem solid transparent;
     }

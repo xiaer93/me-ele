@@ -2,13 +2,10 @@
   <div class="search">
       <div class="search-header">
         <div class="search-content" ref="headerSearch">
-          <svg class="search-icon search-icon-return" @click="$router.push('/')">
+          <svg class="search-icon search-icon-return" @click="$router.back()">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow"></use>
           </svg>
           <div class="search-text">
-            <svg class="search-icon search-icon-search">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
-            </svg>
             <div class="search-input">
               <input-box placeholder="输入商家、店铺名称" v-model="searchWord" @blur="search()"></input-box>
             </div>

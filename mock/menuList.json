@@ -4,286 +4,606 @@
   "result": {
     "menuList": [
       {
+        "id": 2000,
         "name": "美食",
         "image": "/static/menu/1.webp",
-        "catalogId": 1,
-        "count": 11,
-        "childMenu": [
+        "factors": [
           {
             "name": "简餐便当",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "地方菜系",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "小吃炸串",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           },
           {
             "name": "面食粥点",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
-          },
-          {
-            "name": "汉堡披萨",
-            "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
           },
           {
             "name": "香锅冒菜",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       },
       {
+        "id": 2001,
         "name": "商超便利",
         "image": "/static/menu/2.webp",
-        "catalogId": 2,
-        "childMenu": [
+        "factors": [
           {
-            "name": "简餐便当",
+            "name": "超市",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "便利店",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "饮用水",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "啤酒",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "牛奶",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "冰品",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       },
       {
+        "id": 2002,
         "name": "午餐",
         "image": "/static/menu/3.webp",
-        "catalogId": 3,
-        "childMenu": [
+        "factors": [
           {
             "name": "简餐便当",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "地方菜系",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "小吃炸串",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "面食粥点",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "香锅冒菜",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       },
       {
+        "id": 2003,
         "name": "水果",
         "image": "/static/menu/4.webp",
-        "catalogId": 4,
-        "childMenu": [
+        "factors": [
           {
             "name": "简餐便当",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "地方菜系",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "小吃炸串",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "面食粥点",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "香锅冒菜",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       },
       {
+        "id": 2004,
         "name": "医药健康",
         "image": "/static/menu/5.webp",
-        "catalogId": 5,
-        "childMenu": [
+        "factors": [
           {
             "name": "简餐便当",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "地方菜系",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "小吃炸串",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "面食粥点",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "香锅冒菜",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       },
       {
+        "id": 2005,
         "name": "浪漫鲜花",
         "image": "/static/menu/6.webp",
-        "catalogId": 6,
-        "childMenu": [
+        "factors": [
           {
             "name": "简餐便当",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "地方菜系",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "小吃炸串",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "面食粥点",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "香锅冒菜",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       },
       {
+        "id": 2006,
         "name": "厨房生鲜",
         "image": "/static/menu/7.webp",
-        "catalogId": 7,
-        "childMenu": [
+        "factors": [
           {
             "name": "简餐便当",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "地方菜系",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "小吃炸串",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "面食粥点",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "香锅冒菜",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       },
       {
+        "id": 2007,
         "name": "跑腿代购",
         "image": "/static/menu/8.webp",
-        "catalogId": 8,
-        "childMenu": [
+        "factors": [
           {
             "name": "简餐便当",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "地方菜系",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "小吃炸串",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "面食粥点",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "香锅冒菜",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       },
       {
+        "id": 2008,
         "name": "地方小吃",
         "image": "/static/menu/9.webp",
-        "catalogId": 9,
-        "childMenu": [
+        "factors": [
           {
             "name": "简餐便当",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "地方菜系",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "小吃炸串",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "面食粥点",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "香锅冒菜",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       },
       {
+        "id": 2009,
         "name": "麻辣烫",
         "image": "/static/menu/10.webp",
-        "catalogId": 10,
-        "childMenu": [
+        "factors": [
           {
             "name": "简餐便当",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "地方菜系",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "小吃炸串",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "面食粥点",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "香锅冒菜",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       },
       {
+        "id": 2010,
         "name": "地方菜系",
         "image": "/static/menu/11.webp",
-        "catalogId": 11,
-        "childMenu": [
+        "factors": [
           {
             "name": "简餐便当",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 1
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "地方菜系",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 2
+            "restaurant_category_ids": [210]
           },
           {
-            "name": "简餐便当",
+            "name": "小吃炸串",
             "image": "/static/menu/sub/1.webp",
-            "count": 11,
-            "id": 3
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "面食粥点",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "香锅冒菜",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
           }
-        ]
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
+      },
+      {
+        "id": 2011,
+        "name": "特色栏目",
+        "image": "/static/menu/1.webp",
+        "factors": [
+          {
+            "name": "简餐便当",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "地方菜系",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "小吃炸串",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "面食粥点",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "香锅冒菜",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "轻食西餐",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "汉堡披萨",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          },
+          {
+            "name": "日韩料理",
+            "image": "/static/menu/sub/1.webp",
+            "restaurant_category_ids": [210]
+          }
+        ],
+        "valid": {
+          "latitude": [-90, 90],
+          "longitude": [-90, 90]
+        }
       }
     ],
     "menuLength": 11

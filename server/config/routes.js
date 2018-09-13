@@ -11,7 +11,7 @@ Router.get('/', function (req, res) {
 })
 
 // home
-Router.get('/menu', home.menu)
+Router.get('/home/menuList', home.menu)
 
 // location
 Router.get('/location/getCityList', location.getCityList)

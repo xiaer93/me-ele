@@ -40,5 +40,8 @@ npm test
 
 - 9.7任务：1、将字体，颜色等提取为变量；2、进一步提取公共组件，优化电梯组件
 - vue/jquery混合，是否不利于维护？
+- 父组件、子组件（子组件在路由中），子组件获取定位信息，父组件根据定位信息刷新显示数据，各种bug？
+- 父子组件的生命周期嵌套，子组件中改变数据+子组件路由返回父组件+获取数据，3次更新父组件，导致了bug？
+
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

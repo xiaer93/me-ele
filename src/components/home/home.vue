@@ -1,87 +1,86 @@
 <template>
-  <div class="home">
+  <div class="home" ref="home">
     <infinite-load class="home-scroll" @scrollTop="scroll" @loadMore="loadMore" ref="infiniteLoad">
       <header class="header">
         <div class="header-address">
           <svg class="header-address-location" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 31"><path fill="#FFF" fill-rule="evenodd" d="M22.116 22.601c-2.329 2.804-7.669 7.827-7.669 7.827-.799.762-2.094.763-2.897-.008 0 0-5.26-4.97-7.643-7.796C1.524 19.8 0 16.89 0 13.194 0 5.908 5.82 0 13 0s13 5.907 13 13.195c0 3.682-1.554 6.602-3.884 9.406zM18 13a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path></svg>
-          <router-link class="header-address-name" to="/home/location">{{localPosition.address || '未能获取地址'}}</router-link>
+          <span class="header-address-name" @click="showLocation">{{localPosition.address || '未能获取地址'}}</span>
           <svg class="header-address-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8"><path fill="#FFF" fill-rule="evenodd" d="M5.588 6.588c.78.78 2.04.784 2.824 0l5.176-5.176c.78-.78.517-1.412-.582-1.412H.994C-.107 0-.372.628.412 1.412l5.176 5.176z"></path></svg>
         </div>
       </header>
-      <div>
-          <div class="search">
-            <div class="search-content" ref="search">
-              <router-link class="search-box" to="/search">
-                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-opacity=".38" d="M14.778 13.732a.739.739 0 1 1-1.056 1.036l-2.515-2.565a.864.864 0 0 1-.01-1.206 4.894 4.894 0 0 0 1.357-3.651c-.126-2.492-2.156-4.52-4.648-4.647a4.911 4.911 0 0 0-5.16 5.163c.126 2.475 2.13 4.496 4.605 4.642.451.026.896-.008 1.326-.1a.739.739 0 0 1 .308 1.446c-.56.12-1.137.164-1.72.13-3.227-.19-5.83-2.815-5.995-6.042a6.39 6.39 0 0 1 6.71-6.715c3.25.165 5.884 2.8 6.05 6.048a6.37 6.37 0 0 1-1.374 4.3l2.12 2.161z"></path></svg>
-                <span class="search-tips">搜索饿了么商家/商品名称</span>
-              </router-link>
-            </div>
-          </div>
-          <div class="menu">
-            <swiper class="menu-content" :options="swiperOption">
-              <swiper-slide v-for="page in menuTotalPage" :key="page">
-                <ul class="menu-box">
-                  <li class="menu-item"
-                      v-for="(food, index) in genMenuList(page)"
-                      :key="index"
-                      @click="openCatalog(food.catalogId)"
-                  >
-                    <img class="menu-item-img" :src="food.image" alt="food">
-                    <span class="menu-item-name">{{food.name}}</span>
-                  </li>
-                </ul>
-              </swiper-slide>
-              <!--swiper额外配置项-->
-              <div class="swiper-pagination menu-content-pagination"  slot="pagination"></div>
-            </swiper>
-          </div>
-          <div class="recommend">
-            <div class="recommend-left recommend-item">
-              <h3 class="recommend-title">品质套餐</h3>
-              <p class="recommend-desc">搭配齐全吃得好</p>
-              <p class="recommend-link">立即抢购&gt;</p>
-              <img class="recommend-img" src="/static/recommend/1.webp" alt="">
-            </div>
-            <div class="recommend-right recommend-item">
-              <h3 class="recommend-title">限量抢购</h3>
-              <p class="recommend-desc">超值美味9.9元起</p>
-              <p class="recommend-link"><em class="recommend-link-red">5560人</em>正在抢购&gt;</p>
-              <img class="recommend-img" src="/static/recommend/1.webp" alt="">
-            </div>
-          </div>
-          <div class="banner">
-            <banner :imgList="bannerList"></banner>
-          </div>
-          <div class="shop">
-            <h2 class="shop-title">推荐商家</h2>
-            <shop-list @loadSuccess="loadSuccess" @scrollTop="scrollToTop" ref="shopList"></shop-list>
-          </div>
-          <div class="side">
-            <side-nav ref="sideNav" @scrollTop="scrollToTop"></side-nav>
-          </div>
+      <div class="search">
+        <div class="search-content" ref="search">
+          <router-link class="search-box" to="/search">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-opacity=".38" d="M14.778 13.732a.739.739 0 1 1-1.056 1.036l-2.515-2.565a.864.864 0 0 1-.01-1.206 4.894 4.894 0 0 0 1.357-3.651c-.126-2.492-2.156-4.52-4.648-4.647a4.911 4.911 0 0 0-5.16 5.163c.126 2.475 2.13 4.496 4.605 4.642.451.026.896-.008 1.326-.1a.739.739 0 0 1 .308 1.446c-.56.12-1.137.164-1.72.13-3.227-.19-5.83-2.815-5.995-6.042a6.39 6.39 0 0 1 6.71-6.715c3.25.165 5.884 2.8 6.05 6.048a6.37 6.37 0 0 1-1.374 4.3l2.12 2.161z"></path></svg>
+            <span class="search-tips">搜索饿了么商家/商品名称</span>
+          </router-link>
+        </div>
+      </div>
+      <div class="menu">
+        <swiper class="menu-content" :options="swiperOption" ref="swiperMenu">
+          <swiper-slide v-for="(page, index) in menuTotalPage" :key="index">
+            <ul class="menu-box">
+              <li class="menu-item"
+                  v-for="(food, index) in genMenuList(page)"
+                  :key="index"
+                  @click="openCatalog(food.id)"
+              >
+                <img class="menu-item-img" :src="food.image" alt="food">
+                <span class="menu-item-name">{{food.name}}</span>
+              </li>
+            </ul>
+          </swiper-slide>
+          <!--swiper额外配置项-->
+          <div class="swiper-pagination menu-content-pagination"  slot="pagination"></div>
+        </swiper>
+      </div>
+      <div class="recommend">
+        <div class="recommend-left recommend-item">
+          <h3 class="recommend-title">品质套餐</h3>
+          <p class="recommend-desc">搭配齐全吃得好</p>
+          <p class="recommend-link">立即抢购&gt;</p>
+          <img class="recommend-img" src="/static/recommend/1.webp" alt="">
+        </div>
+        <div class="recommend-right recommend-item">
+          <h3 class="recommend-title">限量抢购</h3>
+          <p class="recommend-desc">超值美味9.9元起</p>
+          <p class="recommend-link"><em class="recommend-link-red">5560人</em>正在抢购&gt;</p>
+          <img class="recommend-img" src="/static/recommend/1.webp" alt="">
+        </div>
+      </div>
+      <div class="banner">
+        <banner :imgList="bannerList"></banner>
+      </div>
+      <div class="shop">
+        <h2 class="shop-title">推荐商家</h2>
+        <shop-list @loadSuccess="loadSuccess" @scrollTop="scrollToTop" ref="shopList"></shop-list>
+      </div>
+      <div class="side">
+        <side-nav ref="sideNav" @scrollTop="scrollToTop"></side-nav>
       </div>
     </infinite-load>
-    <div class="home-loading" v-if="!localPosition.address && !isErrorGet">
-      <span class="home-loading-icon"></span>
+    <div class="home-loading" v-if="!menuList.length">
+      <span class="home-loading-icon" v-if="!isErrorGet"></span>
+      <div class="home-loading-tips" v-else>
+        <img src="~common/image/location.gif" alt="" class="home-loading-tips-img">
+        <p class="home-loading-tips-text">输入地址后才能订餐哦！</p>
+        <router-link to="/home/location" class="home-loading-tips-btn">手动选择地址</router-link>
+      </div>
     </div>
-    <div class="home-tips" v-if="isErrorGet">
-      <img src="~common/image/location.gif" alt="" class="home-tips-img">
-      <p class="home-tips-text">输入地址后才能订餐哦！</p>
-      <router-link to="/home/location" class="home-tips-btn">手动选择地址</router-link>
-    </div>
-    <router-view></router-view>
+    <location @updatePosition="updatePosition" ref="location"></location>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
+import ShopList from 'components/shop-list/shop-list'
+import Location from 'components/location/location'
+import SideNav from 'base/side-nav'
 import InfiniteLoad from 'base/infinite-load'
 import Banner from 'base/banner'
-import ShopList from 'components/shop-list/shop-list'
-import SideNav from 'base/side-nav'
 import homeApi from 'api/home'
 import * as $ from 'jquery'
-import {onScroll, getPosition, getAddress} from 'common/js/util'
+import {getPosition, getAddress} from 'common/js/util'
 import {mapGetters, mapMutations} from 'vuex'
 
 export default {
@@ -96,18 +95,6 @@ export default {
           el: '.swiper-pagination'
         }
       },
-      searchOption: {
-        // 关键词
-        keyword: '',
-        // 分页
-        offset: 0,
-        limit: 15,
-        // 经纬度
-        latitude: 110,
-        longitude: 110,
-        // 排序规则
-        order_by: 1
-      },
       isErrorGet: false
     }
   },
@@ -120,17 +107,11 @@ export default {
     ])
   },
   watch: {
-    localPosition () {
-      // 当location获取地理位置后，在此处再次初始化，会导致绘制错误？
-      // this._init()
-      setTimeout(() => {
-        // this._init()
-      }, 20)
-    }
+
   },
   methods: {
-    getMenuList () {
-      homeApi.getMenuList()
+    getMenuList (options) {
+      homeApi.getMenuList(options)
         .then(res => {
           if (res.code === 0) {
             this.menuList = res.result.menuList
@@ -140,8 +121,8 @@ export default {
           }
         })
     },
-    getBannerList () {
-      homeApi.getBannerList()
+    getBannerList (options) {
+      homeApi.getBannerList(options)
         .then(res => {
           if (res.code === 0) {
             this.bannerList = res.result.bannerList
@@ -160,6 +141,12 @@ export default {
         params: {id: catalogId}
       })
     },
+    updatePosition (position) {
+      // fixme：：：当没有路由时候，子组件消失、父组件刷新获取数据，却没有bug？？？
+      this.setLocalPosition(position)
+      this.init()
+    },
+    // 响应infinite-scroll事件~
     scroll (value) {
       // 处理顶部搜索框
       if (value > this._searchTop) {
@@ -191,20 +178,24 @@ export default {
         })
       }
     },
+    // 调用infinite-scrollTop方法
     scrollToTop (value) {
       value = typeof value !== 'undefined' ? value : (this._filterTop - this._searchHeight)
       this.$refs.infiniteLoad.scrollTop(value)
     },
+    // 响应infinite-loadmore事件
     loadMore () {
       this.$refs.shopList.loadMore()
     },
+    // 响应shop-list事件
     loadSuccess () {
       this.$refs.infiniteLoad.resetLoading()
     },
     init () {
       if (this.localPosition.address) {
-        this.getMenuList(this.localPosition)
-        this.getBannerList(this.localPosition)
+        let {longitude, latitude} = this.localPosition
+        this.getMenuList({longitude, latitude})
+        this.getBannerList({longitude, latitude})
       } else {
         _inner().then((result) => {
           let position = {...result}
@@ -214,18 +205,23 @@ export default {
         }).catch((error) => {
           console.log(error)
           this.isErrorGet = true
-          this.$router.push('/home/location')
+          this.showLocation()
         })
       }
 
       // async相等于coo封装，那么内部position相当于resolve的值~
       async function _inner () {
+        // 调用html5的方法获取经纬度
         let position = await getPosition()
+        // 根据经纬度获取对应的地址信息
         let address = await getAddress(position)
 
         // 此处的console.log根本就没有输出~~~>>>console.log(position)
         return {...position, address}
       }
+    },
+    showLocation () {
+      this.$refs.location.show()
     },
     ...mapMutations({
       'setMenuList': 'SET_MENU_LIST',
@@ -245,10 +241,10 @@ export default {
       // 组件必须使用$el，否则无法get到正确的值
       self._filterTop = $(self.$refs.shopList.$el).find('.filter').offset().top
       self._$filterMenu = $(self.$refs.shopList.$el).find('.filter-menu')
+
+      // swiper对象
+      self._swiperMenu = self.$refs.swiperMenu.swiper
     }, 20)
-  },
-  destroyed () {
-    onScroll.delete(this._scrollEvent)
   },
   components: {
     swiper,
@@ -256,7 +252,8 @@ export default {
     Banner,
     ShopList,
     SideNav,
-    InfiniteLoad
+    InfiniteLoad,
+    Location
   }
 }
 </script>
@@ -275,6 +272,59 @@ export default {
     width: 100%;
     height: 100%;
     overflow-y: scroll;
+  }
+  &-loading{
+    position: fixed;
+    top: 2rem;
+    bottom: 0.9rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    background-color: #fff;
+    &-icon{
+      display: block;
+      margin: auto;
+      width: .6rem;
+      height: .6rem;
+      border-radius: .6rem;
+      border: 2px solid transparent;
+      border-left-color: #2897ff;
+      transform-origin: center;
+      animation: rotate .6s linear infinite;
+    }
+    &-tips{
+      position: fixed;
+      top: 2rem;
+      bottom: 0.9rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items:center;
+      &-img{
+        width: 4rem;
+        height: 4rem;
+      }
+      &-text{
+        margin-top: .4rem;
+        font-size: @font-size-large;
+        color: @text-color-6;
+      }
+      &-btn{
+        margin-top: .2rem;
+        width: 2.4rem;
+        height: .6rem;
+        line-height: .6rem;
+        text-align: center;
+        font-size: @font-size-small-m;
+        color: @text-color-f;
+        border: none;
+        outline: none;
+        border-radius: .1rem;
+        background-color: #56d176;
+      }
+    }
   }
   .header{
     position: relative;
@@ -481,61 +531,6 @@ export default {
     position: fixed;
     right: .32rem;
     bottom: 1.5rem;
-  }
-  &-loading{
-    position: fixed;
-    top: 2rem;
-    bottom: 0.9rem;
-    left: 0;
-    right: 0;
-    display: flex;
-    &-icon{
-      display: block;
-      margin: auto;
-      width: .6rem;
-      height: .6rem;
-      border-radius: .6rem;
-      border: 2px solid transparent;
-      border-left-color: #2897ff;
-      transform-origin: center;
-      animation: rotate .6s linear infinite;
-    }
-  }
-  &-tips{
-    position: fixed;
-    top: 2rem;
-    bottom: 0.9rem;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items:center;
-    &-img{
-      width: 4rem;
-      height: 4rem;
-    }
-    &-text{
-      margin-top: .4rem;
-      font-size: @font-size-large;
-      color: @text-color-6;
-    }
-    &-btn{
-      margin-top: .2rem;
-      width: 2.4rem;
-      height: .6rem;
-      line-height: .6rem;
-      text-align: center;
-      font-size: @font-size-small-m;
-      color: @text-color-f;
-      border: none;
-      outline: none;
-      border-radius: .1rem;
-      background-color: #56d176;
-    }
-  }
-  &-router{
-
   }
 }
   @keyframes rotate {

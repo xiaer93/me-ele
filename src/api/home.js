@@ -4,9 +4,9 @@
 import axios from 'axios'
 
 const homeApi = {
-  getMenuList () {
+  getMenuList (params) {
     return new Promise((resolve, reject) => {
-      axios.get('/home/menuList')
+      axios.get('api/home/menuList', {params})
         .then(res => {
           if (res.status === 200) {
             resolve(res.data)
@@ -16,9 +16,9 @@ const homeApi = {
         })
     })
   },
-  getBannerList () {
+  getBannerList (params) {
     return new Promise((resolve, reject) => {
-      axios.get('/home/bannerList')
+      axios.get('/home/bannerList', {params})
         .then(res => {
           if (res.status === 200) {
             resolve(res.data)

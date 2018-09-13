@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <span class="header-return" @click="$router.back()">
+    <span class="header-return" @click="back">
           <svg class="m-icon m-icon-return">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow"></use>
           </svg>
@@ -10,7 +10,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-export default {}
+export default {
+  methods: {
+    back () {
+      this.$emit('back')
+    }
+  }
+}
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">

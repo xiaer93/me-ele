@@ -1,8 +1,8 @@
 <template>
   <transition name="slide">
-    <div class="location" ref="location">
+    <div class="location" ref="location" v-if="isShowLocation">
       <div class="location-header">
-        <header-title>选择收获地址</header-title>
+        <header-title @back="hide">选择收获地址</header-title>
       </div>
       <div class="location-main">
         <div class="location-main-btn">
@@ -56,7 +56,7 @@
               </lift-main>
               <lift-number class="location-city-content-number">
                 <div class="m-city-number" v-for="(item, index) in cityList.alphabet" :key="index">
-                  <p class="m-city-number-text"  @click="setPosition(item)">{{item}}</p>
+                  <p class="m-city-number-text">{{item}}</p>
                 </div>
               </lift-number>
             </lift>
@@ -78,16 +78,17 @@ import HeaderTitle from 'base/header-title'
 import InputBox from 'base/input-box'
 import {Lift, LiftMain, LiftNumber} from 'base/lift/index'
 import locationApi from 'api/location'
-import {mapMutations} from 'vuex'
 
 export default {
   data () {
     return {
+      position: {},
       searchWord: '',
       addressList: [],
       cityWord: '',
       cityList: {},
-      isSelectCity: false
+      isSelectCity: false,
+      isShowLocation: false
     }
   },
   computed: {
@@ -132,39 +133,34 @@ export default {
     },
     setPosition (position) {
       let {latitude, longitude, name} = position
-      this.setLocalPosition({
-        latitude: latitude,
-        longitude: longitude,
-        address: name
-      })
       this.isSelectCity = false
-      // fixme: 为什么通过路由返回时，必须延时20ms，且不能使用watch---localPosition？？？
-      this.$router.push('/home')
+      this.position = {
+        latitude,
+        longitude,
+        address: name
+      }
+      this.hide()
+      this.$emit('updatePosition', this.position)
+    },
+    show () {
+      this.isShowLocation = true
+    },
+    hide () {
+      this.isShowLocation = false
     },
     stopScroll (event) {
       // fixme: 事件模型：1、捕获阶段（从window到具体），2、对象阶段，3、冒泡阶段（从具体到位未知）
       // touch事件preventDefault，即无法抵到滚动元素；stopPropagation阻止冒泡事件~~~
       // css3属性pass可以控制preventDefault的行为~~~
-       event.preventDefault()
+      event.preventDefault()
       event.stopPropagation()
       event.stopImmediatePropagation()
-    },
-    ...mapMutations({
-      setLocalPosition: 'SET_LOCAL_POSITION'
-    })
+    }
   },
   created () {
     this.getCityList()
   },
   mounted () {
-    let self = this
-    setTimeout(() => {
-      self.$refs.location.addEventListener('touchmove', function (e) {
-        console.log(e.target, e.currentTarget)
-        self.stopScroll(e)
-      }, false)
-
-    }, 20)
   },
   components: {
     HeaderTitle,

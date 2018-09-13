@@ -106,11 +106,13 @@ export default {
   }
   &-icon{
     position: absolute;
+    display: block;
     left: .1rem;
     top: 50%;
-    width: .24rem;
-    height: .24rem;
-    margin-top: -.12rem;
+    width: .26rem;
+    height: .26rem;
+    margin-top: -.13rem;
+    font-size: 0;
   }
 }
 .active{

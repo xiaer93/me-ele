@@ -15,7 +15,6 @@ import Info from 'components/info/info'
 import InfoPassword from 'components/info/info-password'
 import InfoUsername from 'components/info/info-username'
 import InfoRebind from 'components/info/info-rebind'
-import Location from 'components/location/location'
 import Cart from 'components/cart/cart'
 
 Vue.use(Router)
@@ -29,14 +28,7 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      component: Home,
-      children: [
-        {
-          path: 'location',
-          name: 'Location',
-          component: Location
-        }
-      ]
+      component: Home
     },
     {
       path: '/discover',
