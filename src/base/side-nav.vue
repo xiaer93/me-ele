@@ -39,14 +39,13 @@ export default {
   },
   methods: {
     toTop () {
-      $('html').animate({ scrollTop: 0 }, 300)
+      this.$emit('scrollTop', 0)
     },
-    _scrollEvent (winScroll) {
-      if (winScroll > this.distance) {
-        this.isShow = true
-      } else {
-        this.isShow = false
-      }
+    show () {
+      this.isShow = true
+    },
+    hide () {
+      this.isShow = false
     }
   },
   mounted () {

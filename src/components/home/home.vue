@@ -1,66 +1,66 @@
 <template>
-  <div class="home" ref="home">
-    <header class="header">
-      <div class="header-address">
-        <svg class="header-address-location" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 31"><path fill="#FFF" fill-rule="evenodd" d="M22.116 22.601c-2.329 2.804-7.669 7.827-7.669 7.827-.799.762-2.094.763-2.897-.008 0 0-5.26-4.97-7.643-7.796C1.524 19.8 0 16.89 0 13.194 0 5.908 5.82 0 13 0s13 5.907 13 13.195c0 3.682-1.554 6.602-3.884 9.406zM18 13a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path></svg>
-        <router-link class="header-address-name" to="/home/location">{{localPosition.address || '未能获取地址'}}</router-link>
-        <svg class="header-address-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8"><path fill="#FFF" fill-rule="evenodd" d="M5.588 6.588c.78.78 2.04.784 2.824 0l5.176-5.176c.78-.78.517-1.412-.582-1.412H.994C-.107 0-.372.628.412 1.412l5.176 5.176z"></path></svg>
+  <div class="home">
+    <infinite-load class="home-scroll" @scrollTop="scroll" @loadMore="loadMore" ref="infiniteLoad">
+      <header class="header">
+        <div class="header-address">
+          <svg class="header-address-location" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 31"><path fill="#FFF" fill-rule="evenodd" d="M22.116 22.601c-2.329 2.804-7.669 7.827-7.669 7.827-.799.762-2.094.763-2.897-.008 0 0-5.26-4.97-7.643-7.796C1.524 19.8 0 16.89 0 13.194 0 5.908 5.82 0 13 0s13 5.907 13 13.195c0 3.682-1.554 6.602-3.884 9.406zM18 13a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path></svg>
+          <router-link class="header-address-name" to="/home/location">{{localPosition.address || '未能获取地址'}}</router-link>
+          <svg class="header-address-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8"><path fill="#FFF" fill-rule="evenodd" d="M5.588 6.588c.78.78 2.04.784 2.824 0l5.176-5.176c.78-.78.517-1.412-.582-1.412H.994C-.107 0-.372.628.412 1.412l5.176 5.176z"></path></svg>
+        </div>
+      </header>
+      <div>
+          <div class="search">
+            <div class="search-content" ref="search">
+              <router-link class="search-box" to="/search">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-opacity=".38" d="M14.778 13.732a.739.739 0 1 1-1.056 1.036l-2.515-2.565a.864.864 0 0 1-.01-1.206 4.894 4.894 0 0 0 1.357-3.651c-.126-2.492-2.156-4.52-4.648-4.647a4.911 4.911 0 0 0-5.16 5.163c.126 2.475 2.13 4.496 4.605 4.642.451.026.896-.008 1.326-.1a.739.739 0 0 1 .308 1.446c-.56.12-1.137.164-1.72.13-3.227-.19-5.83-2.815-5.995-6.042a6.39 6.39 0 0 1 6.71-6.715c3.25.165 5.884 2.8 6.05 6.048a6.37 6.37 0 0 1-1.374 4.3l2.12 2.161z"></path></svg>
+                <span class="search-tips">搜索饿了么商家/商品名称</span>
+              </router-link>
+            </div>
+          </div>
+          <div class="menu">
+            <swiper class="menu-content" :options="swiperOption">
+              <swiper-slide v-for="page in menuTotalPage" :key="page">
+                <ul class="menu-box">
+                  <li class="menu-item"
+                      v-for="(food, index) in genMenuList(page)"
+                      :key="index"
+                      @click="openCatalog(food.catalogId)"
+                  >
+                    <img class="menu-item-img" :src="food.image" alt="food">
+                    <span class="menu-item-name">{{food.name}}</span>
+                  </li>
+                </ul>
+              </swiper-slide>
+              <!--swiper额外配置项-->
+              <div class="swiper-pagination menu-content-pagination"  slot="pagination"></div>
+            </swiper>
+          </div>
+          <div class="recommend">
+            <div class="recommend-left recommend-item">
+              <h3 class="recommend-title">品质套餐</h3>
+              <p class="recommend-desc">搭配齐全吃得好</p>
+              <p class="recommend-link">立即抢购&gt;</p>
+              <img class="recommend-img" src="/static/recommend/1.webp" alt="">
+            </div>
+            <div class="recommend-right recommend-item">
+              <h3 class="recommend-title">限量抢购</h3>
+              <p class="recommend-desc">超值美味9.9元起</p>
+              <p class="recommend-link"><em class="recommend-link-red">5560人</em>正在抢购&gt;</p>
+              <img class="recommend-img" src="/static/recommend/1.webp" alt="">
+            </div>
+          </div>
+          <div class="banner">
+            <banner :imgList="bannerList"></banner>
+          </div>
+          <div class="shop">
+            <h2 class="shop-title">推荐商家</h2>
+            <shop-list @loadSuccess="loadSuccess" @scrollTop="scrollToTop" ref="shopList"></shop-list>
+          </div>
+          <div class="side">
+            <side-nav ref="sideNav" @scrollTop="scrollToTop"></side-nav>
+          </div>
       </div>
-    </header>
-    <div v-if="localPosition.address">
-      <infinite-load @loadMore="loadMore" ref="infiniteLoad">
-        <div class="search">
-          <div class="search-content" ref="search">
-            <router-link class="search-box" to="/search">
-              <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-opacity=".38" d="M14.778 13.732a.739.739 0 1 1-1.056 1.036l-2.515-2.565a.864.864 0 0 1-.01-1.206 4.894 4.894 0 0 0 1.357-3.651c-.126-2.492-2.156-4.52-4.648-4.647a4.911 4.911 0 0 0-5.16 5.163c.126 2.475 2.13 4.496 4.605 4.642.451.026.896-.008 1.326-.1a.739.739 0 0 1 .308 1.446c-.56.12-1.137.164-1.72.13-3.227-.19-5.83-2.815-5.995-6.042a6.39 6.39 0 0 1 6.71-6.715c3.25.165 5.884 2.8 6.05 6.048a6.37 6.37 0 0 1-1.374 4.3l2.12 2.161z"></path></svg>
-              <span class="search-tips">搜索饿了么商家/商品名称</span>
-            </router-link>
-          </div>
-        </div>
-        <div class="menu">
-          <swiper class="menu-content" :options="swiperOption">
-            <swiper-slide v-for="page in menuTotalPage" :key="page">
-              <ul class="menu-box">
-                <li class="menu-item"
-                    v-for="(food, index) in genMenuList(page)"
-                    :key="index"
-                    @click="openCatalog(food.catalogId)"
-                >
-                  <img class="menu-item-img" :src="food.image" alt="food">
-                  <span class="menu-item-name">{{food.name}}</span>
-                </li>
-              </ul>
-            </swiper-slide>
-            <!--swiper额外配置项-->
-            <div class="swiper-pagination menu-content-pagination"  slot="pagination"></div>
-          </swiper>
-        </div>
-        <div class="recommend">
-          <div class="recommend-left recommend-item">
-            <h3 class="recommend-title">品质套餐</h3>
-            <p class="recommend-desc">搭配齐全吃得好</p>
-            <p class="recommend-link">立即抢购&gt;</p>
-            <img class="recommend-img" src="/static/recommend/1.webp" alt="">
-          </div>
-          <div class="recommend-right recommend-item">
-            <h3 class="recommend-title">限量抢购</h3>
-            <p class="recommend-desc">超值美味9.9元起</p>
-            <p class="recommend-link"><em class="recommend-link-red">5560人</em>正在抢购&gt;</p>
-            <img class="recommend-img" src="/static/recommend/1.webp" alt="">
-          </div>
-        </div>
-        <div class="banner">
-          <banner :imgList="bannerList"></banner>
-        </div>
-        <div class="shop">
-          <h2 class="shop-title">推荐商家</h2>
-          <shop-list @loadSuccess="loadSuccess" :offsetTop="searchBoxHeight" ref="shopList"></shop-list>
-        </div>
-        <div class="side">
-          <side-nav></side-nav>
-        </div>
-      </infinite-load>
-    </div>
+    </infinite-load>
     <div class="home-loading" v-if="!localPosition.address && !isErrorGet">
       <span class="home-loading-icon"></span>
     </div>
@@ -90,7 +90,6 @@ export default {
       menuList: [],
       menuBaseLength: 10,
       bannerList: [],
-      searchBoxHeight: 0,
       swiperOption: {
         direction: 'horizontal',
         pagination: {
@@ -161,6 +160,41 @@ export default {
         params: {id: catalogId}
       })
     },
+    scroll (value) {
+      // 处理顶部搜索框
+      if (value > this._searchTop) {
+        $(this.$refs.search).css({
+          position: 'fixed'
+        })
+      } else {
+        $(this.$refs.search).css({
+          position: 'static'
+        })
+      }
+
+      // 处理侧边按钮
+      if (value > this._filterTop) {
+        this.$refs.sideNav.show()
+      } else {
+        this.$refs.sideNav.hide()
+      }
+
+      // fixme: 耦合度太高，直接处理了子组件中的元素~~~~处理店家筛选导航
+      if (value > (this._filterTop - this._searchHeight)) {
+        this._$filterMenu.css({
+          position: 'fixed',
+          top: this._searchHeight
+        })
+      } else {
+        this._$filterMenu.css({
+          position: 'static'
+        })
+      }
+    },
+    scrollToTop (value) {
+      value = typeof value !== 'undefined' ? value : (this._filterTop - this._searchHeight)
+      this.$refs.infiniteLoad.scrollTop(value)
+    },
     loadMore () {
       this.$refs.shopList.loadMore()
     },
@@ -202,32 +236,15 @@ export default {
     this.init()
   },
   mounted () {
+    let self = this
     setTimeout(() => {
-      let $headerSearch = $(this.$refs.search)
-
-      // 获取搜索框的高度;height获取元素本身高度，outerHeihgt包含padding、true包括margin
-      this.searchBoxHeight = $headerSearch.outerHeight()
-
-      // 搜索框滚动变化
-      let headerSearchTop = $headerSearch.offset().top
-
-      // 创建响应滚动事件
-      this._scrollEvent = (winScroll) => {
-        // 顶部搜索框处理
-        if (headerSearchTop < winScroll) {
-          $headerSearch.css({
-            position: 'fixed'
-          })
-        } else {
-          $headerSearch.css({
-            position: 'static'
-          })
-        }
-
-        // 商家信息页面处理
-        if ()
-      }
-      onScroll(this.$refs.home).add(this._scrollEvent)
+      self._searchTop = $(self.$refs.search).offset().top
+      self._searchHeight = $(self.$refs.search).outerHeight()
+      // fixme: 以下内容耦合度过高，待处理
+      // 抽象组件的基本方法：基础组件、业务组件；高内聚低耦合、符合好莱坞原则
+      // 组件必须使用$el，否则无法get到正确的值
+      self._filterTop = $(self.$refs.shopList.$el).find('.filter').offset().top
+      self._$filterMenu = $(self.$refs.shopList.$el).find('.filter-menu')
     }, 20)
   },
   destroyed () {
@@ -254,7 +271,11 @@ export default {
   width: 100%;
   bottom: .9rem;
   background-color: #fff;
-  overflow-y: scroll;
+  &-scroll{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+  }
   .header{
     position: relative;
     z-index: 1;

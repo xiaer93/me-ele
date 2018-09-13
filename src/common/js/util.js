@@ -37,15 +37,18 @@ function onScroll (ele) {
   return {
     add (callback) {
       scrollFunc.push(callback)
+      return this
     },
     delete (callback) {
       let index = scrollFunc.findIndex(t => {
         return t === callback
       })
       index !== -1 && scrollFunc.splice(index, 1)
+      return this
     },
     clear () {
       scrollFunc.length = 0
+      return this
     }
   }
 }

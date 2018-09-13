@@ -102,7 +102,6 @@
 <script type="text/ecmascript-6">
 import Loading from 'base/loading'
 import * as $ from 'jquery'
-import {onScroll} from 'common/js/util'
 import searchApi from 'api/search'
 import {CONFIG_SORT, CONFIG_FILTER} from 'api/variable'
 
@@ -213,6 +212,7 @@ export default {
           this.isSelectShow = true
         }
       }
+      this.$emit('scrollTop')
     },
     hideMask () {
       this.isSortShow = false
