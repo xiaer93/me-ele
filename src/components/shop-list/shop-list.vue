@@ -1,6 +1,6 @@
 <template>
   <!--商家列表组件-->
-  <div class="shop-wrapper" v-show="isHome || searchWord">
+  <div class="shop-wrapper">
     <div class="filter" @touchmove.prevent>
       <div class="filter-mask" v-show="isSortShow || isSelectShow" @click="hideMask"></div>
       <div class="filter-menu" ref="menu">
@@ -59,50 +59,47 @@
         </div>
       </div>
     </div>
-    <infinite-load @loadmore="loadMore" ref="infiniteLoad">
-      <ul class="shop">
-        <li class="shop-item" v-for="(searchItem, index) in searchList" :key="index" @click="openShop(searchItem)">
-          <div class="shop-item-left">
-            <img v-lazy="searchItem.restaurant.shopAvatar" :alt="searchItem.restaurant.shopName" class="shop-item-avatar">
+    <ul class="shop">
+      <li class="shop-item" v-for="(searchItem, index) in searchList" :key="index" @click="openShop(searchItem)">
+        <div class="shop-item-left">
+          <img v-lazy="searchItem.restaurant.shopAvatar" :alt="searchItem.restaurant.shopName" class="shop-item-avatar">
+        </div>
+        <div class="shop-item-right">
+          <h3 class="shop-item-col">
+            <span class="shop-item-brand" v-if="searchItem.restaurant.isBrand"></span>
+            <span class="shop-item-name">{{searchItem.restaurant.shopName}}</span>
+          </h3>
+          <p class="shop-item-col">
+            <img src="~common/image/star-1.svg" alt="" class="shop-item-star">
+            <span class="shop-item-average">{{searchItem.restaurant.shopRate}}</span>
+            <span class="shop-item-sales">月售{{searchItem.restaurant.recentOrderNum}}单</span>
+          </p>
+          <p class="shop-item-col">
+            <span class="shop-item-freight">{{searchItem.restaurant.shopSend.rules.price}}起送&nbsp;<i class="shop-item-grap"></i>&nbsp;配送费{{searchItem.restaurant.shopSend.rules.fee}}</span>
+            <span class="shop-item-time">{{searchItem.restaurant.distance}}km&nbsp;<i class="shop-item-grap"></i>&nbsp;{{searchItem.restaurant.orderLeadTime}}分钟</span>
+          </p>
+          <p class="shop-item-col">
+            <span class="shop-item-tag" v-for="tag in searchItem.restaurant.shopCatalog.children" :key="tag.id">{{tag.name}}</span>
+          </p>
+          <div class="shop-item-col shop-item-line">
+            <p class="shop-item-activity" v-for="(activity, activityIndex) in searchItem.restaurant.shopDiscount" :key="activityIndex">
+              <span class="shop-item-activity-icon" :style="{color: activity.icon_color}">{{activity.icon_name}}</span>
+              <span class="shop-item-activity-text">{{activity.discountName}}</span>
+            </p>
           </div>
-          <div class="shop-item-right">
-            <h3 class="shop-item-col">
-              <span class="shop-item-brand" v-if="searchItem.restaurant.isBrand"></span>
-              <span class="shop-item-name">{{searchItem.restaurant.shopName}}</span>
-            </h3>
-            <p class="shop-item-col">
-              <img src="~common/image/star-1.svg" alt="" class="shop-item-star">
-              <span class="shop-item-average">{{searchItem.restaurant.shopRate}}</span>
-              <span class="shop-item-sales">月售{{searchItem.restaurant.recentOrderNum}}单</span>
-            </p>
-            <p class="shop-item-col">
-              <span class="shop-item-freight">{{searchItem.restaurant.shopSend.rules.price}}起送&nbsp;<i class="shop-item-grap"></i>&nbsp;配送费{{searchItem.restaurant.shopSend.rules.fee}}</span>
-              <span class="shop-item-time">{{searchItem.restaurant.distance}}km&nbsp;<i class="shop-item-grap"></i>&nbsp;{{searchItem.restaurant.orderLeadTime}}分钟</span>
-            </p>
-            <p class="shop-item-col">
-              <span class="shop-item-tag" v-for="tag in searchItem.restaurant.shopCatalog.children" :key="tag.id">{{tag.name}}</span>
-            </p>
-            <div class="shop-item-col shop-item-line">
-              <p class="shop-item-activity" v-for="(activity, activityIndex) in searchItem.restaurant.shopDiscount" :key="activityIndex">
-                <span class="shop-item-activity-icon" :style="{color: activity.icon_color}">{{activity.icon_name}}</span>
-                <span class="shop-item-activity-text">{{activity.discountName}}</span>
-              </p>
-            </div>
 
-            <!--店内食品展示-->
-            <!--/店内食品展示-->
-          </div>
-        </li>
-      </ul>
-      <div class="shop-loading">
-        <loading slot="load-icon" :isAlwaysShow="true"></loading>
-      </div>
-    </infinite-load>
+          <!--店内食品展示-->
+          <!--/店内食品展示-->
+        </div>
+      </li>
+    </ul>
+    <div class="shop-loading">
+      <loading slot="load-icon" :isAlwaysShow="true"></loading>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import InfiniteLoad from 'base/infinite-load'
 import Loading from 'base/loading'
 import * as $ from 'jquery'
 import {onScroll} from 'common/js/util'
@@ -137,17 +134,9 @@ export default {
     }
   },
   props: {
-    offsetTop: {
-      type: Number,
-      default: 0
-    },
     searchWord: {
       type: String,
       default: ''
-    },
-    isHome: {
-      type: Boolean,
-      deafult: false
     }
   },
   watch: {
@@ -173,7 +162,7 @@ export default {
         .then(res => {
           if (res.code === 0) {
             this.searchList = this.searchList.concat(res.result.searchList)
-            this.$refs.infiniteLoad.resetLoading()
+            this.$emit('loadSuccess')
           } else {
             console.log(res.msg)
           }
@@ -212,7 +201,6 @@ export default {
       switch (id) {
         case 0: {
           this.isSortShow = true
-          this._scrooTop()
           break
         }
         case 1: {
@@ -223,7 +211,6 @@ export default {
         }
         case 3: {
           this.isSelectShow = true
-          this._scrooTop()
         }
       }
     },
@@ -235,51 +222,17 @@ export default {
       this.$router.push({
         path: '/restaurant'
       })
-    },
-    // 滚动到顶部
-    _scrooTop () {
-      this.isHome && $(window).scrollTop(this.menuTop - this.offsetTop)
     }
   },
   created () {
-    this.isHome && this.search()
+    this.search()
   },
   mounted () {
-    setTimeout(() => {
-      this.menuTop = $(this.$refs.menu).offset().top
 
-      // fixme：为什么必须延时20ms和2000ms获取到的menu-offsetTop不相同值？？？？
-      // search中的，（offsetTop）都是延时20ms获取的~~?
-      if (!this.isHome) {
-        $(this.$refs.menu).css({
-          position: 'fixed',
-          top: this.offsetTop
-        })
-        return
-      }
-
-      // 首页监听滚动事件
-      this._scrollEvent = (winScroll) => {
-        if (this.menuTop < (winScroll + this.offsetTop)) {
-          $(this.$refs.menu).css({
-            position: 'fixed',
-            top: this.offsetTop
-          })
-        } else {
-          $(this.$refs.menu).css({
-            position: 'relative',
-            top: 0
-          })
-        }
-      }
-      onScroll.add(this._scrollEvent)
-    }, 500)
   },
   destroyed () {
-    onScroll.delete(this._scrollEvent)
   },
   components: {
-    InfiniteLoad,
     Loading
   }
 }

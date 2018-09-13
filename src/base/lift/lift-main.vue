@@ -1,13 +1,22 @@
 <template>
   <div class="lift-main">
-    <div class="lift-scroll">
+    <div class="lift-scroll" ref="liftMain">
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-
+export default {
+  mounted () {
+    let self = this
+    setTimeout(() => {
+      self.$refs.liftMain.addEventListener('touchmove', function (e) {
+        console.log('lift')
+      }, false)
+    }, 20)
+  }
+}
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">

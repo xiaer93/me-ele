@@ -16,6 +16,10 @@ export default {
     sensibility: {
       type: Number,
       default: 0
+    },
+    ele: {
+      type: Object,
+      default: null
     }
   },
   data () {
@@ -43,11 +47,14 @@ export default {
           self.$emit('loadmore')
         }
       }
-      onScroll.add(this._scrollEvent)
+
+      setTimeout(() => {
+        console.log(this.ele)
+      }, 20)
+      onScroll(this.ele).add(this._scrollEvent)
     })
   },
   destroyed () {
-    onScroll.delete(this._scrollEvent)
   }
 }
 </script>

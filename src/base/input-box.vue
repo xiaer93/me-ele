@@ -39,7 +39,7 @@ export default {
       return Object.assign({}, this.$listeners, {
         input: debounce((event) => {
           self.$emit('input', event.target.value)
-        }, 20),
+        }, 100),
         change: debounce((event) => {
           self.$emit('change', event.target.value)
         }, 20)

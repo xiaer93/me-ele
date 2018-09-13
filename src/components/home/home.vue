@@ -1,61 +1,65 @@
 <template>
-  <div class="home">
+  <div class="home" ref="home">
     <header class="header">
       <div class="header-address">
         <svg class="header-address-location" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 31"><path fill="#FFF" fill-rule="evenodd" d="M22.116 22.601c-2.329 2.804-7.669 7.827-7.669 7.827-.799.762-2.094.763-2.897-.008 0 0-5.26-4.97-7.643-7.796C1.524 19.8 0 16.89 0 13.194 0 5.908 5.82 0 13 0s13 5.907 13 13.195c0 3.682-1.554 6.602-3.884 9.406zM18 13a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path></svg>
         <router-link class="header-address-name" to="/home/location">{{localPosition.address || '未能获取地址'}}</router-link>
         <svg class="header-address-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8"><path fill="#FFF" fill-rule="evenodd" d="M5.588 6.588c.78.78 2.04.784 2.824 0l5.176-5.176c.78-.78.517-1.412-.582-1.412H.994C-.107 0-.372.628.412 1.412l5.176 5.176z"></path></svg>
       </div>
-      <div class="header-search" ref="headerSearch">
-        <router-link class="header-search-box" to="/search">
-          <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-opacity=".38" d="M14.778 13.732a.739.739 0 1 1-1.056 1.036l-2.515-2.565a.864.864 0 0 1-.01-1.206 4.894 4.894 0 0 0 1.357-3.651c-.126-2.492-2.156-4.52-4.648-4.647a4.911 4.911 0 0 0-5.16 5.163c.126 2.475 2.13 4.496 4.605 4.642.451.026.896-.008 1.326-.1a.739.739 0 0 1 .308 1.446c-.56.12-1.137.164-1.72.13-3.227-.19-5.83-2.815-5.995-6.042a6.39 6.39 0 0 1 6.71-6.715c3.25.165 5.884 2.8 6.05 6.048a6.37 6.37 0 0 1-1.374 4.3l2.12 2.161z"></path></svg>
-          <span class="header-search-tips">搜索饿了么商家/商品名称</span>
-        </router-link>
-      </div>
     </header>
     <div v-if="localPosition.address">
-      <div class="menu">
-        <swiper class="menu-content" :options="swiperOption">
-          <swiper-slide v-for="page in menuTotalPage" :key="page">
-            <ul class="menu-box">
-              <li class="menu-item"
-                  v-for="(food, index) in genMenuList(page)"
-                  :key="index"
-                  @click="openCatalog(food.catalogId)"
-              >
-                <img class="menu-item-img" :src="food.image" alt="food">
-                <span class="menu-item-name">{{food.name}}</span>
-              </li>
-            </ul>
-          </swiper-slide>
-          <!--swiper额外配置项-->
-          <div class="swiper-pagination menu-content-pagination"  slot="pagination"></div>
-        </swiper>
-      </div>
-      <div class="recommend">
-        <div class="recommend-left recommend-item">
-          <h3 class="recommend-title">品质套餐</h3>
-          <p class="recommend-desc">搭配齐全吃得好</p>
-          <p class="recommend-link">立即抢购&gt;</p>
-          <img class="recommend-img" src="/static/recommend/1.webp" alt="">
+      <infinite-load @loadMore="loadMore" ref="infiniteLoad">
+        <div class="search">
+          <div class="search-content" ref="search">
+            <router-link class="search-box" to="/search">
+              <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-opacity=".38" d="M14.778 13.732a.739.739 0 1 1-1.056 1.036l-2.515-2.565a.864.864 0 0 1-.01-1.206 4.894 4.894 0 0 0 1.357-3.651c-.126-2.492-2.156-4.52-4.648-4.647a4.911 4.911 0 0 0-5.16 5.163c.126 2.475 2.13 4.496 4.605 4.642.451.026.896-.008 1.326-.1a.739.739 0 0 1 .308 1.446c-.56.12-1.137.164-1.72.13-3.227-.19-5.83-2.815-5.995-6.042a6.39 6.39 0 0 1 6.71-6.715c3.25.165 5.884 2.8 6.05 6.048a6.37 6.37 0 0 1-1.374 4.3l2.12 2.161z"></path></svg>
+              <span class="search-tips">搜索饿了么商家/商品名称</span>
+            </router-link>
+          </div>
         </div>
-        <div class="recommend-right recommend-item">
-          <h3 class="recommend-title">限量抢购</h3>
-          <p class="recommend-desc">超值美味9.9元起</p>
-          <p class="recommend-link"><em class="recommend-link-red">5560人</em>正在抢购&gt;</p>
-          <img class="recommend-img" src="/static/recommend/1.webp" alt="">
+        <div class="menu">
+          <swiper class="menu-content" :options="swiperOption">
+            <swiper-slide v-for="page in menuTotalPage" :key="page">
+              <ul class="menu-box">
+                <li class="menu-item"
+                    v-for="(food, index) in genMenuList(page)"
+                    :key="index"
+                    @click="openCatalog(food.catalogId)"
+                >
+                  <img class="menu-item-img" :src="food.image" alt="food">
+                  <span class="menu-item-name">{{food.name}}</span>
+                </li>
+              </ul>
+            </swiper-slide>
+            <!--swiper额外配置项-->
+            <div class="swiper-pagination menu-content-pagination"  slot="pagination"></div>
+          </swiper>
         </div>
-      </div>
-      <div class="banner">
-        <banner :imgList="bannerList"></banner>
-      </div>
-      <div class="shop">
-        <h2 class="shop-title">推荐商家</h2>
-        <shop-list :isHome="true" :offsetTop="searchBoxHeight"></shop-list>
-      </div>
-      <div class="side">
-        <side-nav></side-nav>
-      </div>
+        <div class="recommend">
+          <div class="recommend-left recommend-item">
+            <h3 class="recommend-title">品质套餐</h3>
+            <p class="recommend-desc">搭配齐全吃得好</p>
+            <p class="recommend-link">立即抢购&gt;</p>
+            <img class="recommend-img" src="/static/recommend/1.webp" alt="">
+          </div>
+          <div class="recommend-right recommend-item">
+            <h3 class="recommend-title">限量抢购</h3>
+            <p class="recommend-desc">超值美味9.9元起</p>
+            <p class="recommend-link"><em class="recommend-link-red">5560人</em>正在抢购&gt;</p>
+            <img class="recommend-img" src="/static/recommend/1.webp" alt="">
+          </div>
+        </div>
+        <div class="banner">
+          <banner :imgList="bannerList"></banner>
+        </div>
+        <div class="shop">
+          <h2 class="shop-title">推荐商家</h2>
+          <shop-list @loadSuccess="loadSuccess" :offsetTop="searchBoxHeight" ref="shopList"></shop-list>
+        </div>
+        <div class="side">
+          <side-nav></side-nav>
+        </div>
+      </infinite-load>
     </div>
     <div class="home-loading" v-if="!localPosition.address && !isErrorGet">
       <span class="home-loading-icon"></span>
@@ -71,6 +75,7 @@
 
 <script type="text/ecmascript-6">
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
+import InfiniteLoad from 'base/infinite-load'
 import Banner from 'base/banner'
 import ShopList from 'components/shop-list/shop-list'
 import SideNav from 'base/side-nav'
@@ -156,6 +161,12 @@ export default {
         params: {id: catalogId}
       })
     },
+    loadMore () {
+      this.$refs.shopList.loadMore()
+    },
+    loadSuccess () {
+      this.$refs.infiniteLoad.resetLoading()
+    },
     init () {
       if (this.localPosition.address) {
         this.getMenuList(this.localPosition)
@@ -192,7 +203,7 @@ export default {
   },
   mounted () {
     setTimeout(() => {
-      let $headerSearch = $(this.$refs.headerSearch)
+      let $headerSearch = $(this.$refs.search)
 
       // 获取搜索框的高度;height获取元素本身高度，outerHeihgt包含padding、true包括margin
       this.searchBoxHeight = $headerSearch.outerHeight()
@@ -202,6 +213,7 @@ export default {
 
       // 创建响应滚动事件
       this._scrollEvent = (winScroll) => {
+        // 顶部搜索框处理
         if (headerSearchTop < winScroll) {
           $headerSearch.css({
             position: 'fixed'
@@ -211,8 +223,11 @@ export default {
             position: 'static'
           })
         }
+
+        // 商家信息页面处理
+        if ()
       }
-      onScroll.add(this._scrollEvent)
+      onScroll(this.$refs.home).add(this._scrollEvent)
     }, 20)
   },
   destroyed () {
@@ -223,7 +238,8 @@ export default {
     swiperSlide,
     Banner,
     ShopList,
-    SideNav
+    SideNav,
+    InfiniteLoad
   }
 }
 </script>
@@ -236,13 +252,13 @@ export default {
   left: 0;
   top: 0;
   width: 100%;
-  margin-bottom: .9rem;
+  bottom: .9rem;
   background-color: #fff;
+  overflow-y: scroll;
   .header{
     position: relative;
     z-index: 1;
     padding-top: .24rem;
-    height: 1.8rem;
     color: #fff;
     .gradient-bg-2();
     &-address{
@@ -270,48 +286,52 @@ export default {
         fill: #fff;
       }
     }
-    &-search{
+  }
+  .search{
+    box-sizing: content-box;
+    height: 1.1rem;
+    &-content{
       position: static;
       z-index: 1;
-      height: .7rem;
       right: 0;
       left: 0;
       top: 0;
-      padding: .2rem .26rem;
       box-sizing: content-box;
+      height: .7rem;
+      padding: .2rem .26rem;
       .gradient-bg-2();
-      &-box{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        background-color: #fff;
-        border-radius: .05rem;
-      }
-      &-icon{
-        width: .4rem;
-        height: .4rem;
-      }
-      &-tips{
-        display: inline-block;
-        margin-left: .1rem;
-        height: .64rem;
-        line-height: .64rem;
-        font-size: @font-size-small-s;
-        color: @text-color-9;
-      }
-      &::before{
+    }
+    &-box{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      border-radius: .05rem;
+    }
+    &-icon{
+      width: .4rem;
+      height: .4rem;
+    }
+    &-tips{
+      display: inline-block;
+      margin-left: .1rem;
+      height: .64rem;
+      line-height: .64rem;
+      font-size: @font-size-small-s;
+      color: @text-color-9;
+    }
+    &::before{
 
-      }
-      &::after{
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        left: 0;
-        background-image: linear-gradient(90deg,#0af,#0085ff);
-      }
+    }
+    &::after{
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      left: 0;
+      background-image: linear-gradient(90deg,#0af,#0085ff);
     }
   }
   .menu{

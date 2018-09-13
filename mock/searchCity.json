@@ -1,0 +1,43 @@
+{
+  "code": 0,
+  "msg": "",
+  "result": {
+    "addressList": [
+      {
+        "address": "湖北省武汉市光谷广场",
+        "latitude": 0,
+        "longitude": 0,
+        "city": "武汉",
+        "bus": "520路"
+      },
+      {
+        "address": "湖北省武汉市光谷广场",
+        "latitude": 0,
+        "longitude": 0,
+        "city": "武汉",
+        "bus": "520路"
+      },
+      {
+        "address": "湖北省武汉市光谷广场",
+        "latitude": 0,
+        "longitude": 0,
+        "city": "武汉",
+        "bus": "520路"
+      },
+      {
+        "address": "湖北省武汉市光谷广场",
+        "latitude": 0,
+        "longitude": 0,
+        "city": "武汉",
+        "bus": "520路"
+      },
+      {
+        "address": "湖北省武汉市光谷广场",
+        "latitude": 0,
+        "longitude": 0,
+        "city": "武汉",
+        "bus": "520路"
+      }
+    ]
+  }
+}

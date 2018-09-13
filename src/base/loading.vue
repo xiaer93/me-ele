@@ -45,7 +45,7 @@ export default {
     margin: -1rem 0 0 -1rem;
     background: url("~common/image/loading.png") no-repeat;
     background-size: 88rem auto;
-    animation: load steps(43, end) 1.5s infinite;
+    animation: load steps(40, start) 1.5s infinite;
     transform-origin: center;
     transform: scale(.5);
   }

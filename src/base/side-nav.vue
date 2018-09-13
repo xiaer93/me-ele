@@ -14,7 +14,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {onScroll} from 'common/js/util'
 import * as $ from 'jquery'
 
 export default {
@@ -51,10 +50,10 @@ export default {
     }
   },
   mounted () {
-    onScroll.add(this._scrollEvent)
+
   },
   destroyed () {
-    onScroll.delete(this._scrollEvent)
+
   }
 }
 </script>

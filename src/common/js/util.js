@@ -23,13 +23,14 @@ function debounce (callback, interval = 20) {
 /**
  * 响应滚动事件
  */
-let onScroll = (function () {
+function onScroll (ele) {
   let scrollFunc = []
 
-  $(window).on('scroll', function () {
-    let winScroll = $(window).scrollTop()
+  // 在ele上绑定scroll、touchmove等事件。ele即滚动元素的父容器，子元素滚song
+  $(ele).on('scroll', function () {
+    let eleScroll = $(this).scrollTop()
     for (let i = 0; i < scrollFunc.length; ++i) {
-      scrollFunc[i](winScroll)
+      scrollFunc[i](eleScroll)
     }
   })
 
@@ -47,7 +48,7 @@ let onScroll = (function () {
       scrollFunc.length = 0
     }
   }
-})()
+}
 
 /**
  * 获取定位信息

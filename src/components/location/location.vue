@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <div class="location">
+    <div class="location" ref="location">
       <div class="location-header">
         <header-title>选择收获地址</header-title>
       </div>
@@ -10,24 +10,26 @@
             <span>选择城市</span>
           </p>
           <div class="location-main-btn-search">
-            <input-box v-model="searchWord"></input-box>
+            <input-box v-model="searchWord" @input="searchAddress"></input-box>
           </div>
         </div>
-        <ul class="location-main-search">
-          <li class="location-main-item">
-            <h3 class="location-main-item-title">
-              武汉市
+        <div class="location-main-content" v-show="addressList.length">
+          <ul class="location-main-search">
+            <li class="location-main-item" v-for="(item, index) in addressList" :key="index">
+              <h3 class="location-main-item-title">
+                {{item.city}}
             </h3>
-            <p class="location-main-item-content">
-              <span class="location-main-item-address">湖北省武汉市洪山区118路;</span>
-              <span class="location-main-item-traffic">297路;382路;392路;513路;525路;540路;551路;610路;610路区间;634路;643路;YX525路;夜610路;机场巴士5号线;高铁公交夜班车</span>
-            </p>
-          </li>
-        </ul>
-        <div class="location-main-tips">
-          <p class="location-main-tips-p">找不到地址？</p>
-          <p class="location-main-tips-p">请尝试只输入小区、写字楼或学校名</p>
-          <p class="location-main-tips-p">详细地址（如门牌号）可稍后输入</p>
+              <p class="location-main-item-content">
+                <span class="location-main-item-address">{{item.address}}</span>
+                <span class="location-main-item-traffic">{{item.bus}}</span>
+              </p>
+            </li>
+          </ul>
+          <div class="location-main-tips">
+            <p class="location-main-tips-p">找不到地址？</p>
+            <p class="location-main-tips-p">请尝试只输入小区、写字楼或学校名</p>
+            <p class="location-main-tips-p">详细地址（如门牌号）可稍后输入</p>
+          </div>
         </div>
       </div>
       <div class="location-city" v-if="isSelectCity">
@@ -75,13 +77,14 @@
 import HeaderTitle from 'base/header-title'
 import InputBox from 'base/input-box'
 import {Lift, LiftMain, LiftNumber} from 'base/lift/index'
-import homeApi from 'api/home'
+import locationApi from 'api/location'
 import {mapMutations} from 'vuex'
 
 export default {
   data () {
     return {
       searchWord: '',
+      addressList: [],
       cityWord: '',
       cityList: {},
       isSelectCity: false
@@ -108,10 +111,20 @@ export default {
       this.isSelectCity = true
     },
     getCityList () {
-      homeApi.getCityList()
+      locationApi.getCityList()
         .then(res => {
           if (res.code === 0) {
             this.cityList = res.result.cityList
+          } else {
+            console.log(res.msg)
+          }
+        })
+    },
+    searchAddress () {
+      locationApi.searchAddress()
+        .then(res => {
+          if (res.code === 0) {
+            this.addressList = res.result.addressList
           } else {
             console.log(res.msg)
           }
@@ -128,12 +141,30 @@ export default {
       // fixme: 为什么通过路由返回时，必须延时20ms，且不能使用watch---localPosition？？？
       this.$router.push('/home')
     },
+    stopScroll (event) {
+      // fixme: 事件模型：1、捕获阶段（从window到具体），2、对象阶段，3、冒泡阶段（从具体到位未知）
+      // touch事件preventDefault，即无法抵到滚动元素；stopPropagation阻止冒泡事件~~~
+      // css3属性pass可以控制preventDefault的行为~~~
+       event.preventDefault()
+      event.stopPropagation()
+      event.stopImmediatePropagation()
+    },
     ...mapMutations({
       setLocalPosition: 'SET_LOCAL_POSITION'
     })
   },
   created () {
     this.getCityList()
+  },
+  mounted () {
+    let self = this
+    setTimeout(() => {
+      self.$refs.location.addEventListener('touchmove', function (e) {
+        console.log(e.target, e.currentTarget)
+        self.stopScroll(e)
+      }, false)
+
+    }, 20)
   },
   components: {
     HeaderTitle,
