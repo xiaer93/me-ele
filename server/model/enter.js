@@ -38,7 +38,7 @@ let enterSchema = {
     }
   ],
   // 当前经纬度是否推荐？
-  valid: {
+  validCoords: {
     latitude: {
       type: String,
       default: '-180,180'

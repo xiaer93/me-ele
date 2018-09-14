@@ -62,29 +62,29 @@
     <ul class="shop">
       <li class="shop-item" v-for="(searchItem, index) in searchList" :key="index" @click="openShop(searchItem)">
         <div class="shop-item-left">
-          <img v-lazy="searchItem.restaurant.shopAvatar" :alt="searchItem.restaurant.shopName" class="shop-item-avatar">
+          <img v-lazy="searchItem.avatar" :alt="searchItem.name" class="shop-item-avatar">
         </div>
         <div class="shop-item-right">
           <h3 class="shop-item-col">
-            <span class="shop-item-brand" v-if="searchItem.restaurant.isBrand"></span>
-            <span class="shop-item-name">{{searchItem.restaurant.shopName}}</span>
+            <span class="shop-item-brand" v-if="searchItem.isBrand"></span>
+            <span class="shop-item-name">{{searchItem.name}}</span>
           </h3>
           <p class="shop-item-col">
-            <img src="~common/image/star.svg" alt="" class="shop-item-star">
-            <span class="shop-item-average">{{searchItem.restaurant.shopRate}}</span>
-            <span class="shop-item-sales">月售{{searchItem.restaurant.recentOrderNum}}单</span>
+            <star :total="5" :score="Number.parseFloat(searchItem.rate)" class="shop-item-star"></star>
+            <span class="shop-item-average">{{searchItem.rate}}</span>
+            <span class="shop-item-sales">月售{{searchItem.recentOrderNum}}单</span>
           </p>
           <p class="shop-item-col">
-            <span class="shop-item-freight">{{searchItem.restaurant.shopSend.rules.price}}起送&nbsp;<i class="shop-item-grap"></i>&nbsp;配送费{{searchItem.restaurant.shopSend.rules.fee}}</span>
-            <span class="shop-item-time">{{searchItem.restaurant.distance}}km&nbsp;<i class="shop-item-grap"></i>&nbsp;{{searchItem.restaurant.orderLeadTime}}分钟</span>
+            <span class="shop-item-freight">{{searchItem.send.rules.price}}起送&nbsp;<i class="shop-item-grap"></i>&nbsp;配送费{{searchItem.send.rules.fee}}</span>
+            <span class="shop-item-time">{{searchItem.distance}}km&nbsp;<i class="shop-item-grap"></i>&nbsp;{{searchItem.leadTime}}分钟</span>
           </p>
           <p class="shop-item-col">
-            <span class="shop-item-tag" v-for="tag in searchItem.restaurant.shopCatalog.children" :key="tag.id">{{tag.name}}</span>
+            <span class="shop-item-tag" v-for="tag in searchItem.catalog" :key="tag.id">{{tag.name}}</span>
           </p>
           <div class="shop-item-col shop-item-line">
-            <p class="shop-item-activity" v-for="(activity, activityIndex) in searchItem.restaurant.shopDiscount" :key="activityIndex">
-              <span class="shop-item-activity-icon" :style="{color: activity.icon_color}">{{activity.icon_name}}</span>
-              <span class="shop-item-activity-text">{{activity.discountName}}</span>
+            <p class="shop-item-activity" v-for="(activity, activityIndex) in searchItem.discount" :key="activityIndex">
+              <span class="shop-item-activity-icon">{{activity.name}}</span>
+              <span class="shop-item-activity-text">{{activity.desc}}</span>
             </p>
           </div>
 
@@ -101,16 +101,24 @@
 
 <script type="text/ecmascript-6">
 import Loading from 'base/loading'
-import searchApi from 'api/search'
+import Star from 'base/star'
+import searchApi from 'api/restaurant'
 import {CONFIG_SORT, CONFIG_FILTER} from 'api/variable'
+import {mapGetters} from 'vuex'
 
 export default {
   data () {
     return {
       isOrderShow: false,
       isFilterShow: false,
+      isCanLoadMore: true,
       // 搜索关键词
       searchOptions: {
+        latitude: 0,
+        longitude: 0,
+        offset: 0,
+        limit: 8,
+        keyword: '',
         orderBy: 1,
         shopServer: [],
         saleActivity: -1,
@@ -129,36 +137,51 @@ export default {
   computed: {
     innerOrder () {
       return this.innerSort.find(t => t.id === this.searchOptions.orderBy)
-    }
+    },
+    ...mapGetters([
+      'localPosition'
+    ])
   },
   watch: {
     searchWord (newWord) {
       // 监听searchWord，搜索商家
+      this.searchOptions.keyword = newWord
       this._search()
+    },
+    localPosition (position) {
+      this.searchOptions.latitude = position.latitude
+      this.searchOptions.longitude = position.longitude
     }
   },
   methods: {
-    _search () {
-      searchApi.search()
+    _search (isLoadMore = false) {
+      searchApi.search(this.searchOptions)
         .then(res => {
           if (res.code === 0) {
-            this.searchList = res.result.searchList
-            this.$emit('searchSuccess')
+            if (isLoadMore) {
+              this.searchList = this.searchList.concat(res.result.searchList)
+              this.$nextTick(() => {
+                // 等待渲染完成再报告~~~
+                this.$emit('loadSuccess')
+              })
+            } else {
+              this.searchList = res.result.searchList
+              this.$nextTick(() => {
+                this.$emit('searchSuccess')
+              })
+            }
           } else {
             console.log(res.msg)
           }
         })
     },
     loadMore () {
-      searchApi.search()
-        .then(res => {
-          if (res.code === 0) {
-            this.searchList = this.searchList.concat(res.result.searchList)
-            this.$emit('loadSuccess')
-          } else {
-            console.log(res.msg)
-          }
-        })
+      if (!this.isCanLoadMore) {
+        return
+      }
+
+      this.searchOptions.offset += 1
+      this._search(true)
     },
     // 重新搜索
     setServer (item) {
@@ -220,7 +243,7 @@ export default {
     }
   },
   created () {
-    this._search()
+//    this._search()
 
     /* 非响应式数据 */
     // 综合排序
@@ -244,7 +267,8 @@ export default {
   destroyed () {
   },
   components: {
-    Loading
+    Loading,
+    Star
   }
 }
 </script>
@@ -286,7 +310,7 @@ export default {
       font-weight: @font-weight-bold;
     }
     &-star{
-      width: 1.1rem;
+      display: inline-block !important;
     }
     &-average{
       font-size: @font-size-small;

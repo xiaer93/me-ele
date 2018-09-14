@@ -18,7 +18,7 @@ const homeApi = {
   },
   getBannerList (params) {
     return new Promise((resolve, reject) => {
-      axios.get('/home/bannerList', {params})
+      axios.get('/api/home/bannerList', {params})
         .then(res => {
           if (res.status === 200) {
             resolve(res.data)

@@ -91,7 +91,7 @@ import BottomTips from 'base/bottom-tips'
 import RestaurantOrder from 'components/restaurant/restaurant-order.vue'
 import RestaurantComment from 'components/restaurant/restaurant-comment.vue'
 import RestaurantAbout from 'components/restaurant/restaurant-about.vue'
-import shopApi from 'api/shop'
+import shopApi from 'api/restaurant'
 // import * as $ from 'jquery'
 
 export default {

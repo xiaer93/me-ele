@@ -4,16 +4,16 @@
       <div class="location-header">
         <header-title @back="hide">选择收获地址</header-title>
       </div>
-      <div class="location-main">
+      <infinite-load class="location-main" @loadMore="loadMore" ref="infiniteLoad">
         <div class="location-main-btn">
           <p class="location-main-btn-select" @click="openCityBox">
             <span>{{searchOption.name || '选择城市'}}</span>
           </p>
           <div class="location-main-btn-search">
-            <input-box v-model="searchWord" @input="searchAddress" placeholderText="请输入地址"></input-box>
+            <input-box v-model="searchOption.keyword" @input="search" placeholderText="请输入地址"></input-box>
           </div>
         </div>
-        <div class="location-main-content" v-show="addressList.length">
+        <div class="location-main-content" v-show="searchOption.keyword">
           <ul class="location-main-search">
             <li class="location-main-item" v-for="(item, index) in addressList" :key="index" @click="setPosition(item)">
               <h3 class="location-main-item-title">
@@ -31,7 +31,7 @@
             <p class="location-main-tips-p">详细地址（如门牌号）可稍后输入</p>
           </div>
         </div>
-      </div>
+      </infinite-load>
       <div class="location-city" v-if="isSelectCity">
         <div class="location-city-header">
           <header-title @back="isSelectCity = false">城市选择</header-title>
@@ -64,7 +64,7 @@
           </div>
           <div class="location-city-filter" v-show="cityWord">
             <div class="m-city-main">
-              <p class="m-city-main-text" v-for="(city, index) in filterCity" :key="index">{{city.name}}</p>
+              <p class="m-city-main-text" v-for="(city, index) in filterCity" :key="index" @click="setCity(city)">{{city.name}}</p>
             </div>
             <div class="location-city-filter-tips" v-show="!filterCity.length">无结果</div>
           </div>
@@ -75,6 +75,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import InfiniteLoad from 'base/infinite-load'
 import HeaderTitle from 'base/header-title'
 import InputBox from 'base/input-box'
 import {Lift, LiftMain, LiftNumber} from 'base/lift/index'
@@ -84,14 +85,18 @@ export default {
   data () {
     return {
       searchOption: {
+        keyword: '',
         latitude: -1,
         longitude: -1,
-        name: ''
+        name: '',
+        offset: 0,
+        limit: 10
       },
       // 服务器搜索关键词
-      searchWord: '',
       // 服务器请求搜索
       addressList: [],
+      // 是否还可以加载更多
+      isCanLoadMore: true,
       // 城市中过滤
       cityWord: '',
       // 城市列表
@@ -130,23 +135,47 @@ export default {
           }
         })
     },
-    searchAddress () {
-      locationApi.searchAddress()
+    search (value, isLoadMore = false) {
+      if (!isLoadMore) {
+        this.searchOption.offset = 0
+      }
+
+      locationApi.searchAddress(this.searchOption)
         .then(res => {
           if (res.code === 0) {
-            this.addressList = res.result.addressList
+            this.isCanLoadMore = res.result.addressList.length === this.searchOption.limit
+            // 加载更多，拼接搜索结果
+            if (isLoadMore) {
+              this.addressList = this.addressList.concat(res.result.addressList)
+            } else {
+              this.addressList = res.result.addressList
+            }
+
+            // 等待dom渲染完成后，才重新监听loadmore事件
+            this.$nextTick(() => {
+              this.$refs.infiniteLoad.resetLoading()
+            })
           } else {
             console.log(res.msg)
           }
         })
     },
+    loadMore () {
+      if (!this.isCanLoadMore) {
+        return
+      }
+      this.searchOption.offset += 1
+      this.search('', true)
+    },
     setCity (city) {
       this.isSelectCity = false
-      this.searchOption = city
+      this.searchOption.latitude = city.latitude
+      this.searchOption.longitude = city.longitude
+      this.searchOption.name = city.name
     },
     setPosition (position) {
-      this.position = position
-      this.$emit('updatePosition', this.position)
+      this.hide()
+      this.$emit('updatePosition', position)
     },
     show () {
       this.isShowLocation = true
@@ -173,7 +202,8 @@ export default {
     InputBox,
     Lift,
     LiftMain,
-    LiftNumber
+    LiftNumber,
+    InfiniteLoad
   }
 }
 </script>
@@ -194,7 +224,6 @@ export default {
   &-main{
     width: 100%;
     height: calc(100% - .9rem);
-    overflow-y: scroll;
     &-btn{
       display: flex;
       align-items: center;
@@ -207,7 +236,7 @@ export default {
       }
       &-select{
         position: relative;
-        margin-right: .5rem;
+        margin-right: .4rem;
         height: .72rem;
         line-height: .72rem;
         flex: 1 1 auto;

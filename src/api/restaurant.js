@@ -16,9 +16,9 @@ export default {
         })
     })
   },
-  getAllFood () {
+  search (params) {
     return new Promise((resolve, reject) => {
-      axios.get('/shop/getAllFood')
+      axios.get('/api/restaurant/search', {params})
         .then(res => {
           if (res.status === 200) {
             resolve(res.data)

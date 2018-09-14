@@ -4,7 +4,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-let adSchema = new Schema({
+let bannerSchema = new Schema({
   id: {
     type: Number,
     default: 0
@@ -29,4 +29,4 @@ let adSchema = new Schema({
   }
 })
 
-module.exports = mongoose.model('ad', adSchema)
+module.exports = mongoose.model('banner', bannerSchema)

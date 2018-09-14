@@ -35,7 +35,7 @@ export default {
       return Object.assign({}, this.$listeners, {
         input: debounce((event) => {
           self.$emit('input', event.target.value)
-        }, 100),
+        }, 800),
         change: debounce((event) => {
           self.$emit('change', event.target.value)
         }, 20)
@@ -48,9 +48,6 @@ export default {
     }
   },
   created () {
-    setTimeout(() => {
-      console.log(this.placeholderText)
-    })
   }
 }
 </script>

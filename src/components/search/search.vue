@@ -8,13 +8,13 @@
             </svg>
             <div class="search-text">
               <div class="search-input">
-                <input-box placeholderText="输入商家、店铺名称" v-model="searchWord" @blur="search()"></input-box>
+                <input-box placeholderText="输入商家、店铺名称" v-model="keyword" @blur="search()"></input-box>
               </div>
             </div>
             <span class="search-btn">搜索</span>
           </div>
         </div>
-        <div class="search-word" v-show="!searchWord">
+        <div class="search-word" v-show="!keyword">
           <div class="search-history" v-show="historyWord.length !== 0">
             <h3 class="search-title">
               <span class="search-title-text">历史搜索</span>
@@ -43,8 +43,8 @@
             </ul>
           </div>
         </div>
-        <div class="search-shop" v-show="searchWord">
-          <shop-list :searchWord="searchWord" @loadSuccess="loadSuccess" ref="shopList"></shop-list>
+        <div class="search-shop" v-show="keyword">
+          <shop-list :searchWord="keyword" @loadSuccess="loadSuccess" ref="shopList"></shop-list>
         </div>
       </infinite-load>
     </div>
@@ -63,7 +63,7 @@ export default {
     return {
       hotWord: [],
       historyWord: [],
-      searchWord: ''
+      keyword: ''
     }
   },
   methods: {
@@ -81,14 +81,14 @@ export default {
       this.historyWord = this.searchHistory.get()
     },
     setSearchWord (word) {
-      this.searchWord = word
+      this.keyword = word
       this.search()
     },
     clearHistory () {
       this.historyWord = this.searchHistory.clear()
     },
     search () {
-      this.historyWord = this.searchHistory.save(this.searchWord)
+      this.historyWord = this.searchHistory.save(this.keyword)
     },
     // 响应infinite-loadmore事件
     loadMore () {

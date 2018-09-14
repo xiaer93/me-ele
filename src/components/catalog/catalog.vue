@@ -9,13 +9,13 @@
           <div class="catalog-header-catalog-content">
             <ul class="catalog-header-catalog-ul">
               <li class="catalog-header-item"
-                  :class="{'active': searchWord === '全部'}"
+                  :class="{'active': keyword === '全部'}"
                   @click="setWord('全部')"
               >全部</li>
               <li class="catalog-header-item"
                   v-for="(item, index) in currentCatalog.factors"
                   :key="index"
-                  :class="{'active': searchWord === item.name}"
+                  :class="{'active': keyword === item.name}"
                   @click="setWord(item.name)"
               >{{item.name}}</li>
             </ul>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <infinite-load @loadMore="loadMore" class="catalog-shop" ref="infiniteLoad">
-      <shop-list @loadSuccess="loadSuccess" :searchWord="searchWord" ref="shopList"></shop-list>
+      <shop-list @loadSuccess="loadSuccess" :searchWord="keyword" ref="shopList"></shop-list>
     </infinite-load>
     <div class="catalog-dialog" v-show="isShowDialog">
       <div class="catalog-menu">
@@ -76,7 +76,7 @@ export default {
   data () {
     return {
       searchBoxHeight: 0,
-      searchWord: '',
+      keyword: '',
       // 当前展示目录
       currentId: 0,
       // 弹窗展示目录
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     setWord (word) {
-      this.searchWord = word
+      this.keyword = word
     },
     setId (menu) {
       this.selectId = menu.id
@@ -130,7 +130,7 @@ export default {
   },
   created () {
     this.currentId = Number.parseInt(this.$route.params.id)
-    this.searchWord = decodeURIComponent(this.$route.query.detail)
+    this.keyword = decodeURIComponent(this.$route.query.detail)
     this.selectId = this.currentId
   },
   mounted () {
@@ -146,7 +146,7 @@ export default {
   // 组件在路由中复用的时候调用，监听路由变化信息
   beforeRouteUpdate (to, from, next) {
     this.currentId = Number.parseInt(to.params.id)
-    this.searchWord = decodeURIComponent(to.query.detail)
+    this.keyword = decodeURIComponent(to.query.detail)
     this.selectId = this.currentId
     next()
   },

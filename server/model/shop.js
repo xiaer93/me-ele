@@ -7,32 +7,32 @@ const ObjectId = Schema.ObjectId
 
 let shopSchema = new Schema({
   // 店名
-  shopName: {
+  name: {
     type: String,
     default: ''
   },
   // 描述
-  shopDesc: {
+  desc: {
     type: String,
     default: ''
   },
   // 大图
-  shopHomeBg: {
+  homeBg: {
     type: String,
     default: ''
   },
   // 小图
-  shopAvatar: {
+  avatar: {
     type: String,
     default: ''
   },
   // 公告
-  shopNotice: {
+  notice: {
     type: String,
     default: ''
   },
   // 折扣信息
-  shopDiscount: [
+  discount: [
     {
       // 折扣形式
       id: {
@@ -66,7 +66,7 @@ let shopSchema = new Schema({
     }
   ],
   // 店铺分类
-  shopCatalog: [
+  catalog: [
     {
       id: {
         type: Number,
@@ -79,7 +79,7 @@ let shopSchema = new Schema({
     }
   ],
   // 店铺信息
-  shopInfos: {
+  infos: {
     tel: {
       type: String,
       default: ''
@@ -101,7 +101,7 @@ let shopSchema = new Schema({
     }
   },
   // 推荐信息
-  shopRecommend: {
+  recommend: {
     isRecommend: {
       type: Boolean,
       defalut: false
@@ -116,7 +116,7 @@ let shopSchema = new Schema({
     }
   },
   // 店铺派送
-  shopSend: {
+  send: {
     // 派送形式
     id: {
       type: Number,
@@ -152,27 +152,49 @@ let shopSchema = new Schema({
     }
   },
   // 店铺美食
-  shopFoodList: [{
-    type: ObjectId,
-    default: null
+  foodList: [{
+    name: {
+      type: String,
+      default: ''
+    },
+    description: {
+      type: String,
+      default: ''
+    },
+    foods: [
+      {
+        type: ObjectId,
+        default: null
+      }
+    ]
   }],
   // 店铺评价
-  shopComment: [{
+  comment: [{
     type: ObjectId,
     default: null
   }],
   // 店铺好评率
-  shopRate: {
+  rate: {
     type: Number,
     default: 0
   },
   // 店铺订单
-  shopOrder: [{
+  order: [{
     type: ObjectId,
     default: null
   }],
   // 配送时间
-  orderLeadTime: {
+  leadTime: {
+    type: Number,
+    default: 0
+  },
+  // 月售
+  recentOrderNum: {
+    type: Number,
+    defalut: 0
+  },
+  // 距离
+  distance: {
     type: Number,
     default: 0
   },

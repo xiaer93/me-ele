@@ -7,55 +7,55 @@ const ObjectId = Schema.ObjectId
 
 let foodSchema = new Schema({
   // 名称
-  foodName: {
+  name: {
     type: String,
     default: ''
   },
   // 描述
-  foodDesc: {
+  desc: {
     type: String,
     default: ''
   },
   // 图像
-  foodAvatar: {
+  avatar: {
     type: String,
     default: ''
   },
   // 月销量
-  foodMounthCount: {
+  mounthCount: {
     type: Number,
     default: 0
   },
   // 总销量
-  foodTotalCount: {
+  totalCount: {
     type: Number,
     defalut: 0
   },
   // 价格
-  foodPrice: {
+  price: {
     type: Number,
     default: 0
   },
   // 好评率
-  foodRate: {
+  rate: {
     type: Number,
     default: 0
   },
   // 打折
-  foodDiscount: [
+  discount: [
     {
-      discountId: {
+      id: {
         type: Number,
         default: 0
       },
-      discountName: {
+      name: {
         type: String,
         default: ''
       }
     }
   ],
   // 店铺
-  foodShop: {
+  shop: {
     type: ObjectId,
     default: null
   }

@@ -4,11 +4,11 @@
 const Foods = require('./food')
 const Shops = require('./shop')
 const Enters = require('./enter')
-const Ad = require('./ad')
+const Banner = require('./banner')
 
 module.exports = {
   Foods,
   Shops,
   Enters,
-  Ad
+  Banner
 }

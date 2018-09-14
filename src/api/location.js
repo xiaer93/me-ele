@@ -16,9 +16,9 @@ const locationApi = {
         })
     })
   },
-  searchAddress () {
+  searchAddress (params) {
     return new Promise((resolve, reject) => {
-      axios.get('/location/searchAddress')
+      axios.get('/api/location/searchAddress', {params})
         .then(res => {
           if (res.status === 200) {
             resolve(res.data)
