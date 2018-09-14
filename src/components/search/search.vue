@@ -8,7 +8,7 @@
             </svg>
             <div class="search-text">
               <div class="search-input">
-                <input-box placeholder="输入商家、店铺名称" v-model="searchWord" @blur="search()"></input-box>
+                <input-box placeholderText="输入商家、店铺名称" v-model="searchWord" @blur="search()"></input-box>
               </div>
             </div>
             <span class="search-btn">搜索</span>

@@ -10,7 +10,7 @@
             <span>{{searchOption.name || '选择城市'}}</span>
           </p>
           <div class="location-main-btn-search">
-            <input-box v-model="searchWord" @input="searchAddress"></input-box>
+            <input-box v-model="searchWord" @input="searchAddress" placeholderText="请输入地址"></input-box>
           </div>
         </div>
         <div class="location-main-content" v-show="addressList.length">
@@ -40,7 +40,7 @@
           <div class="location-city-search">
             <p class="location-city-search-inner">
               <!--fixme: 为什么placeholder传不过去？？？-->
-              <input-box v-model="cityWord" :placeholderText="placeholderText"></input-box>
+              <input-box placeholderText="输入城市名、拼音或首字母查询"  v-model="cityWord"></input-box>
             </p>
           </div>
           <div class="location-city-content" v-show="!cityWord">
@@ -83,7 +83,6 @@ import locationApi from 'api/location'
 export default {
   data () {
     return {
-      placeholderText: '输入城市名、拼音或首字母查询',
       searchOption: {
         latitude: -1,
         longitude: -1,
@@ -208,7 +207,7 @@ export default {
       }
       &-select{
         position: relative;
-        margin-right: .6rem;
+        margin-right: .5rem;
         height: .72rem;
         line-height: .72rem;
         flex: 1 1 auto;
