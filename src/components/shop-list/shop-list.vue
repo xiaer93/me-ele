@@ -1,29 +1,29 @@
 <template>
   <!--商家列表组件-->
   <div class="shop-wrapper">
-    <div class="filter" @touchmove.prevent>
-      <div class="filter-mask" v-show="isSortShow || isSelectShow" @click="hideMask"></div>
+    <div class="filter">
+      <div class="filter-mask" v-show="isOrderShow || isFilterShow" @click="hideMask"></div>
       <div class="filter-menu" ref="menu">
         <ul class="filter-menu-content">
-          <li class="filter-menu-item" @click="select(0)" :class="{'active-black': currentMenu === 0, 'active-blue': isSortShow}">综合排序</li>
-          <li class="filter-menu-item" @click="select(1)" :class="{'active-black': currentMenu === 1}">距离最近</li>
-          <li class="filter-menu-item" @click="select(2)" :class="{'active-black': currentMenu === 2}">品质联盟</li>
-          <li class="filter-menu-item" @click="select(3)" :class="{'active-blue': isSelectShow}">筛选</li>
+          <li class="filter-menu-item filter-menu-item-icon" @click="showDialog('order')" :class="{'active-black': innerOrder, 'active-blue': isOrderShow}">{{(innerOrder && innerOrder.name) || '综合排序'}}</li>
+          <li class="filter-menu-item" @click="reOrder(outerSort[0].id)" :class="{'active-black': searchOptions.orderBy === outerSort[0].id}">{{outerSort[0].name}}</li>
+          <li class="filter-menu-item" @click="reOrder(outerSort[1].id)" :class="{'active-black': searchOptions.orderBy === outerSort[1].id}">{{outerSort[1].name}}</li>
+          <li class="filter-menu-item" @click="showDialog('filter')" :class="{'active-blue': isFilterShow}">筛选</li>
         </ul>
-        <div class="filter-sort" v-show="isSortShow">
+        <div class="filter-sort" v-show="isOrderShow">
           <ul class="filter-sort-box">
-            <li class="filter-sort-item" v-for="item in sortTag" :key="item.sortId">{{item.name}}</li>
+            <li class="filter-sort-item" v-for="item in innerSort" :key="item.id" @click="reOrder(item.id)">{{item.name}}</li>
           </ul>
         </div>
-        <div class="filter-select" v-show="isSelectShow">
+        <div class="filter-select" v-show="isFilterShow">
           <div class="filter-select-content">
             <h3 class="filter-select-title">商家服务（可多选）</h3>
             <ul class="filter-select-box">
               <li class="filter-select-item"
                   v-for="item in shopServer"
-                  :key="item.shopServerId"
+                  :key="item.id"
                   @click="setServer(item)"
-                  :class="{'active-filter': searchOptions.shopServerIds.indexOf(item.shopServerId) !== -1}"
+                  :class="{'active-filter': searchOptions.shopServer.indexOf(item.id) !== -1}"
               >
                 <img class="filter-select-avatar" :src="item.avatar" alt="">
                 <span class="filter-select-name">{{item.name}}</span>
@@ -33,9 +33,9 @@
             <ul class="filter-select-box">
               <li class="filter-select-item"
                   v-for="item in saleActivity"
-                  :key="item.saleActivityId"
+                  :key="item.id"
                   @click="setActivity(item)"
-                  :class="{'active-filter': item.saleActivityId === searchOptions.activity_types}"
+                  :class="{'active-filter': item.id === searchOptions.saleActivity}"
               >
                 <span class="filter-select-name">{{item.name}}</span>
               </li>
@@ -46,7 +46,7 @@
                   v-for="(item, index) in saleAverage"
                   :key="index"
                   @click="setAverage(item)"
-                  :class="{'active-filter': item.cost_to === searchOptions.cost_to && item.cost_from === searchOptions.cost_from}"
+                  :class="{'active-filter': item.id === searchOptions.saleAverage}"
               >
                 <span class="filter-select-name">{{item.name}}</span>
               </li>
@@ -54,7 +54,7 @@
           </div>
           <div class="filter-select-btn">
             <span class="filter-select-clear" @click="resetSearchOption">清空</span>
-            <span class="filter-select-submit">确定</span>
+            <span class="filter-select-submit" @click="restartSearch">确定</span>
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@
             <span class="shop-item-name">{{searchItem.restaurant.shopName}}</span>
           </h3>
           <p class="shop-item-col">
-            <img src="~common/image/star-1.svg" alt="" class="shop-item-star">
+            <img src="~common/image/star.svg" alt="" class="shop-item-star">
             <span class="shop-item-average">{{searchItem.restaurant.shopRate}}</span>
             <span class="shop-item-sales">月售{{searchItem.restaurant.recentOrderNum}}单</span>
           </p>
@@ -107,25 +107,14 @@ import {CONFIG_SORT, CONFIG_FILTER} from 'api/variable'
 export default {
   data () {
     return {
-      // 综合排序
-      sortTag: CONFIG_SORT.filter(t => {
-        return !t.notSubNav
-      }),
-      // 商家服务
-      shopServer: CONFIG_FILTER.shopServer,
-      // 优惠活动
-      saleActivity: CONFIG_FILTER.saleActivity,
-      // 人均消费
-      saleAverage: CONFIG_FILTER.saleAverage,
-      currentMenu: -1,
-      isSortShow: false,
-      isSelectShow: false,
+      isOrderShow: false,
+      isFilterShow: false,
       // 搜索关键词
       searchOptions: {
-        order_by: -1,
-        shopServerIds: [],
-        saleActivityId: -1,
-        saleAverageId: -1
+        orderBy: 1,
+        shopServer: [],
+        saleActivity: -1,
+        saleAverage: -1
       },
       // 搜索结果
       searchList: []
@@ -137,14 +126,19 @@ export default {
       default: ''
     }
   },
+  computed: {
+    innerOrder () {
+      return this.innerSort.find(t => t.id === this.searchOptions.orderBy)
+    }
+  },
   watch: {
     searchWord (newWord) {
       // 监听searchWord，搜索商家
-      this.search()
+      this._search()
     }
   },
   methods: {
-    search () {
+    _search () {
       searchApi.search()
         .then(res => {
           if (res.code === 0) {
@@ -168,63 +162,81 @@ export default {
     },
     // 重新搜索
     setServer (item) {
-      let tmpSupport = [...this.searchOptions.shopServerIds]
-      let index = tmpSupport.indexOf(item.shopServerId)
+      let tmpSupport = [...this.searchOptions.shopServer]
+      let index = tmpSupport.indexOf(item.id)
       if (index === -1) {
-        tmpSupport.push(item.shopServerId)
+        tmpSupport.push(item.id)
       } else {
         tmpSupport.splice(index, 1)
       }
 
-      this.searchOptions.shopServerIds = tmpSupport
+      this.searchOptions.shopServer = tmpSupport
     },
     setActivity (item) {
-      this.searchOptions.saleActivityId = item.saleActivityId
+      this.searchOptions.saleActivity = item.id
     },
     setAverage (item) {
-      this.searchOptions.saleAverageId = item.saleAverageId
+      this.searchOptions.saleAverage = item.id
+    },
+    reOrder (id) {
+      this.hideMask()
+      this.searchOptions.orderBy = id
+    },
+    restartSearch () {
+      this.hideMask()
+      this._search()
     },
     resetSearchOption () {
-      this.searchOptions = {
-        order_by: -1,
-        shopServerIds: [],
-        saleActivityId: -1,
-        saleAverageId: -1
-      }
+      this.searchOptions.shopServer = []
+      this.searchOptions.saleActivity = -1
+      this.searchOptions.saleAverage = -1
     },
-    select (id) {
-      this.currentMenu = id
-      this.isSortShow = false
-      this.isSelectShow = false
-      switch (id) {
-        case 0: {
-          this.isSortShow = true
-          break
-        }
-        case 1: {
-          break
-        }
-        case 2: {
-          break
-        }
-        case 3: {
-          this.isSelectShow = true
-        }
-      }
+    showDialog (name) {
+      this.hideMask()
       this.$emit('scrollTop')
+
+      if (name === 'order') {
+        this.isOrderShow = true
+        // eslint-disable-next-line
+        return
+      }
+      if (name === 'filter') {
+        this.isFilterShow = true
+        // eslint-disable-next-line
+        return
+      }
     },
     hideMask () {
-      this.isSortShow = false
-      this.isSelectShow = false
+      this.isOrderShow = false
+      this.isFilterShow = false
     },
     openShop (shop) {
       this.$router.push({
-        path: '/restaurant'
+        name: 'Restaurant',
+        query: {
+          id: 1
+        }
       })
     }
   },
   created () {
-    this.search()
+    this._search()
+
+    /* 非响应式数据 */
+    // 综合排序
+    this.innerSort = CONFIG_SORT.filter(t => {
+      return !t.isOuter
+    })
+    // 距离排序
+    this.outerSort = CONFIG_SORT.filter(t => {
+      return t.isOuter
+    })
+    // 商家服务
+    this.shopServer = CONFIG_FILTER.shopServer
+    // 优惠活动
+    this.saleActivity = CONFIG_FILTER.saleActivity
+    // 人均消费
+    this.saleAverage = CONFIG_FILTER.saleAverage
   },
   mounted () {
 
@@ -357,6 +369,19 @@ export default {
       color: @text-color-6;
       text-align: center;
       .hide-text(1);
+      &-icon{
+        position: relative;
+        &::after{
+          display: block;
+          position: absolute;
+          content: '';
+          right: .1rem;
+          top: 50%;
+          border: .06rem solid transparent;
+          border-top-color: #000;
+          margin-top: -.04rem;
+        }
+      }
     }
   }
   &-sort{
@@ -455,6 +480,9 @@ export default {
   .active-blue{
     color: @text-color-31;
     font-weight: @font-weight-bold;
+    &::after{
+      border-top-color: @text-color-31;
+    }
   }
   .active-filter{
     font-weight: @font-weight-bold;

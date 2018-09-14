@@ -39,18 +39,14 @@ let enterSchema = {
   ],
   // 当前经纬度是否推荐？
   valid: {
-    latitude: [
-      {
-        type: Number,
-        default: 0
-      }
-    ],
-    longitude: [
-      {
-        type: Number,
-        default: 0
-      }
-    ]
+    latitude: {
+      type: String,
+      default: '-180,180'
+    },
+    longitude: {
+      type: String,
+      default: '-180,180'
+    }
   }
 }
 

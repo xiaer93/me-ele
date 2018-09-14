@@ -67,6 +67,8 @@ export default {
 .infinite-load{
   // 提供包含快~
   position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .infinite-end{
   display: block;

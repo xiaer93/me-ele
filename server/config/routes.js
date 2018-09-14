@@ -12,6 +12,7 @@ Router.get('/', function (req, res) {
 
 // home
 Router.get('/home/menuList', home.menu)
+Router.get('/home/bannerList', home.banner)
 
 // location
 Router.get('/location/getCityList', location.getCityList)

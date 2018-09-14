@@ -31,5 +31,9 @@ module.exports = {
         }
       })
     })
+  },
+  // 根据经纬度，推荐对应的广告
+  banner: function (req, res) {
+    let {longitude, latitude} = req.query
   }
 }

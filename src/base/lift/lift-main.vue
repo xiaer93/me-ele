@@ -12,7 +12,6 @@ export default {
     let self = this
     setTimeout(() => {
       self.$refs.liftMain.addEventListener('touchmove', function (e) {
-        console.log('lift')
       }, false)
     }, 20)
   }

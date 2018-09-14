@@ -7,7 +7,7 @@
       <div class="location-main">
         <div class="location-main-btn">
           <p class="location-main-btn-select" @click="openCityBox">
-            <span>选择城市</span>
+            <span>{{searchOption.name || '选择城市'}}</span>
           </p>
           <div class="location-main-btn-search">
             <input-box v-model="searchWord" @input="searchAddress"></input-box>
@@ -15,7 +15,7 @@
         </div>
         <div class="location-main-content" v-show="addressList.length">
           <ul class="location-main-search">
-            <li class="location-main-item" v-for="(item, index) in addressList" :key="index">
+            <li class="location-main-item" v-for="(item, index) in addressList" :key="index" @click="setPosition(item)">
               <h3 class="location-main-item-title">
                 {{item.city}}
             </h3>
@@ -34,12 +34,13 @@
       </div>
       <div class="location-city" v-if="isSelectCity">
         <div class="location-city-header">
-          <header-title>城市选择</header-title>
+          <header-title @back="isSelectCity = false">城市选择</header-title>
         </div>
         <div class="location-city-scroll" :style="{'overflow': cityWord ? 'scroll' : ''}">
           <div class="location-city-search">
             <p class="location-city-search-inner">
-              <input-box v-model="cityWord" placeholder="输入城市名、拼音或首字母查询"></input-box>
+              <!--fixme: 为什么placeholder传不过去？？？-->
+              <input-box v-model="cityWord" :placeholderText="placeholderText"></input-box>
             </p>
           </div>
           <div class="location-city-content" v-show="!cityWord">
@@ -50,7 +51,7 @@
                   <p class="m-city-main-text"
                      v-for="city in item.cities"
                      :key="city.id"
-                     @click="setPosition(city)"
+                     @click="setCity(city)"
                   >{{city.name}}</p>
                 </div>
               </lift-main>
@@ -82,10 +83,19 @@ import locationApi from 'api/location'
 export default {
   data () {
     return {
-      position: {},
+      placeholderText: '输入城市名、拼音或首字母查询',
+      searchOption: {
+        latitude: -1,
+        longitude: -1,
+        name: ''
+      },
+      // 服务器搜索关键词
       searchWord: '',
+      // 服务器请求搜索
       addressList: [],
+      // 城市中过滤
       cityWord: '',
+      // 城市列表
       cityList: {},
       isSelectCity: false,
       isShowLocation: false
@@ -131,15 +141,12 @@ export default {
           }
         })
     },
-    setPosition (position) {
-      let {latitude, longitude, name} = position
+    setCity (city) {
       this.isSelectCity = false
-      this.position = {
-        latitude,
-        longitude,
-        address: name
-      }
-      this.hide()
+      this.searchOption = city
+    },
+    setPosition (position) {
+      this.position = position
       this.$emit('updatePosition', this.position)
     },
     show () {
@@ -202,6 +209,8 @@ export default {
       &-select{
         position: relative;
         margin-right: .6rem;
+        height: .72rem;
+        line-height: .72rem;
         flex: 1 1 auto;
         span{
           display: block;
@@ -213,7 +222,7 @@ export default {
         &::after{
           position: absolute;
           right: -.1rem;
-          top: .05rem;
+          top: .3rem;
           content: '';
           display: block;
           border: .12rem solid transparent;

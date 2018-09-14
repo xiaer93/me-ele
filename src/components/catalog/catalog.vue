@@ -7,7 +7,7 @@
         </div>
         <div class="catalog-header-catalog">
           <div class="catalog-header-catalog-content">
-            <ul class="catalog-header-catalog-ul" :style="{'width': `${currentCatalog.factors.length * 1.72 + 1.2}rem`}">
+            <ul class="catalog-header-catalog-ul">
               <li class="catalog-header-item"
                   :class="{'active': searchWord === '全部'}"
                   @click="setWord('全部')"
@@ -26,10 +26,9 @@
         </div>
       </div>
     </div>
-    <div class="catalog-shop" ref="shop">
-      <shop-list :offsetTop="searchBoxHeight" :searchWord="searchWord"></shop-list>
-    </div>
-    <!--fixme: 如何阻止滚动冒泡至上层？-->
+    <infinite-load @loadMore="loadMore" class="catalog-shop" ref="infiniteLoad">
+      <shop-list @loadSuccess="loadSuccess" :searchWord="searchWord" ref="shopList"></shop-list>
+    </infinite-load>
     <div class="catalog-dialog" v-show="isShowDialog">
       <div class="catalog-menu">
         <div class="catalog-menu-header">
@@ -52,7 +51,7 @@
           </div>
           <div class="catalog-menu-subcatalog">
             <ul class="catalog-menu-scroll">
-              <li class="m-catalog" v-for="(menu, index) in selectCatalog" :key="index">
+              <li class="m-catalog" v-for="(menu, index) in selectCatalog" :key="index" @click="openCatalog(menu)">
                 <img :src="menu.image" alt="" class="m-catalog-avatar">
                 <span class="m-catalog-food">{{menu.name}}</span>
                 <span class="m-catalog-count">{{menu.count}}</span>
@@ -61,7 +60,7 @@
           </div>
         </div>
       </div>
-      <div class="catalog-mask" @click="isShowDialog = false" @touchmove.prevent></div>
+      <div class="catalog-mask" @click="isShowDialog = false"></div>
     </div>
   </div>
 </template>
@@ -71,6 +70,7 @@ import * as $ from 'jquery'
 import {mapGetters} from 'vuex'
 import ShopList from 'components/shop-list/shop-list'
 import HeaderTitle from 'base/header-title'
+import InfiniteLoad from 'base/infinite-load'
 
 export default {
   data () {
@@ -108,21 +108,52 @@ export default {
     },
     back () {
       this.$router.back()
+    },
+    openCatalog (detail) {
+      this.isShowDialog = false
+      this.$router.replace({
+        name: 'Catalog',
+        params: {id: this.selectId},
+        query: {
+          detail: encodeURIComponent(detail.name)
+        }
+      })
+    },
+    // 响应infinite-loadmore事件
+    loadMore () {
+      this.$refs.shopList.loadMore()
+    },
+    // 响应shop-list事件
+    loadSuccess () {
+      this.$refs.infiniteLoad.resetLoading()
     }
   },
   created () {
     this.currentId = Number.parseInt(this.$route.params.id)
+    this.searchWord = decodeURIComponent(this.$route.query.detail)
     this.selectId = this.currentId
   },
   mounted () {
     setTimeout(() => {
-      this.searchBoxHeight = $(this.$refs.header).height()
-      this.searchWord = '全部'
+      // fixme: 耦合程度太高了~~~
+      let offsetTop = $(this.$refs.header).outerHeight()
+      $(this.$refs.shopList.$el).find('.filter-menu').css({
+        position: 'fixed',
+        top: offsetTop + 'px'
+      })
     }, 20)
+  },
+  // 组件在路由中复用的时候调用，监听路由变化信息
+  beforeRouteUpdate (to, from, next) {
+    this.currentId = Number.parseInt(to.params.id)
+    this.searchWord = decodeURIComponent(to.query.detail)
+    this.selectId = this.currentId
+    next()
   },
   components: {
     ShopList,
-    HeaderTitle
+    HeaderTitle,
+    InfiniteLoad
   }
 }
 </script>
@@ -131,12 +162,12 @@ export default {
 @import "~common/less/mixin";
 
 .catalog{
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2;
-  width: 100%;
-  min-height: 100%;
   font-size: .28rem;
   background-color: #fff;
   &-icon{
@@ -189,10 +220,11 @@ export default {
       }
     }
     &-item{
-      box-sizing: border-box;
+      flex: 0 0 auto;
       margin: 0 .3rem;
-      text-align: center;
+      box-sizing: border-box;
       border-bottom: .04rem solid transparent;
+      text-align: center;
       opacity: .7;
       &.active{
         opacity: 1;
@@ -203,6 +235,8 @@ export default {
   &-shop{
     position: relative;
     z-index: 0;
+    width: 100%;
+    height: calc(100% - 1.6rem);
   }
   &-dialog{
     position: fixed;

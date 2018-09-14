@@ -138,7 +138,10 @@ export default {
     openCatalog (catalogId) {
       this.$router.push({
         name: 'Catalog',
-        params: {id: catalogId}
+        params: {id: catalogId},
+        query: {
+          detail: encodeURIComponent('全部')
+        }
       })
     },
     updatePosition (position) {
@@ -174,7 +177,8 @@ export default {
         })
       } else {
         this._$filterMenu.css({
-          position: 'static'
+          position: '',
+          top: ''
         })
       }
     },
@@ -271,7 +275,6 @@ export default {
   &-scroll{
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
   }
   &-loading{
     position: fixed;

@@ -5,7 +5,7 @@
     </span>
     <input type="text"
        class="input-text"
-       :placeholder="placeholder"
+       :placeholder="placeholderText"
        v-bind:value="value"
        v-on="inputListeners"
        ref="text"
@@ -19,18 +19,14 @@ import {debounce} from 'common/js/util'
 
 export default {
   props: {
-    placeholder: {
+    placeholderText: {
       type: String,
-      default: ''
+      default: '请输入'
     },
     // 透明input，此处必须为value
     value: {
       type: String,
       default: ''
-    }
-  },
-  data () {
-    return {
     }
   },
   computed: {
@@ -51,8 +47,10 @@ export default {
       this.$emit('input', '')
     }
   },
-  crated () {
-
+  created () {
+    setTimeout(() => {
+      console.log(this.placeholderText)
+    })
   }
 }
 </script>

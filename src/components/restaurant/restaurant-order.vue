@@ -33,14 +33,18 @@
         </ul>
       </div>
     </div>
-    <div class="order-lift" ref="lift">
-      <!--// 不能够在父组件内控制子组件的样式，因此必须包裹一层，-->
-      <lift>
-        <div slot="lift-main" class="order-main" v-for="(item, index) in foodList" :key="index">
-          <h3 class="order-main-title">
+
+    <!--// 不能够在父组件内控制子组件的样式，!!! 可以，但是组件必须使用$el指向dom元素-->
+    <lift class="order-lift" ref="lift">
+      <lift-number class="order-lift-number">
+        <div class="order-lift-number-item" v-for="(name, index) in foodCatalog" :key="index">{{name}}</div>
+      </lift-number>
+      <lift-main class="order-lift-main">
+        <div class="order-lift-main-item" v-for="(item, index) in foodList" :key="index">
+          <h3 class="order-lift-main-title">
             {{item.name}}<span class="order-main-description">{{item.description}}</span>
           </h3>
-          <ul class="order-main-food">
+          <ul class="order-lift-main-food">
             <li class="order-main-item m-food" v-for="(food, foodIndex) in item.foods" :key="foodIndex">
               <p class="m-food-mask">
                 <img :src="food.foodAvatar" alt="">
@@ -73,12 +77,11 @@
             </li>
           </ul>
         </div>
-        <div slot="lift-number" class="order-number" v-for="(name, index) in foodCatalog" :key="index">{{name}}</div>
-      </lift>
-    </div>
-    <!--// 为什么touchmove.prevent不能放在order-cart中？？？-->
+      </lift-main>
+    </lift>
+    <!--// 为什么touchmove.prevent不能放在order-cart中？？？父元素为容器，子元素滚动，放在父元素中prevent会阻止滚动-->
     <div class="order-cart">
-      <div class="order-cart-mask" v-show="isShowCart" @click="isShowCart = false" @touchmove.prevent></div>
+      <div class="order-cart-mask" v-show="isShowCart" @click="isShowCart = false"></div>
       <div class="order-cart-notice">已减8元</div>
       <div class="order-cart-list" :style="{'maxHeight': isShowCart ? '7rem' : '0'}">
         <h3 class="order-cart-list-header">
@@ -244,7 +247,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Lift from 'base/lift'
+import {Lift, LiftMain, LiftNumber} from 'base/lift/index'
 import Banner from 'base/banner'
 import Toast from 'base/toast'
 import * as $ from 'jquery'
@@ -299,13 +302,15 @@ export default {
   },
   mounted () {
     setTimeout(() => {
-      $(this.$refs.lift).css({
+      $(this.$refs.lift.$el).css({
         height: $(window).height()
       })
     }, 20)
   },
   components: {
     Lift,
+    LiftMain,
+    LiftNumber,
     Banner,
     Toast
   }
@@ -317,29 +322,7 @@ export default {
 
 .order{
   height: 100%;
-  &-main{
-    padding-right: .4rem;
-    &-title{
-      font-size: @font-size-small-s;
-      color: @text-color-6;
-      font-weight: @font-weight-bold;
-      line-height: 1;
-    }
-    &-description{
-      margin-left: .1rem;
-      font-size: @font-size-small-m;
-      color: @text-color-9;
-    }
-  }
-  &-number{
-    padding: .4rem 0 .4rem .1rem;
-    font-size: @font-size-small-s;
-    color: @text-color-6;
-    &.active{
-      color: @text-color-3;
-      background-color: #fff;
-    }
-  }
+  background-color: #fff;
   &-banner{
     position: relative;
     z-index: 0;
@@ -363,9 +346,44 @@ export default {
     }
   }
   &-lift{
+    display: flex;
     box-sizing: border-box;
     padding-bottom: 1.4rem;
     margin-top: .3rem;
+    &-main{
+      flex: 1 1 auto;
+      height: 100%;
+      padding-right: .4rem;
+      &-title{
+        font-size: @font-size-small-s;
+        color: @text-color-6;
+        font-weight: @font-weight-bold;
+        line-height: 1;
+      }
+      &-description{
+        margin-left: .1rem;
+        font-size: @font-size-small-m;
+        color: @text-color-9;
+      }
+    }
+    &-number{
+      flex: 0 0 auto;
+      height: 100%;
+      width: 1.6rem;
+      margin-right: .2rem;
+      background-color: #f8f8f8;
+      border-right: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+      &-item{
+        padding: .4rem 0 .4rem .1rem;
+        font-size: @font-size-small-s;
+        color: @text-color-6;
+        &.active{
+          color: @text-color-3;
+          background-color: #fff;
+        }
+      }
+    }
   }
   &-cart{
     position: fixed;

@@ -1,92 +1,96 @@
 <template>
   <transition name="slide">
-    <div class="restaurant">
-    <div class="restaurant-img">
-      <span class="restaurant-img-return">
-        <svg class="m-icon m-icon-return" @click="$router.push('/')">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow"></use>
-          </svg>
-      </span>
-      <span class="restaurant-img-bg">
-        <img :src="resData.restaurant.shopBg" alt="">
-      </span>
-      <img :src="resData.restaurant.shopAvatar" alt="" class="restaurant-img-avatar">
-    </div>
-    <div class="restaurant-header">
-      <h2 class="restaurant-header-name">{{resData.restaurant.shopName}}</h2>
-      <p class="restaurant-infos">
-        <span class="restaurant-infos-likes">评价{{resData.restaurant.shopRate}}</span>
-        <span class="restaurant-infos-sales">月售{{resData.restaurant.recentOrderNum}}单</span>
-        <span class="restaurant-infos-time">蜂鸟送约{{resData.restaurant.orderLeadTime}}分钟</span>
-      </p>
-      <ul class="restaurant-money" @click="showRedPacket">
-        <li class="restaurant-money-item">
-          <span class="restaurant-money-if">￥<em>2</em> 满35可用</span>
-          <span class="restaurant-money-get">领取</span>
+    <div class="restaurant" ref="restaurant">
+      <div class="restaurant-img">
+        <span class="restaurant-img-return">
+          <svg class="m-icon m-icon-return" @click="$router.back()">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow"></use>
+            </svg>
+        </span>
+        <span class="restaurant-img-bg">
+          <img :src="resData.restaurant.shopBg" alt="">
+        </span>
+        <img :src="resData.restaurant.shopAvatar" alt="" class="restaurant-img-avatar">
+      </div>
+      <div class="restaurant-header">
+        <h2 class="restaurant-header-name">{{resData.restaurant.shopName}}</h2>
+        <p class="restaurant-infos">
+          <span class="restaurant-infos-likes">评价{{resData.restaurant.shopRate}}</span>
+          <span class="restaurant-infos-sales">月售{{resData.restaurant.recentOrderNum}}单</span>
+          <span class="restaurant-infos-time">蜂鸟送约{{resData.restaurant.orderLeadTime}}分钟</span>
+        </p>
+        <ul class="restaurant-money" @click="showRedPacket">
+          <li class="restaurant-money-item">
+            <span class="restaurant-money-if">￥<em>2</em> 满35可用</span>
+            <span class="restaurant-money-get">领取</span>
+          </li>
+        </ul>
+        <p class="restaurant-tips" @click="showActivity">
+          <span class="restaurant-tips-left"><em>首单</em>新用户下单立减25元（不与其他活动同享）</span>
+          <span class="restaurant-tips-right">5个优惠</span>
+        </p>
+        <p class="restaurant-notice">{{resData.restaurant.shopNotice}}</p>
+      </div>
+      <ul class="restaurant-tap">
+        <li class="restaurant-tap-item" @click="selectComponent('RestaurantOrder')" :class="{'active': currentComponent === 'RestaurantOrder'}">
+          <span class="restaurant-tap-text">点餐</span>
+        </li>
+        <li class="restaurant-tap-item" @click="selectComponent('RestaurantComment')" :class="{'active': currentComponent === 'RestaurantComment'}">
+          <span class="restaurant-tap-text">评价</span>
+        </li>
+        <li class="restaurant-tap-item" @click="selectComponent('RestaurantAbout')" :class="{'active': currentComponent === 'RestaurantAbout'}">
+          <span class="restaurant-tap-text">商家</span>
         </li>
       </ul>
-      <p class="restaurant-tips" @click="showActivity">
-        <span class="restaurant-tips-left"><em>首单</em>新用户下单立减25元（不与其他活动同享）</span>
-        <span class="restaurant-tips-right">5个优惠</span>
-      </p>
-      <p class="restaurant-notice">{{resData.restaurant.shopNotice}}</p>
-    </div>
-    <ul class="restaurant-tap">
-      <li class="restaurant-tap-item" :class="{'active': currentComponent === 'RestaurantOrder'}">
-        <span class="restaurant-tap-text">点餐</span>
-      </li>
-      <li class="restaurant-tap-item">
-        <span class="restaurant-tap-text">评价</span>
-      </li>
-      <li class="restaurant-tap-item">
-        <span class="restaurant-tap-text">商家</span>
-      </li>
-    </ul>
-    <div class="restaurant-component">
-      <!--<restaurant-order></restaurant-order>-->
-      <!--动态组件，绑定is的变量为字符串~-->
-      <component :is="currentComponent" :resData="resData"></component>
-    </div>
-    <!--红包弹窗-->
-    <bottom-tips ref="redpacket" title="店铺专享红包" class="restaurant-redpacket">
-      <ul class="restaurant-redpacket-content">
-        <li class="restaurant-redpacket-content-item">
-          <h4 class="restaurant-redpacket-contnet-tips">可领红包</h4>
-          <div class="restaurant-redpacket-content-main">
-            <span class="restaurant-redpacket-content-price">￥12</span>
-            <p class="restaurant-redpacket-content-infos">
-              <span class="restaurant-redpacket-content-rule">满￥177可用</span>
-              <span class="restaurant-redpacket-content-date">限连锁店使用，2018-09-30到期</span>
+      <div class="restaurant-component">
+        <!--<restaurant-order></restaurant-order>-->
+        <!--动态组件，绑定is的变量为字符串~-->
+        <transition name="fade">
+          <component :is="currentComponent" :resData="resData"></component>
+        </transition>
+      </div>
+      <!--红包弹窗-->
+      <bottom-tips ref="redpacket" title="店铺专享红包" class="restaurant-redpacket">
+        <ul class="restaurant-redpacket-content">
+          <li class="restaurant-redpacket-content-item">
+            <h4 class="restaurant-redpacket-contnet-tips">可领红包</h4>
+            <div class="restaurant-redpacket-content-main">
+              <span class="restaurant-redpacket-content-price">￥12</span>
+              <p class="restaurant-redpacket-content-infos">
+                <span class="restaurant-redpacket-content-rule">满￥177可用</span>
+                <span class="restaurant-redpacket-content-date">限连锁店使用，2018-09-30到期</span>
+              </p>
+              <span class="restaurant-redpacket-content-btn">领取</span>
+            </div>
+          </li>
+        </ul>
+      </bottom-tips>
+      <!--优惠活动弹窗-->
+      <bottom-tips ref="activity" title="优惠活动" class="restaurant-activity">
+        <ul class="restaurant-activity-content">
+          <li class="restaurant-activity-content-item">
+            <p class="restaurant-activity-content-infos">
+              <em class="restaurant-activity-content-tag">满减</em>
+              <span class="restaurant-activity-content-text">满50减1</span>
             </p>
-            <span class="restaurant-redpacket-content-btn">领取</span>
-          </div>
-        </li>
-      </ul>
-    </bottom-tips>
-    <!--优惠活动弹窗-->
-    <bottom-tips ref="activity" title="优惠活动" class="restaurant-activity">
-      <ul class="restaurant-activity-content">
-        <li class="restaurant-activity-content-item">
-          <p class="restaurant-activity-content-infos">
-            <em class="restaurant-activity-content-tag">满减</em>
-            <span class="restaurant-activity-content-text">满50减1</span>
-          </p>
-        </li>
-        <li class="restaurant-activity-content-item">
-          <p class="restaurant-activity-content-infos">
-            <em class="restaurant-activity-content-tag">首单</em>
-            <span class="restaurant-activity-content-text">新用户下单立减13元（不与其他活动同享）</span>
-          </p>
-        </li>
-      </ul>
-    </bottom-tips>
-  </div>
+          </li>
+          <li class="restaurant-activity-content-item">
+            <p class="restaurant-activity-content-infos">
+              <em class="restaurant-activity-content-tag">首单</em>
+              <span class="restaurant-activity-content-text">新用户下单立减13元（不与其他活动同享）</span>
+            </p>
+          </li>
+        </ul>
+      </bottom-tips>
+    </div>
   </transition>
 </template>
 
 <script type="text/ecmascript-6">
 import BottomTips from 'base/bottom-tips'
 import RestaurantOrder from 'components/restaurant/restaurant-order.vue'
+import RestaurantComment from 'components/restaurant/restaurant-comment.vue'
+import RestaurantAbout from 'components/restaurant/restaurant-about.vue'
 import shopApi from 'api/shop'
 // import * as $ from 'jquery'
 
@@ -118,16 +122,22 @@ export default {
     },
     showActivity () {
       this.$refs.activity.show()
+    },
+    selectComponent (component) {
+      this.currentComponent = component
     }
   },
   created () {
     this.getAllFood()
   },
   mounted () {
-
+    setTimeout(() => {
+    })
   },
   components: {
     RestaurantOrder,
+    RestaurantComment,
+    RestaurantAbout,
     BottomTips
   }
 }
@@ -136,13 +146,14 @@ export default {
 <style scoped lang="less" rel="stylesheet/less">
 @import "~common/less/mixin";
 .restaurant{
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2;
-  width: 100%;
-  min-height: 100%;
-  background-color: #fff;
+  overflow-y: scroll;
+  background-color: #f5f5f5;
   &-img{
     position: relative;
     height: 2rem;
@@ -173,8 +184,9 @@ export default {
     }
   }
   &-header{
-    margin-top: .6rem;
+    padding-top: .6rem;
     text-align: center;
+    background-color: #fff;
     &-name{
       font-size: @font-size-title;
       color: @text-color-3;
@@ -272,14 +284,17 @@ export default {
   }
   &-notice{
     width: 6.4rem;
-    margin: .16rem auto .2rem;
+    margin: 0 auto;
+    padding: .16rem 0 .2rem;
     font-size: @font-size-small;
     color: @text-color-9;
     .hide-text(1);
   }
   &-tap{
     display: flex;
-    margin: .4rem 0;
+    padding: .3rem 0;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
     &-item{
       font-size: @font-size-large-s;
       color: @text-color-6;
@@ -300,7 +315,7 @@ export default {
       &::after{
         position: absolute;
         left: 0;
-        bottom: -.2rem;
+        bottom: -.3rem;
         display: block;
         content: '';
         width: 100%;
@@ -420,5 +435,18 @@ export default {
 }
 .slide-enter, .slide-leave-to{
   transform: translate(100%, 0);
+}
+
+.fade-enter-active{
+  opacity: 1;
+  transition: all .3s .3s;
+}
+.fade-leave-active{
+  opacity: 1;
+  transition: all .3s;
+}
+.fade-enter, .fade-leave-to{
+  opacity: 0;
+  transform: translate(0, 100px);
 }
 </style>

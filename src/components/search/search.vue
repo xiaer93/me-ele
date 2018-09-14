@@ -1,54 +1,57 @@
 <template>
   <div class="search">
-      <div class="search-header">
-        <div class="search-content" ref="headerSearch">
-          <svg class="search-icon search-icon-return" @click="$router.back()">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow"></use>
-          </svg>
-          <div class="search-text">
-            <div class="search-input">
-              <input-box placeholder="输入商家、店铺名称" v-model="searchWord" @blur="search()"></input-box>
+      <infinite-load class="search-scroll" @loadMore="loadMore" ref="infiniteLoad">
+        <div class="search-header" ref="header">
+          <div class="search-content" ref="headerSearch">
+            <svg class="search-icon search-icon-return" @click="$router.back()">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow"></use>
+            </svg>
+            <div class="search-text">
+              <div class="search-input">
+                <input-box placeholder="输入商家、店铺名称" v-model="searchWord" @blur="search()"></input-box>
+              </div>
             </div>
+            <span class="search-btn">搜索</span>
           </div>
-          <span class="search-btn">搜索</span>
         </div>
-      </div>
-      <div class="search-word" v-show="!searchWord">
-        <div class="search-history" v-show="historyWord.length !== 0">
-          <h3 class="search-title">
-            <span class="search-title-text">历史搜索</span>
-            <span class="search-title-btn" @click="clearHistory()">
+        <div class="search-word" v-show="!searchWord">
+          <div class="search-history" v-show="historyWord.length !== 0">
+            <h3 class="search-title">
+              <span class="search-title-text">历史搜索</span>
+              <span class="search-title-btn" @click="clearHistory()">
           <svg class="search-icon search-icon-clear"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#bin"></use></svg>
         </span>
-          </h3>
-          <ul class="search-box">
-            <li class="search-box-item"
-                v-for="(item, index) in historyWord"
-                :key="index"
-                @click="setSearchWord(item)"
-            >{{item}}</li>
-          </ul>
+            </h3>
+            <ul class="search-box">
+              <li class="search-box-item"
+                  v-for="(item, index) in historyWord"
+                  :key="index"
+                  @click="setSearchWord(item)"
+              >{{item}}</li>
+            </ul>
+          </div>
+          <div class="search-hot">
+            <h3 class="search-title">
+              <span class="search-title-text">热门搜索</span>
+            </h3>
+            <ul class="search-box">
+              <li class="search-box-item"
+                  v-for="(item, index) in hotWord"
+                  :key="index"
+                  @click="setSearchWord(item.search_word)"
+              >{{item.search_word}}</li>
+            </ul>
+          </div>
         </div>
-        <div class="search-hot">
-          <h3 class="search-title">
-            <span class="search-title-text">热门搜索</span>
-          </h3>
-          <ul class="search-box">
-            <li class="search-box-item"
-                v-for="(item, index) in hotWord"
-                :key="index"
-                @click="setSearchWord(item.search_word)"
-            >{{item.search_word}}</li>
-          </ul>
+        <div class="search-shop" v-show="searchWord">
+          <shop-list :searchWord="searchWord" @loadSuccess="loadSuccess" ref="shopList"></shop-list>
         </div>
-      </div>
-      <div class="search-shop">
-        <shop-list :offsetTop="searchBoxHeight" :searchWord="searchWord"></shop-list>
-      </div>
+      </infinite-load>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
+import InfiniteLoad from 'base/infinite-load'
 import ShopList from 'components/shop-list/shop-list'
 import InputBox from 'base/input-box'
 import searchApi from 'api/search'
@@ -60,8 +63,7 @@ export default {
     return {
       hotWord: [],
       historyWord: [],
-      searchWord: '',
-      searchBoxHeight: 0
+      searchWord: ''
     }
   },
   methods: {
@@ -87,6 +89,14 @@ export default {
     },
     search () {
       this.historyWord = this.searchHistory.save(this.searchWord)
+    },
+    // 响应infinite-loadmore事件
+    loadMore () {
+      this.$refs.shopList.loadMore()
+    },
+    // 响应shop-list事件
+    loadSuccess () {
+      this.$refs.infiniteLoad.resetLoading()
     }
   },
   created () {
@@ -96,15 +106,18 @@ export default {
   },
   mounted () {
     setTimeout(() => {
-      let $headerSearch = $(this.$refs.headerSearch)
-
-      // 获取搜索框的高度;height获取元素本身高度，outerHeihgt包含padding、true包括margin
-      this.searchBoxHeight = $headerSearch.outerHeight()
+      // fixme: 耦合程度太高了~~~
+      let offsetTop = $(this.$refs.header).outerHeight()
+      $(this.$refs.shopList.$el).find('.filter-menu').css({
+        position: 'fixed',
+        top: offsetTop + 'px'
+      })
     }, 20)
   },
   components: {
     InputBox,
-    ShopList
+    ShopList,
+    InfiniteLoad
   }
 }
 </script>
@@ -113,13 +126,18 @@ export default {
 @import "~common/less/mixin";
 
 .search{
-  position: absolute;
+  position: fixed;
+  z-index: 2;
   left: 0;
   top: 0;
-  width: 100%;
-  min-height: 100%;
+  bottom: 0;
+  right: 0;
   font-size: .28rem;
   background-color: #fff;
+  &-scroll{
+    width: 100%;
+    height: 100%;
+  }
   &-header{
     position: relative;
     z-index: 1;
