@@ -11,7 +11,9 @@ const state = {
   // 收获地址
   localPosition: localPosition.get() || {},
   // 购物车
-  cart: cart.get() || {}
+  cart: cart.get() || {},
+  // 用户信息
+  userInfo: {}
 }
 
 export default state

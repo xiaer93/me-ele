@@ -46,5 +46,6 @@ npm test
 - mutation传参使用有哪些限制？？？
 - vue的响应式有层数限制吗，为什么直接food.number += 1无效
 - 给vue动态对象新增响应属性，必须使用vue.set
+- 依赖计算属性的计算属性，这个多层依赖可以吗？
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

@@ -6,6 +6,7 @@ const Router = express.Router()
 const home = require('../control/home')
 const location = require('../control/location')
 const restaurant = require('../control/restaurant')
+const user = require('../control/user')
 
 Router.get('/', function (req, res) {
   res.json({status: 'ok'})
@@ -25,6 +26,12 @@ Router.get('/location/searchAddress', location.searchAddress)
 Router.get('/restaurant/search', restaurant.search)
 Router.get('/restaurant/hotWord', restaurant.hotWord)
 Router.get('/restaurant/getFood', restaurant.getFood)
+
+// user
+Router.get('/user/getCode', user.getCode)
+Router.post('/user/login', user.login)
+Router.post('/user/logout', user.logout)
+Router.post('/user/checkLogin', user.checkLogin)
 
 module.exports = function (app) {
   // 使用路由中间件

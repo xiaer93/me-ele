@@ -1,7 +1,7 @@
 <template>
   <div class="address-edit">
     <div class="address-edit-header">
-      <header-title>编辑地址</header-title>
+      <header-title @back="$router.back()">编辑地址</header-title>
       <span class="address-edit-delete" v-show="isEditStatus" @click="deleteAddress">删除</span>
     </div>
     <div class="address-edit-content">

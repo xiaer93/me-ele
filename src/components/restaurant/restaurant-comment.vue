@@ -155,7 +155,7 @@ export default {
     }
   }
 }
-  .m-comment{
+.m-comment{
     display: flex;
     padding: .3rem 0;
     border-bottom: 1px solid #eee;

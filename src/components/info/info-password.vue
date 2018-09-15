@@ -1,7 +1,7 @@
 <template>
   <div class="info-pwd">
     <div class="info-pwd-title">
-      <header-title>账户信息</header-title>
+      <header-title @back="$router.back()">账户信息</header-title>
     </div>
     <div class="info-pwd-content">
       <p class="m-input">

@@ -133,6 +133,7 @@ module.exports = {
 
     } else {
       // home页返回商家数据
+      console.log('home')
       Model.Shops.find({})
         .skip(offset * limit)
         .limit(limit)
@@ -155,6 +156,7 @@ module.exports = {
 
               docLen -= 1
               if (docLen === 0) {
+                console.log(doc)
                 res.json({
                   code: 0,
                   msg: '',

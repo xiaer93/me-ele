@@ -3,15 +3,25 @@
  */
 const Model = require('../model')
 
+const u = {
+  "avatar": "/static/user-avatar.png",
+  "name": "7c93454dfa2",
+  "tel": "11111111111",
+  "address": [
+    {
+      "firstName": "程",
+      "sex": "man",
+      "tel": "11111111111",
+      "tag": "家",
+      "addressText": "武汉市人民政府武汉市人民政府"
+    }
+  ]
+}
+
 module.exports = {
   location: function (req, res) {
-    Model.Foods.find({}, function (err, doc) {
-      doc.forEach(t=>{
-        t.number = 0
-        console.log(t.number)
-        t.save()
-      })
-    })
+    let a = new Model.User(u)
+    a.save()
     res.send('1')
   },
   // 根据经纬度，推荐对应的菜单~
