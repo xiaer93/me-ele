@@ -97,6 +97,7 @@ export default {
       addressList: [],
       // 是否还可以加载更多
       isCanLoadMore: true,
+      isLoading: false,
       // 城市中过滤
       cityWord: '',
       // 城市列表
@@ -136,10 +137,14 @@ export default {
         })
     },
     search (value, isLoadMore = false) {
+      if (!value) {
+        return
+      }
       if (!isLoadMore) {
         this.searchOption.offset = 0
       }
 
+      this.isLoading = true
       locationApi.searchAddress(this.searchOption)
         .then(res => {
           if (res.code === 0) {
@@ -151,9 +156,9 @@ export default {
               this.addressList = res.result.addressList
             }
 
-            // 等待dom渲染完成后，才重新监听loadmore事件
+            // 等待dom渲染完成后，才重新允许加载
             this.$nextTick(() => {
-              this.$refs.infiniteLoad.resetLoading()
+              this.isLoading = false
             })
           } else {
             console.log(res.msg)
@@ -161,7 +166,7 @@ export default {
         })
     },
     loadMore () {
-      if (!this.isCanLoadMore) {
+      if (!this.isCanLoadMore || this.isLoading) {
         return
       }
       this.searchOption.offset += 1
@@ -172,6 +177,7 @@ export default {
       this.searchOption.latitude = city.latitude
       this.searchOption.longitude = city.longitude
       this.searchOption.name = city.name
+      this.searchOption.keyword = ''
     },
     setPosition (position) {
       this.hide()

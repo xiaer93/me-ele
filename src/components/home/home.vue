@@ -53,7 +53,7 @@
       </div>
       <div class="shop">
         <h2 class="shop-title">推荐商家</h2>
-        <shop-list @loadSuccess="loadSuccess" @scrollTop="scrollToTop" ref="shopList"></shop-list>
+        <shop-list @scrollTop="scrollToTop" ref="shopList"></shop-list>
       </div>
       <div class="side">
         <side-nav ref="sideNav" @scrollTop="scrollToTop"></side-nav>
@@ -140,7 +140,7 @@ export default {
         name: 'Catalog',
         params: {id: catalogId},
         query: {
-          detail: encodeURIComponent('全部')
+          detail: ''
         }
       })
     },
@@ -191,21 +191,19 @@ export default {
     loadMore () {
       this.$refs.shopList.loadMore()
     },
-    // 响应shop-list事件
-    loadSuccess () {
-      this.$refs.infiniteLoad.resetLoading()
-    },
     init () {
       if (this.localPosition.address) {
         let {longitude, latitude} = this.localPosition
         this.getMenuList({longitude, latitude})
         this.getBannerList({longitude, latitude})
+        this.$refs.shopList.search()
       } else {
         _inner().then((result) => {
           let position = {...result}
           this.setLocalPosition(position)
           this.getMenuList(position)
           this.getBannerList(position)
+          this.$refs.shopList.search()
         }).catch((error) => {
           console.log(error)
           this.isErrorGet = true
@@ -233,7 +231,7 @@ export default {
     })
   },
   created () {
-    this.init()
+
   },
   mounted () {
     let self = this
@@ -248,6 +246,9 @@ export default {
 
       // swiper对象
       self._swiperMenu = self.$refs.swiperMenu.swiper
+
+      // 初始化获取数据
+      self.init()
     }, 20)
   },
   components: {

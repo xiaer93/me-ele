@@ -12,14 +12,14 @@
               :key="index"
           >
             <p class="m-food-recommend-mask">
-              <img :src="food.foodImg" alt="" class="m-food-recommend-avatar">
+              <img :src="food.avatar" alt="" class="m-food-recommend-avatar">
             </p>
-            <p class="m-food-recommend-name">{{food.foodName}}</p>
+            <p class="m-food-recommend-name">{{food.name}}</p>
             <p class="m-food-recommend-infos">
-              <span class="m-food-recommend-sales">月售{{food.foodSales}}</span>
-              <span class="m-food-recommend-likes">好评率{{food.foodLikes}}%</span>
+              <span class="m-food-recommend-sales">月售{{food.mounthCount}}</span>
+              <span class="m-food-recommend-likes">好评率{{food.rate}}%</span>
             </p>
-            <p class="m-food-recommend-price">{{food.foodPrice}}</p>
+            <p class="m-food-recommend-price">{{food.price}}</p>
             <p class="m-food-recommend-control">
               <span class="m-food-recommend-minus">
                <svg class="m-icon m-icon-minus"><use xlink:href="#cart-add"></use></svg>
@@ -40,39 +40,42 @@
         <div class="order-lift-number-item" v-for="(name, index) in foodCatalog" :key="index">{{name}}</div>
       </lift-number>
       <lift-main class="order-lift-main">
-        <div class="order-lift-main-item" v-for="(item, index) in foodList" :key="index">
+        <div class="order-lift-main-item" v-for="(item, indexX) in shopFoods" :key="indexX">
           <h3 class="order-lift-main-title">
             {{item.name}}<span class="order-main-description">{{item.description}}</span>
           </h3>
           <ul class="order-lift-main-food">
-            <li class="order-main-item m-food" v-for="(food, foodIndex) in item.foods" :key="foodIndex">
+            <li class="order-main-item m-food" v-for="(food, indexY) in item.foods" :key="indexY">
               <p class="m-food-mask">
-                <img :src="food.foodAvatar" alt="">
+                <img :src="food.avatar" alt="">
               </p>
               <div class="m-food-content">
                 <h3 class="m-food-name">{{food.name}}</h3>
-                <p class="m-food-description">{{food.foodDesc}}</p>
+                <p class="m-food-description">{{food.desc}}</p>
                 <p class="m-food-infos">
-                  <span class="m-food-sales">月售{{food.foodMounthCount}}份</span>
-                  <span class="m-food-likes">好评率{{food.foodRate || 66}}%</span>
+                  <span class="m-food-sales">月售{{food.mounthCount}}份</span>
+                  <span class="m-food-likes">好评率{{food.rate || 66}}%</span>
                 </p>
                 <p class="m-food-discount">
                   <span class="m-food-discount-number">4折</span>
                   <span class="m-food-discount-text">每单限1份优惠</span>
                 </p>
                 <p class="m-food-price">
-                  <span class="m-food-price-new">1.6</span>
-                  <span class="m-food-price-old">4</span>
+                  <span class="m-food-price-new">{{food.price}}</span>
+                  <!--<span class="m-food-price-old">4</span>-->
                 </p>
-                <p class="m-food-control">
-              <span class="m-food-minus">
-               <svg class="m-icon m-icon-minus"><use xlink:href="#cart-add"></use></svg>
-              </span>
-                  {{11}}
-              <span class="m-food-add">
-                <svg class="m-icon m-icon-add"><use xlink:href="#cart-minus"></use></svg>
-              </span>
-                </p>
+                <div class="m-food-control">
+                  <!--fixme： 能不能只计算一次-->
+                  <p class="m-food-number" v-show="food.number">
+                    <span class="m-food-minus" @click="rminusCart(food)">
+                     <svg class="m-icon m-icon-minus"><use xlink:href="#cart-add"></use></svg>
+                    </span>
+                    {{food.number}}
+                  </p>
+                  <span class="m-food-add" @click="raddCart(food)">
+                    <svg class="m-icon m-icon-add"><use xlink:href="#cart-minus"></use></svg>
+                  </span>
+                </div>
               </div>
             </li>
           </ul>
@@ -86,7 +89,7 @@
       <div class="order-cart-list" :style="{'maxHeight': isShowCart ? '7rem' : '0'}">
         <h3 class="order-cart-list-header">
           <span class="order-cart-list-title">已选商品</span>
-          <p class="order-cart-list-clear">
+          <p class="order-cart-list-clear" @click="rclearCart()">
             <svg class="m-icon m-icon-clear"><use xlink:href="#cart-remove"></use></svg>
             <span>清空</span>
           </p>
@@ -100,13 +103,13 @@
               </p>
               <p class="order-cart-list-center">11</p>
               <p class="order-cart-list-right">
-              <span class="order-cart-list-minus">
-               <svg class="m-icon m-icon-minus"><use xlink:href="#cart-add"></use></svg>
-              </span>
-                {{11}}
-              <span class="order-cart-list-add">
-                <svg class="m-icon m-icon-add"><use xlink:href="#cart-minus"></use></svg>
-              </span>
+                <span class="order-cart-list-minus">
+                 <svg class="m-icon m-icon-minus"><use xlink:href="#cart-add"></use></svg>
+                </span>
+                  {{11}}
+                <span class="order-cart-list-add">
+                  <svg class="m-icon m-icon-add"><use xlink:href="#cart-minus"></use></svg>
+                </span>
               </p>
             </li>
             <li class="order-cart-list-item">
@@ -251,18 +254,12 @@ import {Lift, LiftMain, LiftNumber} from 'base/lift/index'
 import Banner from 'base/banner'
 import Toast from 'base/toast'
 import * as $ from 'jquery'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
-  props: {
-    resData: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
   data () {
     return {
+      shopFoods: [],
       bannerList: [
         {
           'id': 20097237,
@@ -275,26 +272,82 @@ export default {
     }
   },
   computed: {
-    foodList () {
-      return this.resData.shopFoods
-    },
     foodCatalog () {
-      return this.resData.shopFoods.length ? this.resData.shopFoods.map(t => { return t.name }) : []
+      return this.shopFoods.length ? this.shopFoods.map(t => { return t.name }) : []
     },
     recommendFood () {
       return []
-    }
+    },
+    ...mapGetters([
+      'cart'
+    ])
   },
   methods: {
-    addCart (item) {
-      if (item.taste) {
-
-      } else {
-
+    raddCart (food) {
+      // 不能直接操控传过来的food；food.number += 1
+      food.number += 1
+      let {_id, number, name, price} = food
+      // 避免直接对象引用，直接操控vuex-state对象报错~~~
+      this.addCart({
+        _id,
+        name,
+        price,
+        number
+      })
+    },
+    rminusCart (food) {
+      food.number = Math.max(0, food.number - 1)
+      let {_id, number, name, price} = food
+      this.addCart({
+        _id,
+        name,
+        price,
+        number
+      })
+    },
+    rclearCart () {
+      let tmpFoodList = this.shopFoods
+      let lenI = tmpFoodList.length
+      for (let i = 0; i < lenI; ++i) {
+        let tmpFoods = tmpFoodList[i].foods
+        let tmpJ = tmpFoods.length
+        for (let j = 0; j < tmpJ; ++j) {
+          let food = tmpFoods[j]
+          food.number = 0
+        }
       }
+      this.clearCart()
     },
     toggleCart () {
       this.isShowCart = !this.isShowCart
+    },
+    genCartNumber (food) {
+      let tmp = this.cart[food._id]
+      return tmp && tmp.number
+    },
+    ...mapMutations({
+      addCart: 'ADD_CART',
+      minusCart: 'MINUS_CART',
+      clearCart: 'CLEAR_CART'
+    }),
+    // 对外接口
+    setData (data) {
+      let tmpFoodList = data.foodList
+      let lenI = tmpFoodList.length
+      for (let i = 0; i < lenI; ++i) {
+        let tmpFoods = tmpFoodList[i].foods
+        let tmpJ = tmpFoods.length
+        for (let j = 0; j < tmpJ; ++j) {
+          let food = tmpFoods[j]
+          if (this.cart[food._id]) {
+            food.number = this.cart[food._id].number
+          } else {
+            food.number = 0
+          }
+        }
+      }
+
+      this.shopFoods = tmpFoodList
     }
   },
   created () {
@@ -686,6 +739,10 @@ export default {
     /*width: 1.2rem;*/
     height: .46rem;
     font-size: .24rem;
+  }
+  &-number{
+    display: flex;
+    align-items: center;
   }
   &-add{
     display: block;

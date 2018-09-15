@@ -4,9 +4,9 @@
 import axios from 'axios'
 
 export default {
-  getRecommendFood () {
+  hotWord (params) {
     return new Promise((resolve, reject) => {
-      axios.get('/shop/getRecommendFood')
+      axios.get('/api/restaurant/hotWord', {params})
         .then(res => {
           if (res.status === 200) {
             resolve(res.data)
@@ -19,6 +19,18 @@ export default {
   search (params) {
     return new Promise((resolve, reject) => {
       axios.get('/api/restaurant/search', {params})
+        .then(res => {
+          if (res.status === 200) {
+            resolve(res.data)
+          } else {
+            reject(res.statusText)
+          }
+        })
+    })
+  },
+  getFood (params) {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/restaurant/getFood', {params})
         .then(res => {
           if (res.status === 200) {
             resolve(res.data)

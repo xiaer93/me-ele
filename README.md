@@ -43,5 +43,8 @@ npm test
 - 父组件、子组件（子组件在路由中），子组件获取定位信息，父组件根据定位信息刷新显示数据，各种bug？
 - 父子组件的生命周期嵌套，子组件中改变数据+子组件路由返回父组件+获取数据，3次更新父组件，导致了bug？
 
+- mutation传参使用有哪些限制？？？
+- vue的响应式有层数限制吗，为什么直接food.number += 1无效
+- 给vue动态对象新增响应属性，必须使用vue.set
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

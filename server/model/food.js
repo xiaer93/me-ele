@@ -58,6 +58,11 @@ let foodSchema = new Schema({
   shop: {
     type: ObjectId,
     default: null
+  },
+  // 购物车数量
+  number: {
+    type: Number,
+    default: 0
   }
 })
 

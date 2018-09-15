@@ -827,18 +827,23 @@ Model.Foods.find({}, function (err, f) {
       let tmpJ = Math.floor(Math.random()*8) + 2
       for (let i =0; i < tmpI; ++i) {
         tmpClass = {
-          "name": "【分类菜单】- " + i,
+          "name": "【分类菜单】- " + Math.random().toString(16).substr(3,2) + i,
           "description": "美味实惠，大家快来抢~",
           foods: []
         }
-        let stack = []
-        for(let j = 0; j < tmpJ; ++j) {
-          let tmpIndex = Math.floor(Math.random()*len)
-          if (stack.indexOf(tmpIndex) === -1) {
-            console.log(f[tmpIndex]._id)
+
+        let j
+        for(j = 0; j < tmpJ; ++j) {
+          let tmpIndex = index + j
+          console.log(f[tmpIndex]._id)
+
+          if (f[tmpIndex]._id) {
             tmpClass.foods.push(f[tmpIndex]._id)
+            f[tmpIndex].shop = t._id
+            f[tmpIndex].save()
           }
         }
+        index += j
         t.foodList.push(tmpClass)
       }
       t.save()

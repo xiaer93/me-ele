@@ -9,15 +9,15 @@
           <div class="catalog-header-catalog-content">
             <ul class="catalog-header-catalog-ul">
               <li class="catalog-header-item"
-                  :class="{'active': keyword === '全部'}"
-                  @click="setWord('全部')"
+                  :class="{'active': isEqual(catalogId, allCatalogId)}"
+                  @click="setSearch(allCatalogId)"
               >全部</li>
               <li class="catalog-header-item"
-                  v-for="(item, index) in currentCatalog.factors"
+                  v-for="(subMenu, index) in currentCatalog.factors"
                   :key="index"
-                  :class="{'active': keyword === item.name}"
-                  @click="setWord(item.name)"
-              >{{item.name}}</li>
+                  :class="{'active': isEqual(catalogId, subMenu.restaurant_category_ids)}"
+                  @click="setSearch(subMenu.restaurant_category_ids)"
+              >{{subMenu.name}}</li>
             </ul>
           </div>
           <span class="catalog-header-catalog-show" @click="isShowDialog = true">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <infinite-load @loadMore="loadMore" class="catalog-shop" ref="infiniteLoad">
-      <shop-list @loadSuccess="loadSuccess" :searchWord="keyword" ref="shopList"></shop-list>
+      <shop-list ref="shopList"></shop-list>
     </infinite-load>
     <div class="catalog-dialog" v-show="isShowDialog">
       <div class="catalog-menu">
@@ -51,10 +51,10 @@
           </div>
           <div class="catalog-menu-subcatalog">
             <ul class="catalog-menu-scroll">
-              <li class="m-catalog" v-for="(menu, index) in selectCatalog" :key="index" @click="openCatalog(menu)">
-                <img :src="menu.image" alt="" class="m-catalog-avatar">
-                <span class="m-catalog-food">{{menu.name}}</span>
-                <span class="m-catalog-count">{{menu.count}}</span>
+              <li class="m-catalog" v-for="(subMenu, index) in selectCatalog" :key="index" @click="setSearch(subMenu.restaurant_category_ids)">
+                <img :src="subMenu.image" alt="" class="m-catalog-avatar">
+                <span class="m-catalog-food">{{subMenu.name}}</span>
+                <span class="m-catalog-count">{{subMenu.count}}</span>
               </li>
             </ul>
           </div>
@@ -75,8 +75,8 @@ import InfiniteLoad from 'base/infinite-load'
 export default {
   data () {
     return {
-      searchBoxHeight: 0,
-      keyword: '',
+      // 菜品分类id
+      catalogId: [],
       // 当前展示目录
       currentId: 0,
       // 弹窗展示目录
@@ -95,13 +95,35 @@ export default {
         return t.id === this.selectId
       }).factors
     },
+    allCatalogId () {
+      let retData = []
+      let currentCataLog = this.menuList.find(t => {
+        return t.id === this.currentId
+      })
+
+      currentCataLog.factors.forEach(t => {
+        retData.push(...t.restaurant_category_ids)
+      })
+
+      return retData
+    },
     ...mapGetters([
       'menuList'
     ])
   },
   methods: {
-    setWord (word) {
-      this.keyword = word
+    setSearch (catalogId) {
+      this.currentId = this.selectId
+      this.catalogId = catalogId
+      this.isShowDialog = false
+
+      this.$router.replace({
+        name: 'Catalog',
+        params: {id: this.currentId},
+        query: {
+          detail: JSON.stringify(catalogId)
+        }
+      })
     },
     setId (menu) {
       this.selectId = menu.id
@@ -109,29 +131,29 @@ export default {
     back () {
       this.$router.back()
     },
-    openCatalog (detail) {
-      this.isShowDialog = false
-      this.$router.replace({
-        name: 'Catalog',
-        params: {id: this.selectId},
-        query: {
-          detail: encodeURIComponent(detail.name)
+    isEqual (left, right) {
+      if (left.length !== right.length) {
+        return false
+      } else {
+        for (let i = 0; i < left.length; ++i) {
+          if (left[i] !== right[i]) {
+            return false
+          }
         }
-      })
+        return true
+      }
     },
     // 响应infinite-loadmore事件
     loadMore () {
       this.$refs.shopList.loadMore()
-    },
-    // 响应shop-list事件
-    loadSuccess () {
-      this.$refs.infiniteLoad.resetLoading()
     }
   },
   created () {
     this.currentId = Number.parseInt(this.$route.params.id)
-    this.keyword = decodeURIComponent(this.$route.query.detail)
     this.selectId = this.currentId
+
+    let idStr = this.$route.query.detail
+    this.catalogId = idStr ? JSON.parse(this.$route.query.detail) : this.allCatalogId
   },
   mounted () {
     setTimeout(() => {
@@ -141,13 +163,15 @@ export default {
         position: 'fixed',
         top: offsetTop + 'px'
       })
+
+      // 搜索美食
+      this.$refs.shopList.search({catalogId: this.catalogId})
     }, 20)
   },
   // 组件在路由中复用的时候调用，监听路由变化信息
+  // fixme：catalog为路由组件复用，涉及到调用shop-list组件，是通过props传递数据，还是通过主动调用对应方法？
   beforeRouteUpdate (to, from, next) {
-    this.currentId = Number.parseInt(to.params.id)
-    this.keyword = decodeURIComponent(to.query.detail)
-    this.selectId = this.currentId
+    this.$refs.shopList.search({catalogId: this.catalogId})
     next()
   },
   components: {

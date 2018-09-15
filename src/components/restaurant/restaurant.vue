@@ -8,16 +8,16 @@
             </svg>
         </span>
         <span class="restaurant-img-bg">
-          <img :src="resData.restaurant.shopBg" alt="">
+          <img :src="restaurant.homeBg" alt="">
         </span>
-        <img :src="resData.restaurant.shopAvatar" alt="" class="restaurant-img-avatar">
+        <img :src="restaurant.avatar" alt="" class="restaurant-img-avatar">
       </div>
       <div class="restaurant-header">
-        <h2 class="restaurant-header-name">{{resData.restaurant.shopName}}</h2>
+        <h2 class="restaurant-header-name">{{restaurant.name}}</h2>
         <p class="restaurant-infos">
-          <span class="restaurant-infos-likes">评价{{resData.restaurant.shopRate}}</span>
-          <span class="restaurant-infos-sales">月售{{resData.restaurant.recentOrderNum}}单</span>
-          <span class="restaurant-infos-time">蜂鸟送约{{resData.restaurant.orderLeadTime}}分钟</span>
+          <span class="restaurant-infos-likes">评价{{restaurant.rate}}</span>
+          <span class="restaurant-infos-sales">月售{{restaurant.recentOrderNum}}单</span>
+          <span class="restaurant-infos-time">蜂鸟送约{{restaurant.leadTime}}分钟</span>
         </p>
         <ul class="restaurant-money" @click="showRedPacket">
           <li class="restaurant-money-item">
@@ -29,7 +29,7 @@
           <span class="restaurant-tips-left"><em>首单</em>新用户下单立减25元（不与其他活动同享）</span>
           <span class="restaurant-tips-right">5个优惠</span>
         </p>
-        <p class="restaurant-notice">{{resData.restaurant.shopNotice}}</p>
+        <p class="restaurant-notice">{{restaurant.notice}}</p>
       </div>
       <ul class="restaurant-tap">
         <li class="restaurant-tap-item" @click="selectComponent('RestaurantOrder')" :class="{'active': currentComponent === 'RestaurantOrder'}">
@@ -46,7 +46,8 @@
         <!--<restaurant-order></restaurant-order>-->
         <!--动态组件，绑定is的变量为字符串~-->
         <transition name="fade">
-          <component :is="currentComponent" :resData="resData"></component>
+          // fixme：通过动态组件切换内容，那么请求数据最好放在哪一层次上？传递数据如何进行？
+          <component :is="currentComponent" ref="component"></component>
         </transition>
       </div>
       <!--红包弹窗-->
@@ -97,21 +98,22 @@ import shopApi from 'api/restaurant'
 export default {
   data () {
     return {
-      resData: {
-        restaurant: {},
-        shopFoods: []
-      },
+      resData: {},
       currentComponent: 'RestaurantOrder'
     }
   },
   computed: {
+    restaurant () {
+      return this.resData
+    }
   },
   methods: {
-    getAllFood () {
-      shopApi.getAllFood()
+    getAllFood (params) {
+      shopApi.getFood(params)
         .then(res => {
           if (res.code === 0) {
-            this.resData = res.result
+            this.resData = res.result.restaurant
+            this.$refs.component.setData(res.result.restaurant)
           } else {
             console.log(res.msg)
           }
@@ -128,7 +130,7 @@ export default {
     }
   },
   created () {
-    this.getAllFood()
+    this.getAllFood({_id: this.$route.query.id})
   },
   mounted () {
     setTimeout(() => {

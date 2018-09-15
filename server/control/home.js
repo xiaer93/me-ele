@@ -3,13 +3,12 @@
  */
 const Model = require('../model')
 
-
-
 module.exports = {
   location: function (req, res) {
-    Model.Shops.find({}, function (e,d) {
-      d.forEach(t=>{
-        t.rate = t.rate.toFixed(1)
+    Model.Foods.find({}, function (err, doc) {
+      doc.forEach(t=>{
+        t.number = 0
+        console.log(t.number)
         t.save()
       })
     })

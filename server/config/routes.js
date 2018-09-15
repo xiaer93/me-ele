@@ -23,6 +23,8 @@ Router.get('/location/searchAddress', location.searchAddress)
 
 // restaurant
 Router.get('/restaurant/search', restaurant.search)
+Router.get('/restaurant/hotWord', restaurant.hotWord)
+Router.get('/restaurant/getFood', restaurant.getFood)
 
 module.exports = function (app) {
   // 使用路由中间件

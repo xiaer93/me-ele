@@ -6,7 +6,7 @@ import axios from 'axios'
 const locationApi = {
   getCityList () {
     return new Promise((resolve, reject) => {
-      axios.get('/location/getCityList')
+      axios.get('/api/location/getCityList')
         .then(res => {
           if (res.status === 200) {
             resolve(res.data)

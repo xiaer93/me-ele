@@ -8,7 +8,7 @@
             </svg>
             <div class="search-text">
               <div class="search-input">
-                <input-box placeholderText="输入商家、店铺名称" v-model="keyword" @blur="search()"></input-box>
+                <input-box placeholderText="输入商家名称（数字）" v-model="keyword" @blur="search()"></input-box>
               </div>
             </div>
             <span class="search-btn">搜索</span>
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="search-shop" v-show="keyword">
-          <shop-list :searchWord="keyword" @loadSuccess="loadSuccess" ref="shopList"></shop-list>
+          <shop-list :searchWord="keyword" ref="shopList"></shop-list>
         </div>
       </infinite-load>
     </div>
@@ -54,17 +54,26 @@
 import InfiniteLoad from 'base/infinite-load'
 import ShopList from 'components/shop-list/shop-list'
 import InputBox from 'base/input-box'
-import searchApi from 'api/search'
+import searchApi from 'api/restaurant'
 import {SaveDataByArray} from 'common/js/storage'
 import * as $ from 'jquery'
+import {mapGetters} from 'vuex'
 
 export default {
   data () {
     return {
+      // 热门词汇
       hotWord: [],
+      // 历史词汇
       historyWord: [],
+      // 搜索关键字
       keyword: ''
     }
+  },
+  computed: {
+    ...mapGetters([
+      'localPosition'
+    ])
   },
   methods: {
     getHotWord () {
@@ -76,9 +85,6 @@ export default {
             console.log(res.msg)
           }
         })
-    },
-    getSearchWord () {
-      this.historyWord = this.searchHistory.get()
     },
     setSearchWord (word) {
       this.keyword = word
@@ -93,16 +99,12 @@ export default {
     // 响应infinite-loadmore事件
     loadMore () {
       this.$refs.shopList.loadMore()
-    },
-    // 响应shop-list事件
-    loadSuccess () {
-      this.$refs.infiniteLoad.resetLoading()
     }
   },
   created () {
     this.searchHistory = new SaveDataByArray('searchHistory', {unique: true})
+    this.historyWord = this.searchHistory.get()
     this.getHotWord()
-    this.getSearchWord()
   },
   mounted () {
     setTimeout(() => {

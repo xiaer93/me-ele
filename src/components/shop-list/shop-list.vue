@@ -112,6 +112,7 @@ export default {
       isOrderShow: false,
       isFilterShow: false,
       isCanLoadMore: true,
+      isLoading: false,
       // 搜索关键词
       searchOptions: {
         latitude: 0,
@@ -143,10 +144,11 @@ export default {
     ])
   },
   watch: {
+    // fixme： 对外暴露了2中类型接口：1、search方法；2、searchWord的变化~~~~是不是不够友好？
     searchWord (newWord) {
       // 监听searchWord，搜索商家
       this.searchOptions.keyword = newWord
-      this._search()
+      this._search(this.searchOptions)
     },
     localPosition (position) {
       this.searchOptions.latitude = position.latitude
@@ -154,34 +156,30 @@ export default {
     }
   },
   methods: {
-    _search (isLoadMore = false) {
-      searchApi.search(this.searchOptions)
+    _search (options, isLoadMore = false) {
+      if (!isLoadMore) {
+        this.searchOptions.offset = 0
+        this.isCanLoadMore = true
+      }
+
+      this.isLoading = true
+      searchApi.search(options)
         .then(res => {
           if (res.code === 0) {
+            this.isCanLoadMore = res.result.searchList.length === this.searchOptions.limit
             if (isLoadMore) {
               this.searchList = this.searchList.concat(res.result.searchList)
-              this.$nextTick(() => {
-                // 等待渲染完成再报告~~~
-                this.$emit('loadSuccess')
-              })
             } else {
               this.searchList = res.result.searchList
-              this.$nextTick(() => {
-                this.$emit('searchSuccess')
-              })
             }
+
+            this.$nextTick(() => {
+              this.isLoading = false
+            })
           } else {
             console.log(res.msg)
           }
         })
-    },
-    loadMore () {
-      if (!this.isCanLoadMore) {
-        return
-      }
-
-      this.searchOptions.offset += 1
-      this._search(true)
     },
     // 重新搜索
     setServer (item) {
@@ -207,7 +205,7 @@ export default {
     },
     restartSearch () {
       this.hideMask()
-      this._search()
+      this._search(this.searchOptions)
     },
     resetSearchOption () {
       this.searchOptions.shopServer = []
@@ -237,14 +235,25 @@ export default {
       this.$router.push({
         name: 'Restaurant',
         query: {
-          id: 1
+          id: shop._id
         }
       })
+    },
+    // 对外接口
+    search (option) {
+      this.searchOptions = Object.assign({}, this.searchOptions, option)
+      this._search(this.searchOptions)
+    },
+    loadMore () {
+      if (!this.isCanLoadMore || this.isLoading) {
+        return
+      }
+
+      this.searchOptions.offset += 1
+      this._search(this.searchOptions, true)
     }
   },
   created () {
-//    this._search()
-
     /* 非响应式数据 */
     // 综合排序
     this.innerSort = CONFIG_SORT.filter(t => {

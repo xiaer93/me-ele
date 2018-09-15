@@ -18,14 +18,9 @@ export default {
     }
   },
   data () {
-    return {
-      isLoading: false
-    }
+    return {}
   },
   methods: {
-    resetLoading () {
-      this.isLoading = false
-    },
     scrollTop (value) {
       $(this.$refs.infinite).animate({
         scrollTop: value + 'px'
@@ -47,8 +42,7 @@ export default {
         self.$emit('scrollTop', eleScroll)
 
         let endTop = $('.infinite-end', self.$el).offset().top
-        if (!self.isLoading && endTop < (eleHeight + eleScroll + self.sensibility)) {
-          self.isLoading = true
+        if (endTop < (eleHeight + eleScroll + self.sensibility)) {
           self.$emit('loadMore')
         }
       }
