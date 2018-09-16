@@ -1,7 +1,7 @@
 <template>
   <div class="info-rebind">
     <div class="info-rebind-header">
-      <header-title>换绑手机</header-title>
+      <header-title @back="$router.back()">换绑手机</header-title>
     </div>
     <div class="info-rebind-content">
       <p class="m-input">

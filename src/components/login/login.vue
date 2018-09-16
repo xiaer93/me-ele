@@ -39,6 +39,8 @@ import Ajv from 'ajv'
 import AjvErrors from 'ajv-errors'
 import Toast from 'base/toast'
 import {countDown} from 'common/js/util'
+import profileApi from 'api/profile'
+import {mapMutations} from 'vuex'
 
 let ajv = new Ajv({allErrors: true, jsonPoniters: true})
 AjvErrors(ajv)
@@ -86,7 +88,14 @@ export default {
         this.errorMsg = validate.errors[0].message
         this.$refs.toast.show()
       } else {
-        alert('登录成功')
+        profileApi.login(this.loginObj)
+          .then(res => {
+            if (res.code === 0) {
+              // 保存用户登录信息，并返回上一页
+              this.setUsers(res.result.user)
+              this.$router.back()
+            }
+          })
       }
     },
     getQr () {
@@ -95,9 +104,16 @@ export default {
       let valid = validate(this.loginObj)
 
       if (!valid) {
-        ;
+        this.errorMsg = '请填写合法的手机号'
+        this.$refs.toast.show()
       } else {
         this.genBtnText()
+        profileApi.getCode()
+          .then(res => {
+            if (res.code === 0) {
+              this.loginObj.qr = res.result.qrCode
+            }
+          })
       }
     },
     genBtnText () {
@@ -108,7 +124,10 @@ export default {
         this.qrText = '重新获取'
         this.$refs.qr.classList.add('active')
       })
-    }
+    },
+    ...mapMutations({
+      setUsers: 'SET_USERS'
+    })
   },
   components: {
     Toast

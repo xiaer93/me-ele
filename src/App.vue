@@ -2,16 +2,33 @@
   <div id="app">
     <svg-ele></svg-ele>
     <tab></tab>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
 import Tab from 'components/tab/tab'
 import SvgEle from 'base/svg'
+import profileApi from 'api/profile'
+import {mapMutations} from 'vuex'
 
 export default {
   name: 'App',
+  methods: {
+    ...mapMutations({
+      setUsers: 'SET_USERS'
+    })
+  },
+  created () {
+    profileApi.checkLogin()
+      .then(res => {
+        if (res.code === 0) {
+          this.setUsers(res.result.user)
+        }
+      })
+  },
   components: {
     Tab,
     SvgEle

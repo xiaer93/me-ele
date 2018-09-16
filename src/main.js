@@ -21,6 +21,19 @@ $(function () {
   FastClick.attach(document.body)
 })
 
+// 全局路由拦截
+router.beforeEach((to, from, next) => {
+  if (!store.state.userInfo.tel) {
+    let exclude = ['/profile/info', '/profile/infouser', '/profile/infouser', '/profile/infobind', '/profile/infopwd']
+    let toPath = to.fullPath
+
+    if (exclude.indexOf(toPath) !== -1) {
+      next({name: 'Login'})
+    }
+  }
+  next()
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

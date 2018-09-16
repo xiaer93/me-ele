@@ -1,7 +1,7 @@
 <template>
   <div class="address">
     <div class="address-header">
-      <header-title>我的地址</header-title>
+      <header-title @back="$router.back()">我的地址</header-title>
     </div>
     <div class="address-list">
       <ul class="address-list-content">

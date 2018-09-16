@@ -1,7 +1,7 @@
 <template>
   <div class="info-user">
     <div class="info-user-header">
-      <header-title>账户信息</header-title>
+      <header-title @back="$router.back()">账户信息</header-title>
     </div>
     <div class="info-user-content">
       <input type="text" class="info-user-content-input">

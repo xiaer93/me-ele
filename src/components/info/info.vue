@@ -1,7 +1,7 @@
 <template>
   <div class="info">
     <div class="info-title">
-      <header-title>账户信息</header-title>
+      <header-title @back="$router.back()">账户信息</header-title>
     </div>
     <div class="info-content">
       <div class="info-content-col">
@@ -56,18 +56,34 @@
       </div>
     </div>
     <div class="info-footer">
-      <button class="info-footer-btn">退出登录</button>
+      <button class="info-footer-btn" @click="logout">退出登录</button>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import HeaderTitle from 'base/header-title'
+import profileApi from 'api/profile'
+import {mapMutations} from 'vuex'
 
 export default {
   methods: {
     triggerFile () {
-    }
+    },
+    logout () {
+      profileApi.logout()
+        .then(res => {
+          if (res.code === 0) {
+            this.setUsers({})
+            this.$router.back()
+          } else {
+            console.log(res.msg)
+          }
+        })
+    },
+    ...mapMutations({
+      setUsers: 'SET_USERS'
+    })
   },
   components: {
     HeaderTitle

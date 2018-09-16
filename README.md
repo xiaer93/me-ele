@@ -46,6 +46,6 @@ npm test
 - mutation传参使用有哪些限制？？？
 - vue的响应式有层数限制吗，为什么直接food.number += 1无效
 - 给vue动态对象新增响应属性，必须使用vue.set
-- 跨组件数据如何进行有效组织，props和vuex传递的数据都不可以直接修改~~~
+
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

@@ -2,15 +2,15 @@
   <div class="profile">
     <div class="profile-header">
       <div class="profile-title">
-        <header-title>我的</header-title>
+        <header-title @back="$router.back()">我的</header-title>
       </div>
-      <div class="profile-users" @click="$router.push('/profile/info')">
-        <img src="/static/user-avatar.jpg" alt="" class="profile-users-avatar">
+      <div class="profile-users" @click="login">
+        <img :src="userAvatar" alt="" class="profile-users-avatar">
         <p class="profile-users-infos">
-          <span class="profile-users-name">aaaa</span>
+          <span class="profile-users-name">{{userInfo.name || '登录/注册'}}</span>
           <span class="profile-users-tel">
             <em class="profile-users-tel-icon"><svg fill="#fff" class="m-icon m-icon-tel"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mobile"></use></svg></em>
-            111111111
+            {{userInfo.tel || '登录后享受更多特权'}}
           </span>
         </p>
         <span class="profile-users-btn">
@@ -97,7 +97,26 @@
 
 <script type="text/ecmascript-6">
 import HeaderTitle from 'base/header-title'
+import {mapGetters} from 'vuex'
+
 export default {
+  data () {
+    return {
+    }
+  },
+  computed: {
+    userAvatar () {
+      return this.userInfo.avatar || '/static/users/user-avatar.jpg'
+    },
+    ...mapGetters([
+      'userInfo'
+    ])
+  },
+  methods: {
+    login () {
+      this.$router.push('/profile/info')
+    }
+  },
   components: {
     HeaderTitle
   }
