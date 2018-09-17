@@ -1,36 +1,36 @@
 <template>
   <div class="cart">
     <div class="cart-header">
-      <header-title>购物车</header-title>
+      <header-title @back="$router.back()">购物车</header-title>
     </div>
     <div class="cart-content">
-      <div class="cart-content-item">
+      <div class="cart-content-item" v-for="shop in shops" :key="shop._id">
         <div class="cart-content-header">
-          <h2 class="cart-content-header-title">肯德基宅急送（硚口路店）<span><svg class="m-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use></svg></span></h2>
-          <span class="cart-content-header-btn">
+          <h2 class="cart-content-header-title" @click="$router.push({name: 'Restaurant', query: {id: shop._id}})">{{shop.name}}<span><svg class="m-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use></svg></span></h2>
+          <span class="cart-content-header-btn" @click="deleteCart(shop)">
             <svg class="m-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#binCart"></use></svg>
           </span>
         </div>
         <ul class="cart-content-food">
-          <li class="cart-content-food-item">
+          <li class="cart-content-food-item" v-for="food in Object.values(shop.foods)" :key="food._id">
             <div class="cart-content-food-left">
-              <img src="/static/restaurant/shop-food.webp" alt="" class="cart-content-food-avatar">
+              <img :src="food.avatar" alt="" class="cart-content-food-avatar">
               <p class="cart-content-food-infos">
-                <span class="cart-content-food-name">二块香辣鸡翅（炸鸡）</span>
-                <span class="cart-content-food-number">X2</span>
+                <span class="cart-content-food-name">{{food.name}}</span>
+                <span class="cart-content-food-number">X{{food.number}}</span>
               </p>
             </div>
             <p class="cart-content-food-right">
-              <span class="cart-content-food-delete">
+              <span class="cart-content-food-delete" @click="deleteFood(shop, food)">
                 <svg class="m-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#delete"></use></svg>
               </span>
-              <span class="cart-content-food-price">22</span>
+              <span class="cart-content-food-price">{{food.price}}</span>
             </p>
           </li>
         </ul>
         <div class="cart-content-pay">
-          <p class="cart-content-pay-price">合计<span>￥22</span></p>
-          <button class="cart-content-pay-btn">去结算</button>
+          <p class="cart-content-pay-price">合计<span>￥{{calculate(shop)}}</span></p>
+          <button class="cart-content-pay-btn" @click="payMent">去结算</button>
         </div>
       </div>
     </div>
@@ -39,8 +39,52 @@
 
 <script type="text/ecmascript-6">
 import HeaderTitle from 'base/header-title'
+import {mapMutations, mapGetters} from 'vuex'
 
+// fixme: 为什么删除食物的时候，视图没有更新？？？
 export default {
+  computed: {
+    shops () {
+      return Object.values(this.cart)
+    },
+    ...mapGetters([
+      'cart',
+      'userInfo'
+    ])
+  },
+  watch: {
+    cart () {
+      // vuex数据驱动bug？？？
+      console.log('cart')
+    }
+  },
+  methods: {
+    calculate (shop) {
+      return Object.values(shop.foods).reduce((total, food) => {
+        return total + food.price * food.number
+      }, 0)
+    },
+    deleteFood (shop, food) {
+      let {_id} = food
+      this.setCart({restaurant: shop, food: {_id, number: 0}})
+    },
+    deleteCart (shop) {
+      this.clearCart({restaurant: shop})
+    },
+    payMent () {
+      if (this.userInfo._id) {
+        alert('敬请期待')
+      } else {
+        this.$router.push({
+          name: 'Login'
+        })
+      }
+    },
+    ...mapMutations({
+      setCart: 'SET_CART',
+      clearCart: 'CLEAR_CART'
+    })
+  },
   components: {
     HeaderTitle
   }

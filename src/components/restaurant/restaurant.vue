@@ -319,7 +319,7 @@
                 <span class="restaurant-redpacket-content-rule">满￥177可用</span>
                 <span class="restaurant-redpacket-content-date">限连锁店使用，2018-09-30到期</span>
               </p>
-              <span class="restaurant-redpacket-content-btn">领取</span>
+              <span class="restaurant-redpacket-content-btn" @click="$refs.redpacket.hide()">领取</span>
             </div>
           </li>
         </ul>
@@ -413,7 +413,8 @@ export default {
     },
     // cartFood不适合做计算属性？
     ...mapGetters([
-      'cart'
+      'cart',
+      'userInfo'
     ])
   },
   watch: {
@@ -444,13 +445,16 @@ export default {
     },
     addCart (food) {
       food.number += 1
+      // fixme: 如何更好的组织数据，餐厅和食物和购物车之间的关联~~~
+      let {_id: restaurantId, name: restaurantName} = this.resData
       let {_id, name, avatar, price, number} = food
-      this.setCart({_id, name, avatar, price, number})
+      this.setCart({restaurant: {_id: restaurantId, name: restaurantName}, food: {_id, name, avatar, price, number}})
     },
     minusCart (food) {
       food.number = Math.max(0, food.number - 1)
+      let {_id: restaurantId, name: restaurantName} = this.resData
       let {_id, name, avatar, price, number} = food
-      this.setCart({_id, name, avatar, price, number})
+      this.setCart({restaurant: {_id: restaurantId, name: restaurantName}, food: {_id, name, avatar, price, number}})
     },
     deleteCart () {
       let tmpFoodList = this.resData.foodList
@@ -463,13 +467,20 @@ export default {
           food.number = 0
         }
       }
-
-      this.clearCart()
+      let {_id: restaurantId, name: restaurantName} = this.resData
+      this.clearCart({restaurant: {_id: restaurantId, name: restaurantName}})
     },
     payMoney () {
       if (this.cartFood.length) {
         this.isShowCart = false
-        alert('敬请期待')
+        // fixme: 使用vue-router全局拦截更好？
+        if (this.userInfo._id) {
+          alert('敬请期待')
+        } else {
+          this.$router.push({
+            name: 'Login'
+          })
+        }
       }
     },
     selectComponent (component) {
@@ -479,15 +490,19 @@ export default {
       // 根据本地信息更新购物车
       let tmpFoodList = data.foodList
       let lenI = tmpFoodList.length
-      for (let i = 0; i < lenI; ++i) {
-        let tmpFoods = tmpFoodList[i].foods
-        let tmpJ = tmpFoods.length
-        for (let j = 0; j < tmpJ; ++j) {
-          let food = tmpFoods[j]
-          if (this.cart[food._id]) {
-            food.number = this.cart[food._id].number
-          } else {
-            food.number = 0
+      let cartData = this.cart[data._id]
+
+      if (cartData) {
+        for (let i = 0; i < lenI; ++i) {
+          let tmpFoods = tmpFoodList[i].foods
+          let tmpJ = tmpFoods.length
+          for (let j = 0; j < tmpJ; ++j) {
+            let food = tmpFoods[j]
+            if (cartData.foods[food._id]) {
+              food.number = cartData.foods[food._id].number
+            } else {
+              food.number = 0
+            }
           }
         }
       }
@@ -500,6 +515,11 @@ export default {
     })
   },
   created () {
+    // 获取餐厅数据
+    this.getAllFood({_id: this.$route.query.id})
+  },
+  // fixme: keep-alive新增了钩子函数。keep-alive组件中，组件不会被销毁，而是被存储~有何优势影响？？？
+  activated () {
     // 获取餐厅数据
     this.getAllFood({_id: this.$route.query.id})
   },

@@ -23,7 +23,7 @@ $(function () {
 
 // 全局路由拦截
 router.beforeEach((to, from, next) => {
-  if (!store.state.userInfo.tel) {
+  if (store.state && !store.state.userInfo.tel) {
     let exclude = ['/profile/info', '/profile/infouser', '/profile/infouser', '/profile/infobind', '/profile/infopwd']
     let toPath = to.fullPath
 

@@ -38,7 +38,6 @@ npm test
 - 主题色设计
 - css嵌套命名，需要再次优化下，以catalog.vue为例~~~
 
-- 9.7任务：1、将字体，颜色等提取为变量；2、进一步提取公共组件，优化电梯组件
 - vue/jquery混合，是否不利于维护？
 - 父组件、子组件（子组件在路由中），子组件获取定位信息，父组件根据定位信息刷新显示数据，各种bug？
 - 父子组件的生命周期嵌套，子组件中改变数据+子组件路由返回父组件+获取数据，3次更新父组件，导致了bug？
@@ -48,6 +47,10 @@ npm test
 - 给vue动态对象新增响应属性，必须使用vue.set
 - 跨组件数据如何进行有效组织，props和vuex传递的数据都不可以直接修改~~~
 - 依赖计算属性的计算属性，这个多层依赖可以吗？
+
+- vuex的数据响应？购物车删除食物时为什么购物车页面没有刷新？keep-alive+vuex？？？
+- 组件：业务组件+基础组件，高内聚低耦合，符合好莱坞法则~~~
+- keep-alive需要仔细研究了，引入keep-alive会带来什么优势，但是对组件、响应式数据、vuex有何影响？
 
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

@@ -2,9 +2,7 @@
   <div id="app">
     <svg-ele></svg-ele>
     <tab></tab>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -25,7 +23,7 @@ export default {
     profileApi.checkLogin()
       .then(res => {
         if (res.code === 0) {
-          this.setUsers(res.result.user)
+          this.setUsers(res.result.user || {})
         }
       })
   },
